@@ -66,7 +66,7 @@ wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSI
 
 set +e
 
-wget --content-disposition --max-redirect 10 -c https://github.com/aryainformationsystems/alps/archive/refs/tags/1.0.tar.gz
+wget -nc https://github.com/aryainformationsystems/alps/releases/download/v1.0/alps-1.0.tar.gz
 
 set -e
 
