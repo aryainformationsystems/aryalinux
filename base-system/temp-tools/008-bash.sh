@@ -13,16 +13,16 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=bash-5.1.16.tar.gz
+TARBALL=bash-5.2.15.tar.gz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
 cd $DIRECTORY
 
 
-./configure --prefix=/usr                   \
-            --build=$(support/config.guess) \
-            --host=$LFS_TGT                 \
+./configure --prefix=/usr                      \
+            --build=$(sh support/config.guess) \
+            --host=$LFS_TGT                    \
             --without-bash-malloc
 make
 make DESTDIR=$LFS install

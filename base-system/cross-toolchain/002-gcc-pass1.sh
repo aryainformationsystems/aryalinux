@@ -13,19 +13,19 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=gcc-11.2.0.tar.xz
+TARBALL=gcc-12.2.0.tar.xz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
 cd $DIRECTORY
 
 
-tar -xf ../mpfr-4.1.0.tar.xz
-mv -v mpfr-4.1.0 mpfr
+tar -xf ../mpfr-4.2.0.tar.xz
+mv -v mpfr-4.2.0 mpfr
 tar -xf ../gmp-6.2.1.tar.xz
 mv -v gmp-6.2.1 gmp
-tar -xf ../mpc-1.2.1.tar.gz
-mv -v mpc-1.2.1 mpc
+tar -xf ../mpc-1.3.1.tar.gz
+mv -v mpc-1.3.1 mpc
 case $(uname -m) in
   x86_64)
     sed -e '/m64=/s/lib64/lib/' \
@@ -37,15 +37,15 @@ cd       build
 ../configure                  \
     --target=$LFS_TGT         \
     --prefix=$LFS/tools       \
-    --with-glibc-version=2.35 \
+    --with-glibc-version=2.37 \
     --with-sysroot=$LFS       \
     --with-newlib             \
     --without-headers         \
-    --enable-initfini-array   \
+    --enable-default-pie      \
+    --enable-default-ssp      \
     --disable-nls             \
     --disable-shared          \
     --disable-multilib        \
-    --disable-decimal-float   \
     --disable-threads         \
     --disable-libatomic       \
     --disable-libgomp         \

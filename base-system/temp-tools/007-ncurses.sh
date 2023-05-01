@@ -13,7 +13,7 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=ncurses-6.3.tar.gz
+TARBALL=ncurses-6.4.tar.gz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
@@ -33,9 +33,10 @@ popd
             --mandir=/usr/share/man      \
             --with-manpage-format=normal \
             --with-shared                \
+            --without-normal             \
+            --with-cxx-shared            \
             --without-debug              \
             --without-ada                \
-            --without-normal             \
             --disable-stripping          \
             --enable-widec
 make
