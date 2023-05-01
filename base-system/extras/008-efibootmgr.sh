@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="007-efibootmgr.sh"
-TARBALL="efibootmgr-17.tar.gz"
+TARBALL="efibootmgr-18.tar.bz2"
 
 echo "$LOGLENGTH" > /sources/lines2track
 
@@ -30,7 +30,7 @@ then
 fi
 
 export CFLAGS+=" -Wno-error=pointer-sign"
-patch -Np1 -i ../efibootmgr-17-efidir.patch
+# patch -Np1 -i ../efibootmgr-17-efidir.patch
 make
 install -v -D -m0755 src/efibootmgr /usr/sbin/efibootmgr
 install -v -D -m0644 src/efibootmgr.8 \

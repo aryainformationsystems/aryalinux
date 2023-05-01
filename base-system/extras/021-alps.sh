@@ -15,10 +15,10 @@ then
 
 cd $SOURCE_DIR
 
-TARBALL="alps-master.tar.bz2"
-DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
+TARBALL="alps-master.zip"
+DIRECTORY="alps-main"
 
-tar xf $TARBALL
+unzip $TARBALL
 cd $DIRECTORY
 
 rm -rf LICENSE

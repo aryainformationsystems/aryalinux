@@ -13,7 +13,7 @@ wget -nc http://ftp.gnu.org/gnu/which/which-2.21.tar.gz
 wget -nc https://deb.sipwise.com/debian/pool/main/o/os-prober/os-prober_1.79.tar.xz
 wget -nc https://github.com/rhboot/efivar/releases/download/38/efivar-38.tar.bz2
 
-wget -nc https://github.com/rhboot/efibootmgr/archive/17/efibootmgr-17.tar.gz
+wget -nc https://github.com/rhboot/efibootmgr/releases/download/18/efibootmgr-18.tar.bz2
 wget -nc https://downloads.sourceforge.net/freetype/freetype-2.9.tar.bz2
 wget -nc https://ftp.gnu.org/gnu/unifont/unifont-7.0.05/unifont-7.0.05.pcf.gz
 wget -nc https://www.kernel.org/pub/software/utils/pciutils/pciutils-3.5.5.tar.xz
@@ -38,7 +38,7 @@ wget -nc http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-4.06.tar.x
 wget -nc http://gondor.apana.org.au/~herbert/dash/files/dash-0.5.11.3.tar.gz
 wget -nc https://curl.haxx.se/download/curl-7.75.0.tar.xz
 wget -nc https://github.com/dracutdevs/dracut/releases/download/053/dracut-053.tar.xz
-wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/b09bd478061f93f986442bf654bb3fe8fadb59f7/efibootmgr-17-efidir.patch
+# wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/b09bd478061f93f986442bf654bb3fe8fadb59f7/efibootmgr-17-efidir.patch
 wget -nc https://sourceware.org/ftp/lvm2/releases/LVM2.2.02.171.tgz
 wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/squashfs-tools-4.3-sysmacros.patch
 # wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/efivar-37-linking.patch
@@ -66,7 +66,7 @@ wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSI
 
 set +e
 
-wget -c https://bitbucket.org/chandrakantsingh/alps-new/get/master.tar.bz2 -O alps-master.tar.bz2
+wget -c https://github.com/aryainformationsystems/alps/archive/refs/heads/main.zip -O alps-master.zip
 
 set -e
 
