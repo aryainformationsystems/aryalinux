@@ -18,7 +18,7 @@ wget -nc https://downloads.sourceforge.net/freetype/freetype-2.9.tar.bz2
 wget -nc https://ftp.gnu.org/gnu/unifont/unifont-7.0.05/unifont-7.0.05.pcf.gz
 wget -nc https://www.kernel.org/pub/software/utils/pciutils/pciutils-3.5.5.tar.xz
 wget -nc http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.18.tar.gz
-wget -nc https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20220411.tar.gz
+wget -nc https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20230404.tar.gz
 wget -nc https://ftp.gnu.org/gnu/cpio/cpio-2.13.tar.bz2
 wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/$VERSION/0001-src-global.c-drop-duplicate-definition-of-program_na.patch
 wget -nc https://ftp.osuosl.org/pub/blfs/conglomeration/LSB-Tools/LSB-Tools-0.9.tar.gz
