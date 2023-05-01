@@ -20,7 +20,7 @@ wget -nc https://www.kernel.org/pub/software/utils/pciutils/pciutils-3.5.5.tar.x
 wget -nc http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.18.tar.gz
 wget -nc https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20230404.tar.gz
 wget -nc https://ftp.gnu.org/gnu/cpio/cpio-2.13.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/$VERSION/0001-src-global.c-drop-duplicate-definition-of-program_na.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/0001-src-global.c-drop-duplicate-definition-of-program_na.patch
 wget -nc https://ftp.osuosl.org/pub/blfs/conglomeration/LSB-Tools/LSB-Tools-0.9.tar.gz
 wget -nc https://busybox.net/downloads/busybox-1.32.1.tar.bz2
 wget -nc https://ftp.gnu.org/gnu/nettle/nettle-3.7.1.tar.gz
@@ -38,15 +38,15 @@ wget -nc http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-4.06.tar.x
 wget -nc http://gondor.apana.org.au/~herbert/dash/files/dash-0.5.11.3.tar.gz
 wget -nc https://curl.haxx.se/download/curl-7.75.0.tar.xz
 wget -nc https://github.com/dracutdevs/dracut/releases/download/053/dracut-053.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/b09bd478061f93f986442bf654bb3fe8fadb59f7/efibootmgr-17-efidir.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/b09bd478061f93f986442bf654bb3fe8fadb59f7/efibootmgr-17-efidir.patch
 wget -nc https://sourceware.org/ftp/lvm2/releases/LVM2.2.02.171.tgz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/$VERSION/squashfs-tools-4.3-sysmacros.patch
-# wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/$VERSION/efivar-37-linking.patch
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/$VERSION/0001-squashfs-tools-fix-build-failure-against-gcc-10.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/squashfs-tools-4.3-sysmacros.patch
+# wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/efivar-37-linking.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/0001-squashfs-tools-fix-build-failure-against-gcc-10.patch
 wget -nc https://sourceware.org/ftp/elfutils/0.170/elfutils-0.170.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.1/0.21-nvme_ioctl.h.patch
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/$VERSION/texinfo-6.8-end_line.patch
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/$VERSION/systemd-250-kernel_5.17_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.1/0.21-nvme_ioctl.h.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/texinfo-6.8-end_line.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/systemd-250-kernel_5.17_fixes-1.patch
 wget -nc https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/mdocml/1.14.6-1/mdocml_1.14.6.orig.tar.gz
 
 pushd $CURRENT_DIR/../applications
@@ -62,7 +62,7 @@ wget -nc https://www.gnu.org/software/xorriso/xorriso-1.5.4.pl02.tar.gz
 wget -nc https://cmake.org/files/v3.19/cmake-3.19.5.tar.gz
 wget -nc https://sourceforge.net/projects/squashfs/files/squashfs/squashfs4.4/squashfs4.4.tar.gz
 wget -nc http://downloads.sourceforge.net/infozip/unzip60.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/$VERSION/unzip-6.0-consolidated_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/unzip-6.0-consolidated_fixes-1.patch
 
 set +e
 
