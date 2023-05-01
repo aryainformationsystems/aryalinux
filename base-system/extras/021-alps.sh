@@ -15,8 +15,8 @@ then
 
 cd $SOURCE_DIR
 
-TARBALL="alps-master.zip"
-DIRECTORY="alps-main"
+TARBALL="alps-1.0.tar.gz"
+DIRECTORY=`tar -tf $TARBALL | cut -d/ -f1 | uniq`
 
 unzip $TARBALL
 cd $DIRECTORY
