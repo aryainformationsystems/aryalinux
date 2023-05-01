@@ -44,7 +44,7 @@ wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSI
 # wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/efivar-37-linking.patch
 wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/0001-squashfs-tools-fix-build-failure-against-gcc-10.patch
 wget -nc https://sourceware.org/ftp/elfutils/0.170/elfutils-0.170.tar.bz2
-wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.1/0.21-nvme_ioctl.h.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/0.21-nvme_ioctl.h.patch
 wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/texinfo-6.8-end_line.patch
 wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/systemd-250-kernel_5.17_fixes-1.patch
 wget -nc https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/mdocml/1.14.6-1/mdocml_1.14.6.orig.tar.gz
