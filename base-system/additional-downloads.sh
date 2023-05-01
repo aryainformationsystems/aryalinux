@@ -66,7 +66,7 @@ wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSI
 
 set +e
 
-wget -c https://github.com/aryainformationsystems/alps/archive/refs/heads/main.zip -O alps-master.zip
+wget --content-disposition -c https://github.com/aryainformationsystems/alps/archive/refs/tags/1.0.tar.gz
 
 set -e
 
