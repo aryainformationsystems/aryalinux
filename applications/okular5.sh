@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=okular5
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/okular-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/okular-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
 DESCRIPTION="Okular is a document viewer for KDE. It can view documents of many types including PDF, PostScript, TIFF, Microsoft CHM, DjVu, DVI, XPS and ePub."
 
@@ -25,7 +25,7 @@ DESCRIPTION="Okular is a document viewer for KDE. It can view documents of many 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/okular-21.12.2.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/okular-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -50,9 +50,12 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
+SKIP_OPTIONAL='LibSpectre;CHM;LibZip;DjVuLibre;EPub;QMobipocket;Discount'
+
 cmake -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release         \
       -DBUILD_TESTING=OFF                \
+      -DFORCE_NOT_REQUIRED_DEPENDENCIES="$SKIP_OPTIONAL" \
       -Wno-dev .. &&
 make
 sudo rm -rf /tmp/rootscript.sh

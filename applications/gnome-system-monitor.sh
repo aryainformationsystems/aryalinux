@@ -17,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnome-system-monitor
-VERSION=41.0
-URL=https://download.gnome.org/sources/gnome-system-monitor/41/gnome-system-monitor-41.0.tar.xz
+VERSION=42.0
+URL=https://download.gnome.org/sources/gnome-system-monitor/42/gnome-system-monitor-42.0.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="The GNOME System Monitor package contains GNOME's replacement for gtop."
 
@@ -26,8 +26,8 @@ DESCRIPTION="The GNOME System Monitor package contains GNOME's replacement for g
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-system-monitor/41/gnome-system-monitor-41.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-system-monitor/41/gnome-system-monitor-41.0.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-system-monitor/42/gnome-system-monitor-42.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-system-monitor/42/gnome-system-monitor-42.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -52,7 +52,10 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr       \
+            -Dsystemd=false     \
+            --buildtype=release \
+            ..                  &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

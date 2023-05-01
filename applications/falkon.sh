@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=falkon
-VERSION=3.2.0
-URL=https://download.kde.org/stable/falkon/3.2.0/falkon-3.2.0.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/falkon-22.12.2.tar.xz
 SECTION="Graphical Web Browsers"
 DESCRIPTION="Falkon is a KDE web browser using the QtWebEngine rendering engine. It was previously known as QupZilla. It aims to be a lightweight web browser available through all major platforms."
 
@@ -24,7 +24,7 @@ DESCRIPTION="Falkon is a KDE web browser using the QtWebEngine rendering engine.
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/falkon/3.2.0/falkon-3.2.0.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/falkon-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,6 @@ fi
 echo $USER > /tmp/currentuser
 
 
-rm -rf po/
 mkdir build &&
 cd    build &&
 

@@ -7,14 +7,13 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:libpng
 
 
 cd $SOURCE_DIR
 
 NAME=graphviz
-VERSION=2.50.0
-URL=https://gitlab.com/graphviz/graphviz/-/archive/2.50.0/graphviz-2.50.0.tar.bz2
+VERSION=8.0.3
+URL=https://gitlab.com/graphviz/graphviz/-/archive/8.0.3/graphviz-8.0.3.tar.bz2
 SECTION="General Utilities"
 DESCRIPTION="The Graphviz package contains graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. Graphviz has several main graph layout programs. It also has web and interactive graphical interfaces, auxiliary tools, libraries, and language bindings."
 
@@ -22,7 +21,7 @@ DESCRIPTION="The Graphviz package contains graph visualization software. Graph v
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://gitlab.com/graphviz/graphviz/-/archive/2.50.0/graphviz-2.50.0.tar.bz2
+wget -nc https://gitlab.com/graphviz/graphviz/-/archive/8.0.3/graphviz-8.0.3.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -46,21 +45,14 @@ echo $USER > /tmp/currentuser
 
 sed -i '/LIBPOSTFIX="64"/s/64//' configure.ac &&
 
-./autogen.sh                            &&
-./configure --prefix=/usr --disable-php &&
+./autogen.sh              &&
+./configure --prefix=/usr \
+            --docdir=/usr/share/doc/graphviz-8.0.3
+sed -i "s/0/$(date +%Y%m%d)/" builddate.h
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ln -svr /usr/share/graphviz/doc /usr/share/doc/graphviz-2.50.0
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

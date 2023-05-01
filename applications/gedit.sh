@@ -12,6 +12,7 @@ set +h
 #REQ:gtksourceview4
 #REQ:itstool
 #REQ:libpeas
+#REQ:tepl
 #REQ:gspell
 #REQ:gvfs
 #REQ:iso-codes
@@ -21,17 +22,17 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gedit
-VERSION=41.0
-URL=https://download.gnome.org/sources/gedit/41/gedit-41.0.tar.xz
-SECTION="Editors"
+VERSION=44.2
+URL=https://download.gnome.org/sources/gedit/44/gedit-44.2.tar.xz
+SECTION="Text Editors"
 DESCRIPTION="The Gedit package contains a lightweight UTF-8 text editor for the GNOME Desktop."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gedit/41/gedit-41.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gedit/41/gedit-41.0.tar.xz
+wget -nc https://download.gnome.org/sources/gedit/44/gedit-44.2.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gedit/44/gedit-44.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -53,10 +54,13 @@ fi
 echo $USER > /tmp/currentuser
 
 
-mkdir build &&
-cd    build &&
+mkdir gedit-build &&
+cd    gedit-build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dgtk_doc=false     \
+            .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libwebp
-VERSION=1.2.2
-URL=http://downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz
+VERSION=1.3.0
+URL=http://downloads.webmproject.org/releases/webp/libwebp-1.3.0.tar.gz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The libwebp package contains a library and support programs to encode and decode images in WebP format."
 
@@ -25,7 +25,8 @@ DESCRIPTION="The libwebp package contains a library and support programs to enco
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz
+wget -nc http://downloads.webmproject.org/releases/webp/libwebp-1.3.0.tar.gz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/libwebp-1.3.0-upstream_fix-1.patch
 
 
 if [ ! -z $URL ]
@@ -47,6 +48,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
+patch -Np1 -i ../libwebp-1.3.0-upstream_fix-1.patch
 ./configure --prefix=/usr           \
             --enable-libwebpmux     \
             --enable-libwebpdemux   \

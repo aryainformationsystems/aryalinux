@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=fetchmail
-VERSION=6.4.27
-URL=https://downloads.sourceforge.net/fetchmail/fetchmail-6.4.27.tar.xz
+VERSION=6.4.37
+URL=https://downloads.sourceforge.net/fetchmail/fetchmail-6.4.37.tar.xz
 SECTION="Mail/News Clients"
 DESCRIPTION="The Fetchmail package contains a mail retrieval program. It retrieves mail from remote mail servers and forwards it to the local (client) machine's delivery system, so it can then be read by normal mail user agents."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The Fetchmail package contains a mail retrieval program. It retriev
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/fetchmail/fetchmail-6.4.27.tar.xz
+wget -nc https://downloads.sourceforge.net/fetchmail/fetchmail-6.4.37.tar.xz
 
 
 if [ ! -z $URL ]

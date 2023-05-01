@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=lsb-tools
-VERSION=0.9
-URL=https://github.com/lfs-book/LSB-Tools/releases/download/v0.9/LSB-Tools-0.9.tar.gz
+VERSION=0.10
+URL=https://github.com/lfs-book/LSB-Tools/releases/download/v0.10/LSB-Tools-0.10.tar.gz
 SECTION="System Utilities"
 DESCRIPTION="The LSB-Tools package includes tools for Linux Standards Base (LSB) conformance."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The LSB-Tools package includes tools for Linux Standards Base (LSB)
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/lfs-book/LSB-Tools/releases/download/v0.9/LSB-Tools-0.9.tar.gz
+wget -nc https://github.com/lfs-book/LSB-Tools/releases/download/v0.10/LSB-Tools-0.10.tar.gz
 
 
 if [ ! -z $URL ]

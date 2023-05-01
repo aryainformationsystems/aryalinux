@@ -48,7 +48,10 @@ export XORG_PREFIX="/usr"
 mkdir build &&
 cd    build &&
 
-meson --prefix=$XORG_PREFIX -Dgl_provider=gl --buildtype=release .. &&
+meson setup ..              \
+      --prefix=$XORG_PREFIX \
+      -Dgl_provider=gl      \
+      --buildtype=release   &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

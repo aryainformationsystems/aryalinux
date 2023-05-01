@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=pangomm
-VERSION=2.46.2
-URL=https://download.gnome.org/sources/pangomm/2.46/pangomm-2.46.2.tar.xz
+VERSION=2.46.3
+URL=https://download.gnome.org/sources/pangomm/2.46/pangomm-2.46.3.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="The Pangomm package provides a C++ interface to Pango."
 
@@ -24,8 +24,8 @@ DESCRIPTION="The Pangomm package provides a C++ interface to Pango."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/pangomm/2.46/pangomm-2.46.2.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/pangomm/2.46/pangomm-2.46.2.tar.xz
+wget -nc https://download.gnome.org/sources/pangomm/2.46/pangomm-2.46.3.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/pangomm/2.46/pangomm-2.46.3.tar.xz
 
 
 if [ ! -z $URL ]
@@ -50,7 +50,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xfburn
-VERSION=0.6.2
-URL=https://archive.xfce.org/src/apps/xfburn/0.6/xfburn-0.6.2.tar.bz2
+VERSION=0.7.0
+URL=https://archive.xfce.org/src/apps/xfburn/0.7/xfburn-0.7.0.tar.bz2
 SECTION="Xfce Applications"
 DESCRIPTION="Xfburn is a GTK+ 3 GUI frontend for Libisoburn. This is useful for creating CDs and DVDs from files on your computer or ISO images downloaded from elsewhere."
 
@@ -25,7 +25,7 @@ DESCRIPTION="Xfburn is a GTK+ 3 GUI frontend for Libisoburn. This is useful for 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/apps/xfburn/0.6/xfburn-0.6.2.tar.bz2
+wget -nc https://archive.xfce.org/src/apps/xfburn/0.7/xfburn-0.7.0.tar.bz2
 
 
 if [ ! -z $URL ]

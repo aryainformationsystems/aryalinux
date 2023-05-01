@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=unbound
-VERSION=1.15.0
-URL=https://nlnetlabs.nl/downloads/unbound/unbound-1.15.0.tar.gz
+VERSION=1.17.1
+URL=https://nlnetlabs.nl/downloads/unbound/unbound-1.17.1.tar.gz
 SECTION="Other Server Software"
 DESCRIPTION="Unbound is a validating, recursive, and caching DNS resolver. It is designed as a set of modular components that incorporate modern features, such as enhanced security (DNSSEC) validation, Internet Protocol Version 6 (IPv6), and a client resolver library API as an integral part of the architecture."
 
@@ -21,7 +21,7 @@ DESCRIPTION="Unbound is a validating, recursive, and caching DNS resolver. It is
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://nlnetlabs.nl/downloads/unbound/unbound-1.15.0.tar.gz
+wget -nc https://nlnetlabs.nl/downloads/unbound/unbound-1.17.1.tar.gz
 
 
 if [ ! -z $URL ]
@@ -72,8 +72,8 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m755 -d /usr/share/doc/unbound-1.15.0 &&
-install -v -m644 doc/html/* /usr/share/doc/unbound-1.15.0
+install -v -m755 -d /usr/share/doc/unbound-1.17.1 &&
+install -v -m644 doc/html/* /usr/share/doc/unbound-1.17.1
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -99,15 +99,7 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 unbound-anchor
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 #!/bin/bash

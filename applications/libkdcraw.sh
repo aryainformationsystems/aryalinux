@@ -14,16 +14,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libkdcraw
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/libkdcraw-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/libkdcraw-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
-DESCRIPTION="Libkdcraw is a KDE wrapper around the libraw-0.20.2 library for manipulating image metadata."
+DESCRIPTION="Libkdcraw is a KDE wrapper around the libraw-0.21.1 library for manipulating image metadata."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/libkdcraw-21.12.2.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/libkdcraw-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libpng
-VERSION=1.6.37
-URL=https://downloads.sourceforge.net/libpng/libpng-1.6.37.tar.xz
+VERSION=1.6.39
+URL=https://downloads.sourceforge.net/libpng/libpng-1.6.39.tar.xz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The libpng package contains libraries used by other programs for reading and writing PNG files. The PNG format was designed as a replacement for GIF and, to a lesser extent, TIFF, with many improvements and extensions and lack of patent problems."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The libpng package contains libraries used by other programs for re
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/libpng/libpng-1.6.37.tar.xz
-wget -nc https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-1.6.37-apng.patch.gz
+wget -nc https://downloads.sourceforge.net/libpng/libpng-1.6.39.tar.xz
+wget -nc https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-1.6.39-apng.patch.gz
 
 
 if [ ! -z $URL ]
@@ -44,14 +44,14 @@ fi
 echo $USER > /tmp/currentuser
 
 
-gzip -cd ../libpng-1.6.37-apng.patch.gz | patch -p1
+gzip -cd ../libpng-1.6.39-apng.patch.gz | patch -p1
 ./configure --prefix=/usr --disable-static &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
-mkdir -v /usr/share/doc/libpng-1.6.37 &&
-cp -v README libpng-manual.txt /usr/share/doc/libpng-1.6.37
+mkdir -v /usr/share/doc/libpng-1.6.39 &&
+cp -v README libpng-manual.txt /usr/share/doc/libpng-1.6.39
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

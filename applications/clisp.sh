@@ -24,7 +24,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://ftp.gnu.org/gnu/clisp/latest/clisp-2.49.tar.bz2
 wget -nc ftp://ftp.gnu.org/gnu/clisp/latest/clisp-2.49.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/clisp-2.49-readline7_fixes-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/clisp-2.49-readline7_fixes-1.patch
 
 
 if [ ! -z $URL ]

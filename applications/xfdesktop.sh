@@ -17,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xfdesktop
-VERSION=4.16.0
-URL=https://archive.xfce.org/src/xfce/xfdesktop/4.16/xfdesktop-4.16.0.tar.bz2
+VERSION=4.18.1
+URL=https://archive.xfce.org/src/xfce/xfdesktop/4.18/xfdesktop-4.18.1.tar.bz2
 SECTION="Xfce Desktop"
 DESCRIPTION="Xfdesktop is a desktop manager for the Xfce Desktop Environment. Xfdesktop sets the background image / color, creates the right click menu and window list and displays the file icons on the desktop using Thunar libraries."
 
@@ -26,7 +26,7 @@ DESCRIPTION="Xfdesktop is a desktop manager for the Xfce Desktop Environment. Xf
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/xfce/xfdesktop/4.16/xfdesktop-4.16.0.tar.bz2
+wget -nc https://archive.xfce.org/src/xfce/xfdesktop/4.18/xfdesktop-4.18.1.tar.bz2
 
 
 if [ ! -z $URL ]

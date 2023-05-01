@@ -19,8 +19,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=balsa
-VERSION=2.6.3
-URL=https://pawsa.fedorapeople.org/balsa/balsa-2.6.3.tar.xz
+VERSION=2.6.4
+URL=https://pawsa.fedorapeople.org/balsa/balsa-2.6.4.tar.xz
 SECTION="Other X-based Programs"
 DESCRIPTION="The Balsa package contains a GNOME-2 based mail client."
 
@@ -28,7 +28,8 @@ DESCRIPTION="The Balsa package contains a GNOME-2 based mail client."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://pawsa.fedorapeople.org/balsa/balsa-2.6.3.tar.xz
+wget -nc https://pawsa.fedorapeople.org/balsa/balsa-2.6.4.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/balsa-2.6.4-upstream_fixes-2.patch
 
 
 if [ ! -z $URL ]
@@ -50,6 +51,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
+patch -Np1 -i ../balsa-2.6.4-upstream_fixes-2.patch
 ./configure --prefix=/usr            \
             --sysconfdir=/etc        \
             --localstatedir=/var/lib \

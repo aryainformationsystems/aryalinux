@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libpsl
-VERSION=0.21.1
-URL=https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz
+VERSION=0.21.2
+URL=https://github.com/rockdaboot/libpsl/releases/download/0.21.2/libpsl-0.21.2.tar.gz
 SECTION="Networking Libraries"
 DESCRIPTION="The libpsl package provides a library for accessing and resolving information from the Public Suffix List (PSL). The PSL is a set of domain names beyond the standard suffixes, such as .com."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The libpsl package provides a library for accessing and resolving i
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz
+wget -nc https://github.com/rockdaboot/libpsl/releases/download/0.21.2/libpsl-0.21.2.tar.gz
 
 
 if [ ! -z $URL ]
@@ -44,8 +44,8 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i 's/env python/&3/' src/psl-make-dafsa &&
-./configure --prefix=/usr --disable-static       &&
+sed -i 's/env python/&3/' src/psl-make-dafsa              &&
+./configure --prefix=/usr --disable-static PYTHON=python3 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

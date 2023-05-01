@@ -14,16 +14,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gstreamer10
-VERSION=1.20.0
-URL=https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.20.0.tar.xz
+VERSION=1.22.2
+URL=https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.22.2.tar.xz
 SECTION="Multimedia Libraries and Drivers"
-DESCRIPTION="gstreamer is a streaming media framework that enables applications to share a common set of plugins for tasks such as video encoding and decoding, audio encoding and decoding, audio and video filters, audio visualisation, web streaming and anything else that streams in real-time or otherwise. This package only provides base functionality and libraries. You may need at least gst-plugins-base-1.20.0 and one of Good, Bad, Ugly or Libav plugins."
+DESCRIPTION="gstreamer is a streaming media framework that enables applications to share a common set of plugins for tasks such as video encoding and decoding, audio encoding and decoding, audio and video filters, audio visualisation, web streaming and anything else that streams in real-time or otherwise. This package only provides base functionality and libraries. You may need at least gst-plugins-base-1.22.2 and one of Good, Bad, Ugly or Libav plugins."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.20.0.tar.xz
+wget -nc https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.22.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -48,11 +48,12 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson  --prefix=/usr       \
+meson  setup ..            \
+       --prefix=/usr       \
        --buildtype=release \
        -Dgst_debug=false   \
        -Dpackage-origin=https://www.linuxfromscratch.org/blfs/view/svn/ \
-       -Dpackage-name="GStreamer 1.20.0 BLFS" &&
+       -Dpackage-name="GStreamer 1.22.2 BLFS" &&
 ninja
 rm -rf /usr/bin/gst-* /usr/{lib,libexec}/gstreamer-1.0
 sudo rm -rf /tmp/rootscript.sh

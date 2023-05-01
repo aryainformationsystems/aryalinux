@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libdvdread
-VERSION=6.1.2
-URL=https://get.videolan.org/libdvdread/6.1.2/libdvdread-6.1.2.tar.bz2
+VERSION=6.1.3
+URL=https://get.videolan.org/libdvdread/6.1.3/libdvdread-6.1.3.tar.bz2
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="libdvdread is a library which provides a simple foundation for reading DVDs."
 
@@ -21,7 +21,7 @@ DESCRIPTION="libdvdread is a library which provides a simple foundation for read
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://get.videolan.org/libdvdread/6.1.2/libdvdread-6.1.2.tar.bz2
+wget -nc https://get.videolan.org/libdvdread/6.1.3/libdvdread-6.1.3.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -45,7 +45,7 @@ echo $USER > /tmp/currentuser
 
 ./configure --prefix=/usr    \
             --disable-static \
-            --docdir=/usr/share/doc/libdvdread-6.1.2 &&
+            --docdir=/usr/share/doc/libdvdread-6.1.3 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

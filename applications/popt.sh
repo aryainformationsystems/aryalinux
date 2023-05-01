@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=popt
-VERSION=1.18
-URL=http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.18.tar.gz
+VERSION=1.19
+URL=http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="The popt package contains the popt libraries which are used by some programs to parse command-line options."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The popt package contains the popt libraries which are used by some
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.18.tar.gz
-wget -nc ftp://ftp.rpm.org/pub/rpm/popt/releases/popt-1.x/popt-1.18.tar.gz
+wget -nc http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz
+wget -nc ftp://ftp.rpm.org/pub/rpm/popt/releases/popt-1.x/popt-1.19.tar.gz
 
 
 if [ ! -z $URL ]

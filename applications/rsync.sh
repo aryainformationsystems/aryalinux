@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=rsync
-VERSION=3.2.3
-URL=https://www.samba.org/ftp/rsync/src/rsync-3.2.3.tar.gz
+VERSION=3.2.7
+URL=https://www.samba.org/ftp/rsync/src/rsync-3.2.7.tar.gz
 SECTION="Networking Programs"
 DESCRIPTION="The rsync package contains the rsync utility. This is useful for synchronizing large file archives over a network."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The rsync package contains the rsync utility. This is useful for sy
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.samba.org/ftp/rsync/src/rsync-3.2.3.tar.gz
+wget -nc https://www.samba.org/ftp/rsync/src/rsync-3.2.7.tar.gz
 
 
 if [ ! -z $URL ]
@@ -72,8 +72,8 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m755 -d          /usr/share/doc/rsync-3.2.3/api &&
-install -v -m644 dox/html/*  /usr/share/doc/rsync-3.2.3/api
+install -v -m755 -d          /usr/share/doc/rsync-3.2.7/api &&
+install -v -m644 dox/html/*  /usr/share/doc/rsync-3.2.7/api
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -125,10 +125,6 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-systemctl stop rsyncd &&
-systemctl disable rsyncd &&
-systemctl enable rsyncd.socket &&
-systemctl start rsyncd.socket
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

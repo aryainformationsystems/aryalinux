@@ -13,15 +13,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-business-isbn
-VERSION=3.007
-URL=https://www.cpan.org/authors/id/B/BD/BDFOY/Business-ISBN-3.007.tar.gz
+VERSION=3.008
+URL=https://www.cpan.org/authors/id/B/BD/BDFOY/Business-ISBN-3.008.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/B/BD/BDFOY/Business-ISBN-3.007.tar.gz
+wget -nc https://www.cpan.org/authors/id/B/BD/BDFOY/Business-ISBN-3.008.tar.gz
 
 
 if [ ! -z $URL ]

@@ -14,7 +14,7 @@ set +h
 #REQ:libhandy1
 #REQ:libpwquality
 #REQ:libsecret
-#REQ:libsoup
+#REQ:libsoup3
 #REQ:p11-kit
 #REQ:openldap
 #REQ:openssh
@@ -25,8 +25,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=seahorse
-VERSION=41.0
-URL=https://download.gnome.org/sources/seahorse/41/seahorse-41.0.tar.xz
+VERSION=43.0
+URL=https://download.gnome.org/sources/seahorse/43/seahorse-43.0.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="Seahorse is a graphical interface for managing and using encryption keys. Currently it supports PGP keys (using GPG/GPGME) and SSH keys."
 
@@ -34,8 +34,8 @@ DESCRIPTION="Seahorse is a graphical interface for managing and using encryption
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/seahorse/41/seahorse-41.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/seahorse/41/seahorse-41.0.tar.xz
+wget -nc https://download.gnome.org/sources/seahorse/43/seahorse-43.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/seahorse/43/seahorse-43.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -59,10 +59,12 @@ echo $USER > /tmp/currentuser
 
 sed -i -r 's:"(/apps):"/org/gnome\1:' data/*.xml &&
 
+sed -i "s/'2.3.0'/'2.3.0', '2.4.0'/" meson.build &&
+
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

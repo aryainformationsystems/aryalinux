@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=doxygen
-VERSION=1.9.3
-URL=https://doxygen.nl/files/doxygen-1.9.3.src.tar.gz
+VERSION=1.9.6
+URL=https://doxygen.nl/files/doxygen-1.9.6.src.tar.gz
 SECTION="Programming"
 DESCRIPTION="The Doxygen package contains a documentation system for C++, C, Java, Objective-C, Corba IDL and to some extent PHP, C# and D. It is useful for generating HTML documentation and/or an off-line reference manual from a set of documented source files. There is also support for generating output in RTF, PostScript, hyperlinked PDF, compressed HTML, and Unix man pages. The documentation is extracted directly from the sources, which makes it much easier to keep the documentation consistent with the source code."
 
@@ -23,7 +23,7 @@ DESCRIPTION="The Doxygen package contains a documentation system for C++, C, Jav
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://doxygen.nl/files/doxygen-1.9.3.src.tar.gz
+wget -nc https://doxygen.nl/files/doxygen-1.9.6.src.tar.gz
 
 
 if [ ! -z $URL ]
@@ -54,7 +54,7 @@ cmake -G "Unix Makefiles"         \
       -Wno-dev .. &&
 
 make
-cmake -DDOC_INSTALL_DIR=share/doc/doxygen-1.9.3 -Dbuild_doc=ON .. &&
+cmake -DDOC_INSTALL_DIR=share/doc/doxygen-1.9.6 -Dbuild_doc=ON .. &&
 
 make docs
 sudo rm -rf /tmp/rootscript.sh

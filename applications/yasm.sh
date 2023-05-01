@@ -15,7 +15,7 @@ NAME=yasm
 VERSION=1.3.0
 URL=https://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
 SECTION="Programming"
-DESCRIPTION="Yasm is a complete rewrite of the NASM-2.15.05 assembler. It supports the x86 and AMD64 instruction sets, accepts NASM and GAS assembler syntaxes and outputs binary, ELF32 and ELF64 object formats."
+DESCRIPTION="Yasm is a complete rewrite of the NASM-2.16.01 assembler. It supports the x86 and AMD64 instruction sets, accepts NASM and GAS assembler syntaxes and outputs binary, ELF32 and ELF64 object formats."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")

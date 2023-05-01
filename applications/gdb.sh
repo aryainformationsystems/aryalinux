@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gdb
-VERSION=11.2
-URL=https://ftp.gnu.org/gnu/gdb/gdb-11.2.tar.xz
+VERSION=13.1
+URL=https://ftp.gnu.org/gnu/gdb/gdb-13.1.tar.xz
 SECTION="Programming"
 DESCRIPTION="GDB, the GNU Project debugger, allows you to see what is going on “inside” another program while it executes -- or what another program was doing at the moment it crashed. Note that GDB is most effective when tracing programs and libraries that were built with debugging symbols and not stripped."
 
@@ -22,9 +22,9 @@ DESCRIPTION="GDB, the GNU Project debugger, allows you to see what is going on �
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/gdb/gdb-11.2.tar.xz
-wget -nc ftp://ftp.gnu.org/gnu/gdb/gdb-11.2.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/gdb-11.2-upstream_fixes-1.patch
+wget -nc https://ftp.gnu.org/gnu/gdb/gdb-13.1.tar.xz
+wget -nc ftp://ftp.gnu.org/gnu/gdb/gdb-13.1.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/gdb-13.1-upstream_fixes-1.patch
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-patch -Np1 -i ../gdb-11.2-upstream_fixes-1.patch
+patch -Np1 -i ../gdb-13.1-upstream_fixes-1.patch
 mkdir build &&
 cd    build &&
 
@@ -71,9 +71,9 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -d /usr/share/doc/gdb-11.2 &&
+install -d /usr/share/doc/gdb-13.1 &&
 rm -rf gdb/doc/doxy/xml &&
-cp -Rv gdb/doc/doxy /usr/share/doc/gdb-11.2
+cp -Rv gdb/doc/doxy /usr/share/doc/gdb-13.1
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=tree
-VERSION=2.0.2
-URL=http://mama.indstate.edu/users/ice/tree/src/tree-2.0.2.tgz
+VERSION=2.1.0
+URL=https://mama.indstate.edu/users/ice/tree/src/tree-2.1.0.tgz
 SECTION="General Utilities"
 DESCRIPTION="The tree application is useful to display a dictionary tree's contents, including files, directories, and links."
 
@@ -21,8 +21,7 @@ DESCRIPTION="The tree application is useful to display a dictionary tree's conte
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://mama.indstate.edu/users/ice/tree/src/tree-2.0.2.tgz
-wget -nc ftp://mama.indstate.edu/linux/tree/tree-2.0.2.tgz
+wget -nc https://mama.indstate.edu/users/ice/tree/src/tree-2.1.0.tgz
 
 
 if [ ! -z $URL ]

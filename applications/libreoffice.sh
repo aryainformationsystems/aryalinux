@@ -12,7 +12,6 @@ set +h
 #REQ:wget
 #REQ:which
 #REQ:zip
-#REQ:apr
 #REQ:boost
 #REQ:clucene
 #REQ:cups
@@ -32,24 +31,24 @@ set +h
 #REQ:libatomic_ops
 #REQ:lcms2
 #REQ:librsvg
+#REQ:libtiff
+#REQ:libwebp
 #REQ:libxml2
 #REQ:libxslt
 #REQ:python-modules#lxml
 #REQ:mesa
-#REQ:neon
 #REQ:nss
 #REQ:openldap
 #REQ:poppler
 #REQ:redland
-#REQ:serf
 #REQ:unixodbc
 
 
 cd $SOURCE_DIR
 
 NAME=libreoffice
-VERSION=7.3.0.3
-URL=https://download.documentfoundation.org/libreoffice/src/7.3.0/libreoffice-7.3.0.3.tar.xz
+VERSION=7.5.2.2
+URL=https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-7.5.2.2.tar.xz
 SECTION="Office Programs"
 DESCRIPTION="LibreOffice is a full-featured office suite. It is largely compatible with Microsoft Office and is descended from OpenOffice.org."
 
@@ -57,10 +56,10 @@ DESCRIPTION="LibreOffice is a full-featured office suite. It is largely compatib
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.documentfoundation.org/libreoffice/src/7.3.0/libreoffice-7.3.0.3.tar.xz
-wget -nc https://download.documentfoundation.org/libreoffice/src/7.3.0/libreoffice-dictionaries-7.3.0.3.tar.xz
-wget -nc https://download.documentfoundation.org/libreoffice/src/7.3.0/libreoffice-help-7.3.0.3.tar.xz
-wget -nc https://download.documentfoundation.org/libreoffice/src/7.3.0/libreoffice-translations-7.3.0.3.tar.xz
+wget -nc https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-7.5.2.2.tar.xz
+wget -nc https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-dictionaries-7.5.2.2.tar.xz
+wget -nc https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-help-7.5.2.2.tar.xz
+wget -nc https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-translations-7.5.2.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -82,20 +81,18 @@ fi
 echo $USER > /tmp/currentuser
 
 
-if bison --version|grep -q 3.8; then
-  sed -i 's/yyn/yyrule/' connectivity/source/parse/sqlbison.y
-fi
 install -dm755 external/tarballs &&
-ln -sv ../../../libreoffice-dictionaries-7.3.0.3.tar.xz external/tarballs/ &&
-ln -sv ../../../libreoffice-help-7.3.0.3.tar.xz         external/tarballs/ &&
-ln -sv ../../../libreoffice-translations-7.3.0.3.tar.xz external/tarballs/
-ln -sv src/libreoffice-help-7.3.0.3/helpcontent2/ &&
-ln -sv src/libreoffice-dictionaries-7.3.0.3/dictionaries/ &&
-ln -sv src/libreoffice-translations-7.3.0.3/translations/
+ln -sv ../../../libreoffice-dictionaries-7.5.2.2.tar.xz external/tarballs/ &&
+ln -sv ../../../libreoffice-help-7.5.2.2.tar.xz         external/tarballs/ &&
+ln -sv ../../../libreoffice-translations-7.5.2.2.tar.xz external/tarballs/
+ln -sv src/libreoffice-help-7.5.2.2/helpcontent2/ &&
+ln -sv src/libreoffice-dictionaries-7.5.2.2/dictionaries/ &&
+ln -sv src/libreoffice-translations-7.5.2.2/translations/
 export LO_PREFIX=/usr
 case $(uname -m) in
    i?86) sed /-Os/d -i solenv/gbuild/platform/LINUX_INTEL_GCC.mk ;;
 esac
+export ac_cv_lib_gpgmepp_progress_callback=yes
 sed -e "/gzip -f/d"   \
     -e "s|.1.gz|.1|g" \
     -i bin/distro-install-desktop-integration &&
@@ -115,7 +112,6 @@ sed -e "/distro-install-file-lists/d" -i Makefile.in &&
              --enable-release-build=yes  \
              --enable-python=system      \
              --with-jdk-home=/opt/jdk    \
-             --with-system-apr           \
              --with-system-boost         \
              --with-system-clucene       \
              --with-system-curl          \
@@ -131,7 +127,6 @@ sed -e "/distro-install-file-lists/d" -i Makefile.in &&
              --with-system-libatomic_ops \
              --with-system-libpng        \
              --with-system-libxml        \
-             --with-system-neon          \
              --with-system-nss           \
              --with-system-odbc          \
              --with-system-openldap      \
@@ -139,9 +134,10 @@ sed -e "/distro-install-file-lists/d" -i Makefile.in &&
              --with-system-poppler       \
              --disable-postgresql-sdbc    \
              --with-system-redland       \
-             --with-system-serf          \
+             --with-system-libtiff       \
+             --with-system-libwebp       \
              --with-system-zlib
-make build-nocheck
+make build
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make distro-pack-install

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=inih
-VERSION=53
-URL=https://github.com/benhoyt/inih/archive/r53/inih-r53.tar.gz
+VERSION=56
+URL=https://github.com/benhoyt/inih/archive/r56/inih-r56.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="This package is a simple .INI file parser written in C."
 
@@ -21,7 +21,7 @@ DESCRIPTION="This package is a simple .INI file parser written in C."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/benhoyt/inih/archive/r53/inih-r53.tar.gz
+wget -nc https://github.com/benhoyt/inih/archive/r56/inih-r56.tar.gz
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

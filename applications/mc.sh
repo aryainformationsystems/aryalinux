@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=mc
-VERSION=4.8.27
-URL=http://ftp.midnight-commander.org/mc-4.8.27.tar.xz
+VERSION=4.8.29
+URL=http://ftp.midnight-commander.org/mc-4.8.29.tar.xz
 SECTION="System Utilities"
 DESCRIPTION="MC (Midnight Commander) is a text-mode full-screen file manager and visual shell. It provides a clear, user-friendly, and somewhat protected interface to a Unix system while making many frequent file operations more efficient and preserving the full power of the command prompt."
 
@@ -24,8 +24,8 @@ DESCRIPTION="MC (Midnight Commander) is a text-mode full-screen file manager and
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://ftp.midnight-commander.org/mc-4.8.27.tar.xz
-wget -nc ftp://ftp.osuosl.org/pub/midnightcommander/mc-4.8.27.tar.xz
+wget -nc http://ftp.midnight-commander.org/mc-4.8.29.tar.xz
+wget -nc ftp://ftp.osuosl.org/pub/midnightcommander/mc-4.8.29.tar.xz
 
 
 if [ ! -z $URL ]

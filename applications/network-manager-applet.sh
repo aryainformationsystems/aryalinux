@@ -9,7 +9,6 @@ set +h
 
 #REQ:gtk3
 #REQ:libnma
-#REQ:libnotify
 #REQ:libsecret
 #REQ:gobject-introspection
 #REQ:modemmanager
@@ -21,8 +20,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=network-manager-applet
-VERSION=1.24.0
-URL=https://download.gnome.org/sources/network-manager-applet/1.24/network-manager-applet-1.24.0.tar.xz
+VERSION=1.32.0
+URL=https://download.gnome.org/sources/network-manager-applet/1.32/network-manager-applet-1.32.0.tar.xz
 SECTION="Networking Utilities"
 DESCRIPTION="The NetworkManager Applet provides a tool and a panel applet used to configure wired and wireless network connections through GUI. It's designed for use with any desktop environment that uses GTK+, such as Xfce and LXDE."
 
@@ -30,8 +29,8 @@ DESCRIPTION="The NetworkManager Applet provides a tool and a panel applet used t
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/network-manager-applet/1.24/network-manager-applet-1.24.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/network-manager-applet/1.24/network-manager-applet-1.24.0.tar.xz
+wget -nc https://download.gnome.org/sources/network-manager-applet/1.32/network-manager-applet-1.32.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/network-manager-applet/1.32/network-manager-applet-1.32.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -53,11 +52,11 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i '/merge_file/{n;d}' meson.build
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr       \
+meson setup ..            \
+      --prefix=/usr       \
       --buildtype=release \
       -Dappindicator=no   \
       -Dselinux=false     &&

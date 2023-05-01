@@ -8,15 +8,17 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:libtirpc
+#REQ:libevent
 #REQ:rpcsvc-proto
+#REQ:sqlite
 #REQ:rpcbind
 
 
 cd $SOURCE_DIR
 
 NAME=nfs-utils
-VERSION=2.6.1
-URL=https://www.kernel.org/pub/linux/utils/nfs-utils/2.6.1/nfs-utils-2.6.1.tar.xz
+VERSION=2.6.3
+URL=https://www.kernel.org/pub/linux/utils/nfs-utils/2.6.3/nfs-utils-2.6.3.tar.xz
 SECTION="Networking Programs"
 DESCRIPTION="The NFS Utilities package contains the userspace server and client tools necessary to use the kernel's NFS abilities. NFS is a protocol that allows sharing file systems over the network."
 
@@ -24,7 +26,7 @@ DESCRIPTION="The NFS Utilities package contains the userspace server and client 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.kernel.org/pub/linux/utils/nfs-utils/2.6.1/nfs-utils-2.6.1.tar.xz
+wget -nc https://www.kernel.org/pub/linux/utils/nfs-utils/2.6.3/nfs-utils-2.6.3.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,20 +48,27 @@ fi
 echo $USER > /tmp/currentuser
 
 
-groupadd -g 99 nogroup &&
-useradd -c "Unprivileged Nobody" -d /dev/null -g nogroup \
-    -s /bin/false -u 99 nobody
 ./configure --prefix=/usr          \
             --sysconfdir=/etc      \
             --sbindir=/usr/sbin    \
             --disable-nfsv4        \
-            --disable-gss &&
+            --disable-gss          \
+            LIBS="-lsqlite3 -levent_core" &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install                      &&
-chmod u+w,go+r /usr/sbin/mount.nfs    &&
-chown nobody.nogroup /var/lib/nfs
+make install                       &&
+chmod u+w,go+r /usr/sbin/mount.nfs &&
+chown nobody:nogroup /var/lib/nfs
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+make check
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -82,7 +91,7 @@ pushd $SOURCE_DIR
 wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
 tar xf blfs-systemd-units-20180105.tar.bz2
 cd blfs-systemd-units-20180105
-sudo make install-nfsv4-server
+sudo make install-nfs-server
 popd
 ENDOFROOTSCRIPT
 
@@ -92,19 +101,11 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-#!/bin/bash
-
-set -e
-set +h
-
-. /etc/alps/alps.conf
-
-pushd $SOURCE_DIR
-wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
-tar xf blfs-systemd-units-20180105.tar.bz2
-cd blfs-systemd-units-20180105
-sudo make install-nfs-server
-popd
+cat > /etc/sysconfig/nfs-server << "EOF"
+PORT="2049"
+PROCESSES="8"
+KILLDELAY="10"
+EOF
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

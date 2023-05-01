@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=java
-VERSION=17.0.
-URL=https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-17.0.2/OpenJDK-17.0.2+8-i686-bin.tar.xz
+VERSION=19.0.
+URL=https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-19.0.2/OpenJDK-19.0.2+7-i686-bin.tar.xz
 SECTION="Programming"
 DESCRIPTION="Creating a JVM from source requires a set of circular dependencies. The first thing that's needed is a set of programs called a Java Development Kit (JDK). This set of programs includes java, javac, jar, and several others. It also includes several base jar files."
 
@@ -25,8 +25,8 @@ DESCRIPTION="Creating a JVM from source requires a set of circular dependencies.
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-17.0.2/OpenJDK-17.0.2+8-i686-bin.tar.xz
-wget -nc https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-17.0.2/OpenJDK-17.0.2+8-x86_64-bin.tar.xz
+wget -nc https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-19.0.2/OpenJDK-19.0.2+7-i686-bin.tar.xz
+wget -nc https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-19.0.2/OpenJDK-19.0.2+7-x86_64-bin.tar.xz
 
 
 if [ ! -z $URL ]
@@ -50,9 +50,9 @@ echo $USER > /tmp/currentuser
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -vdm755 /opt/OpenJDK-17.0.2-bin &&
-mv -v * /opt/OpenJDK-17.0.2-bin         &&
-chown -R root:root /opt/OpenJDK-17.0.2-bin
+install -vdm755 /opt/OpenJDK-19.0.2-bin &&
+mv -v * /opt/OpenJDK-19.0.2-bin         &&
+chown -R root:root /opt/OpenJDK-19.0.2-bin
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -61,7 +61,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ln -sfn OpenJDK-17.0.2-bin /opt/jdk
+ln -sfn OpenJDK-19.0.2-bin /opt/jdk
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

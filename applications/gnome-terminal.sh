@@ -8,19 +8,19 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:dconf
-#REQ:gnome-shell
 #REQ:gsettings-desktop-schemas
 #REQ:itstool
 #REQ:pcre2
 #REQ:vte
+#REQ:gnome-shell
 #REQ:nautilus
 
 
 cd $SOURCE_DIR
 
 NAME=gnome-terminal
-VERSION=3.42.2
-URL=https://download.gnome.org/sources/gnome-terminal/3.42/gnome-terminal-3.42.2.tar.xz
+VERSION=3.46.8
+URL=https://gitlab.gnome.org/GNOME/gnome-terminal/-/archive/3.46.8/gnome-terminal-3.46.8.tar.gz
 SECTION="GNOME Applications"
 DESCRIPTION="The GNOME Terminal package contains the terminal emulator for GNOME Desktop."
 
@@ -28,8 +28,7 @@ DESCRIPTION="The GNOME Terminal package contains the terminal emulator for GNOME
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-terminal/3.42/gnome-terminal-3.42.2.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-terminal/3.42/gnome-terminal-3.42.2.tar.xz
+wget -nc https://gitlab.gnome.org/GNOME/gnome-terminal/-/archive/3.46.8/gnome-terminal-3.46.8.tar.gz
 
 
 if [ ! -z $URL ]
@@ -51,16 +50,16 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i '/merge_file/{n;d}' data/meson.build
 sed -i -r 's:"(/system):"/org/gnome\1:g' src/external.gschema.xml
 mkdir build &&
-cd   build &&
+cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ninja install
+ninja install &&
+rm -v /usr/lib/systemd/user/gnome-terminal-server.service
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

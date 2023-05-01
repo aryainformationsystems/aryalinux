@@ -17,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gstreamer10-vaapi
-VERSION=1.20.0
-URL=https://gstreamer.freedesktop.org/src/gstreamer-vaapi/gstreamer-vaapi-1.20.0.tar.xz
+VERSION=1.22.2
+URL=https://gstreamer.freedesktop.org/src/gstreamer-vaapi/gstreamer-vaapi-1.22.2.tar.xz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="The gstreamer-vaapi package contains a gstreamer plugin for hardware accelerated video decode/encode for the prevailing coding standards today (MPEG-2, MPEG-4 ASP/H.263, MPEG-4 AVC/H.264, and VC-1/VMW3)."
 
@@ -26,7 +26,7 @@ DESCRIPTION="The gstreamer-vaapi package contains a gstreamer plugin for hardwar
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://gstreamer.freedesktop.org/src/gstreamer-vaapi/gstreamer-vaapi-1.20.0.tar.xz
+wget -nc https://gstreamer.freedesktop.org/src/gstreamer-vaapi/gstreamer-vaapi-1.22.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -51,9 +51,10 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson  --prefix=/usr       \
-       --buildtype=release \
-       -Dpackage-origin=https://www.linuxfromscratch.org/blfs/view/svn/ &&
+meson setup ..            \
+      --prefix=/usr       \
+      --buildtype=release \
+      -Dpackage-origin=https://www.linuxfromscratch.org/blfs/view/svn/ &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

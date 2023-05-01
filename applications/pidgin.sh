@@ -17,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=pidgin
-VERSION=2.14.8
-URL=https://downloads.sourceforge.net/pidgin/pidgin-2.14.8.tar.bz2
+VERSION=2.14.12
+URL=https://downloads.sourceforge.net/pidgin/pidgin-2.14.12.tar.bz2
 SECTION="Other X-based Programs"
 DESCRIPTION="Pidgin is a Gtk+ 2 instant messaging client that can connect with a wide range of networks including Bonjour, ICQ, GroupWise, Jabber/XMPP, IRC, Gadu-Gadu, SILC, SIMPLE, and Zephyr."
 
@@ -26,7 +26,7 @@ DESCRIPTION="Pidgin is a Gtk+ 2 instant messaging client that can connect with a
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/pidgin/pidgin-2.14.8.tar.bz2
+wget -nc https://downloads.sourceforge.net/pidgin/pidgin-2.14.12.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -48,7 +48,6 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed '/09-13/s@^@//@' -i libpurple/tests/test_util.c
 ./configure --prefix=/usr        \
             --sysconfdir=/etc    \
             --with-gstreamer=1.0 \
@@ -57,14 +56,15 @@ sed '/09-13/s@^@//@' -i libpurple/tests/test_util.c
             --disable-meanwhile  \
             --disable-idn        \
             --disable-nm         \
+            --disable-tk         \
             --disable-vv         &&
 make
 make docs
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
-mkdir -pv /usr/share/doc/pidgin-2.14.8 &&
-cp -v README doc/gtkrc-2.0 /usr/share/doc/pidgin-2.14.8
+mkdir -pv /usr/share/doc/pidgin-2.14.12 &&
+cp -v README doc/gtkrc-2.0 /usr/share/doc/pidgin-2.14.12
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -73,8 +73,8 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-mkdir -pv /usr/share/doc/pidgin-2.14.8/api &&
-cp -rv doc/html/* /usr/share/doc/pidgin-2.14.8/api
+mkdir -pv /usr/share/doc/pidgin-2.14.12/api &&
+cp -rv doc/html/* /usr/share/doc/pidgin-2.14.12/api
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

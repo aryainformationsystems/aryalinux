@@ -55,6 +55,49 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+#!/bin/bash
+
+set -e
+set +h
+
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-service-bridge
+popd
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cat > /etc/sysconfig/ifconfig.br0 << "EOF"
+ONBOOT=yes
+IFACE=br0
+VIRTINT=yes
+SERVICE="bridge ipv4-static"  # Space separated
+IP=192.168.1.32
+GATEWAY=192.168.1.1
+PREFIX=24
+BROADCAST=192.168.1.255
+CHECK_LINK=no                 # Don't check before bridge is created
+STP=no                        # Spanning tree protocol, default no
+INTERFACE_COMPONENTS="eth0"   # Add to IFACE, space separated devices
+IP_FORWARD=true
+EOF
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

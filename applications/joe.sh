@@ -14,7 +14,7 @@ cd $SOURCE_DIR
 NAME=joe
 VERSION=4.6
 URL=https://downloads.sourceforge.net/joe-editor/joe-4.6.tar.gz
-SECTION="Editors"
+SECTION="Text Editors"
 DESCRIPTION="JOE (Joe's own editor) is a small text editor capable of emulating WordStar, Pico, and Emacs."
 
 

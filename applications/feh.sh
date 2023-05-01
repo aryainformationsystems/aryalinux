@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=feh
-VERSION=3.8
-URL=https://feh.finalrewind.org/feh-3.8.tar.bz2
+VERSION=3.10
+URL=https://feh.finalrewind.org/feh-3.10.tar.bz2
 SECTION="Other X-based Programs"
 DESCRIPTION="feh is a fast, lightweight image viewer which uses Imlib2. It is commandline-driven and supports multiple images through slideshows, thumbnail browsing or multiple windows, and montages or index prints (using TrueType fonts to display file info). Advanced features include fast dynamic zooming, progressive loading, loading via HTTP (with reload support for watching webcams), recursive file opening (slideshow of a directory hierarchy), and mouse wheel/keyboard control."
 
@@ -25,7 +25,7 @@ DESCRIPTION="feh is a fast, lightweight image viewer which uses Imlib2. It is co
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://feh.finalrewind.org/feh-3.8.tar.bz2
+wget -nc https://feh.finalrewind.org/feh-3.10.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -47,7 +47,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i "s:doc/feh:&-3.8:" config.mk &&
+sed -i "s:doc/feh:&-3.10:" config.mk &&
 make PREFIX=/usr
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

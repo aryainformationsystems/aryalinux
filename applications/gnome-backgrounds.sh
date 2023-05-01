@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnome-backgrounds
-VERSION=41.0
-URL=https://download.gnome.org/sources/gnome-backgrounds/41/gnome-backgrounds-41.0.tar.xz
+VERSION=43.1
+URL=https://download.gnome.org/sources/gnome-backgrounds/43/gnome-backgrounds-43.1.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The GNOME Backgrounds package contains a collection of graphics files which can be used as backgrounds in the GNOME Desktop environment. Additionally, the package creates the proper framework and directory structure so that you can add your own files to the collection."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The GNOME Backgrounds package contains a collection of graphics fil
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-backgrounds/41/gnome-backgrounds-41.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-backgrounds/41/gnome-backgrounds-41.0.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-backgrounds/43/gnome-backgrounds-43.1.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-backgrounds/43/gnome-backgrounds-43.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -47,8 +47,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr .. &&
-ninja
+meson setup --prefix=/usr ..
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=openssh
-VERSION=8.
-URL=https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.8p1.tar.gz
+VERSION=9.
+URL=https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p1.tar.gz
 SECTION="Security"
 DESCRIPTION="The OpenSSH package contains ssh clients and the sshd daemon. This is useful for encrypting authentication and subsequent traffic over a network. The ssh and scp commands are secure implementations of telnet and rcp respectively."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The OpenSSH package contains ssh clients and the sshd daemon. This 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.8p1.tar.gz
+wget -nc https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p1.tar.gz
 
 
 if [ ! -z $URL ]
@@ -62,13 +62,11 @@ sudo rm -rf /tmp/rootscript.sh
 
 ./configure --prefix=/usr                            \
             --sysconfdir=/etc/ssh                    \
-            --with-md5-passwords                     \
             --with-privsep-path=/var/lib/sshd        \
             --with-default-path=/usr/bin             \
             --with-superuser-path=/usr/sbin:/usr/bin \
-            --with-pid-dir=/run
+            --with-pid-dir=/run                      &&
 make
-sed -i 's/conch-ciphers//' regress/Makefile
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
@@ -76,9 +74,9 @@ install -v -m755    contrib/ssh-copy-id /usr/bin     &&
 
 install -v -m644    contrib/ssh-copy-id.1 \
                     /usr/share/man/man1              &&
-install -v -m755 -d /usr/share/doc/openssh-8.8p1     &&
+install -v -m755 -d /usr/share/doc/openssh-9.3p1     &&
 install -v -m644    INSTALL LICENCE OVERVIEW README* \
-                    /usr/share/doc/openssh-8.8p1
+                    /usr/share/doc/openssh-9.3p1
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -97,7 +95,7 @@ sudo rm -rf /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 echo "PasswordAuthentication no" >> /etc/ssh/sshd_config &&
-echo "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config
+echo "KbdInteractiveAuthentication no" >> /etc/ssh/sshd_config
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

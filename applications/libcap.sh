@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libcap
-VERSION=2.63
-URL=https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.63.tar.xz
+VERSION=2.68
+URL=https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.68.tar.xz
 SECTION="Security"
 DESCRIPTION="The libcap package was installed in LFS, but if Linux-PAM support is desired, the PAM module must be built (after installation of Linux-PAM)."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The libcap package was installed in LFS, but if Linux-PAM support i
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.63.tar.xz
+wget -nc https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.68.tar.xz
 
 
 if [ ! -z $URL ]

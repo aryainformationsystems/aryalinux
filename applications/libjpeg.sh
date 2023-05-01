@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libjpeg
-VERSION=2.1.2
-URL=https://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-2.1.2.tar.gz
+VERSION=2.1.5.1
+URL=https://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-2.1.5.1.tar.gz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="libjpeg-turbo is a fork of the original IJG libjpeg which uses SIMD to accelerate baseline JPEG compression and decompression. libjpeg is a library that implements JPEG image encoding, decoding and transcoding."
 
@@ -24,7 +24,7 @@ DESCRIPTION="libjpeg-turbo is a fork of the original IJG libjpeg which uses SIMD
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-2.1.2.tar.gz
+wget -nc https://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-2.1.5.1.tar.gz
 
 
 if [ ! -z $URL ]
@@ -52,19 +52,10 @@ cd    build &&
 cmake -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=RELEASE  \
       -DENABLE_STATIC=FALSE       \
-      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/libjpeg-turbo-2.1.2 \
+      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/libjpeg-turbo-2.1.5.1 \
       -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib  \
       .. &&
 make
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-rm -f /usr/lib/libjpeg.so*
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install

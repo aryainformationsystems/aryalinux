@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=sqlite
-VERSION=3370200
-URL=https://sqlite.org/2022/sqlite-autoconf-3370200.tar.gz
+VERSION=3410200
+URL=https://sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
 SECTION="Databases"
 DESCRIPTION="The SQLite package is a software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The SQLite package is a software library that implements a self-con
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://sqlite.org/2022/sqlite-autoconf-3370200.tar.gz
-wget -nc https://sqlite.org/2022/sqlite-doc-3370200.zip
+wget -nc https://sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
+wget -nc https://sqlite.org/2023/sqlite-doc-3410200.zip
 
 
 if [ ! -z $URL ]
@@ -44,7 +44,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-unzip -q ../sqlite-doc-3370200.zip
+unzip -q ../sqlite-doc-3410200.zip
 ./configure --prefix=/usr     \
             --disable-static  \
             --enable-fts5     \
@@ -67,8 +67,8 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m755 -d /usr/share/doc/sqlite-3.37.2 &&
-cp -v -R sqlite-doc-3370200/* /usr/share/doc/sqlite-3.37.2
+install -v -m755 -d /usr/share/doc/sqlite-3.41.2 &&
+cp -v -R sqlite-doc-3410200/* /usr/share/doc/sqlite-3.41.2
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

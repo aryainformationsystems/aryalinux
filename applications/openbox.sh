@@ -46,7 +46,7 @@ echo $USER > /tmp/currentuser
 export XORG_PREFIX="/usr"
 
 export LIBRARY_PATH=$XORG_PREFIX/lib
-2to3-3.10 -w data/autostart/openbox-xdg-autostart &&
+2to3-3.11 -w data/autostart/openbox-xdg-autostart &&
 sed 's/python/python3/' -i data/autostart/openbox-xdg-autostart
 ./configure --prefix=/usr     \
             --sysconfdir=/etc \
@@ -56,6 +56,15 @@ make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+rm -v /usr/share/xsessions/openbox-{gnome,kde}.desktop
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

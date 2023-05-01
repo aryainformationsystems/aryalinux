@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xcursor-themes
-VERSION=1.0.6
-URL=https://www.x.org/pub/individual/data/xcursor-themes-1.0.6.tar.bz2
+VERSION=1.0.7
+URL=https://www.x.org/pub/individual/data/xcursor-themes-1.0.7.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The xcursor-themes package contains the redglass and whiteglass animated cursor themes."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The xcursor-themes package contains the redglass and whiteglass ani
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/data/xcursor-themes-1.0.6.tar.bz2
-wget -nc ftp://ftp.x.org/pub/individual/data/xcursor-themes-1.0.6.tar.bz2
+wget -nc https://www.x.org/pub/individual/data/xcursor-themes-1.0.7.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/data/xcursor-themes-1.0.7.tar.xz
 
 
 if [ ! -z $URL ]
@@ -44,9 +44,8 @@ fi
 
 echo $USER > /tmp/currentuser
 
-export XORG_CONFIG="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-static"
 
-./configure $XORG_CONFIG &&
+./configure --prefix=/usr &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -13,15 +13,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-deps#perl-test-file
-VERSION=1.991
-URL=https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Test-File-1.991.tar.gz
+VERSION=1.993
+URL=https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Test-File-1.993.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Test-File-1.991.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Test-File-1.993.tar.gz
 
 
 if [ ! -z $URL ]

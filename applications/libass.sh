@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libass
-VERSION=0.15.2
-URL=https://github.com/libass/libass/releases/download/0.15.2/libass-0.15.2.tar.xz
+VERSION=0.17.1
+URL=https://github.com/libass/libass/releases/download/0.17.1/libass-0.17.1.tar.xz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="libass is a portable subtitle renderer for the ASS/SSA (Advanced Substation Alpha/Substation Alpha) subtitle format that allows for more advanced subtitles than the conventional SRT and similar formats."
 
@@ -25,7 +25,7 @@ DESCRIPTION="libass is a portable subtitle renderer for the ASS/SSA (Advanced Su
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/libass/libass/releases/download/0.15.2/libass-0.15.2.tar.xz
+wget -nc https://github.com/libass/libass/releases/download/0.17.1/libass-0.17.1.tar.xz
 
 
 if [ ! -z $URL ]

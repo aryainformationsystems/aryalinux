@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libxdmcp
-VERSION=1.1.3
-URL=https://www.x.org/pub/individual/lib/libXdmcp-1.1.3.tar.bz2
+VERSION=1.1.4
+URL=https://www.x.org/pub/individual/lib/libXdmcp-1.1.4.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The libXdmcp package contains a library implementing the X Display Manager Control Protocol. This is useful for allowing clients to interact with the X Display Manager."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The libXdmcp package contains a library implementing the X Display 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/lib/libXdmcp-1.1.3.tar.bz2
-wget -nc ftp://ftp.x.org/pub/individual/lib/libXdmcp-1.1.3.tar.bz2
+wget -nc https://www.x.org/pub/individual/lib/libXdmcp-1.1.4.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/lib/libXdmcp-1.1.4.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,7 @@ echo $USER > /tmp/currentuser
 
 export XORG_CONFIG="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-static"
 
-./configure $XORG_CONFIG --docdir=/usr/share/doc/libXdmcp-1.1.3 &&
+./configure $XORG_CONFIG --docdir=/usr/share/doc/libXdmcp-1.1.4 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

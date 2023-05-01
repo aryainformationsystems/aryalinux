@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=dash
-VERSION=0.5.11.5
-URL=http://gondor.apana.org.au/~herbert/dash/files/dash-0.5.11.5.tar.gz
+VERSION=0.5.12
+URL=http://gondor.apana.org.au/~herbert/dash/files/dash-0.5.12.tar.gz
 SECTION="Shells"
 DESCRIPTION="Dash is a POSIX compliant shell. It can be installed as /bin/sh or as the default shell for either root or a second user with a userid of 0. It depends on fewer libraries than the Bash shell and is therefore less likely to be affected by an upgrade problem or disk failure. Dash is also useful for checking that a script is completely compatible with POSIX syntax."
 
@@ -21,7 +21,7 @@ DESCRIPTION="Dash is a POSIX compliant shell. It can be installed as /bin/sh or 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://gondor.apana.org.au/~herbert/dash/files/dash-0.5.11.5.tar.gz
+wget -nc http://gondor.apana.org.au/~herbert/dash/files/dash-0.5.12.tar.gz
 
 
 if [ ! -z $URL ]

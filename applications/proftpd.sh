@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=proftpd
-VERSION=1.3.
-URL=ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.7c.tar.gz
+VERSION=1.3.8
+URL=https://github.com/proftpd/proftpd/archive/v1.3.8/proftpd-1.3.8.tar.gz
 SECTION="Major Servers"
 DESCRIPTION="The ProFTPD package contains a secure and highly configurable FTP daemon. This is useful for serving large file archives over a network."
 
@@ -21,7 +21,8 @@ DESCRIPTION="The ProFTPD package contains a secure and highly configurable FTP d
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.7c.tar.gz
+wget -nc https://github.com/proftpd/proftpd/archive/v1.3.8/proftpd-1.3.8.tar.gz
+wget -nc ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.8.tar.gz
 
 
 if [ ! -z $URL ]
@@ -50,7 +51,7 @@ useradd -c proftpd -d /srv/ftp -g proftpd \
         -s /usr/bin/proftpdshell -u 46 proftpd     &&
 
 install -v -d -m775 -o proftpd -g proftpd /srv/ftp &&
-ln -v -s /bin/false /usr/bin/proftpdshell          &&
+ln -v -s /usr/bin/false /usr/bin/proftpdshell      &&
 echo /usr/bin/proftpdshell >> /etc/shells
 ENDOFROOTSCRIPT
 
@@ -58,13 +59,13 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/run &&
+./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/run &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install                                   &&
-install -d -m755 /usr/share/doc/proftpd-1.3.7c &&
-cp -Rv doc/*     /usr/share/doc/proftpd-1.3.7c
+install -d -m755 /usr/share/doc/proftpd-1.3.8 &&
+cp -Rv doc/*     /usr/share/doc/proftpd-1.3.8
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

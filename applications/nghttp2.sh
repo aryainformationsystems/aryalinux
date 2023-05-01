@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=nghttp2
-VERSION=1.46.0
-URL=https://github.com/nghttp2/nghttp2/releases/download/v1.46.0/nghttp2-1.46.0.tar.xz
+VERSION=1.52.0
+URL=https://github.com/nghttp2/nghttp2/releases/download/v1.52.0/nghttp2-1.52.0.tar.xz
 SECTION="Networking Libraries"
 DESCRIPTION="nghttp2 is an implementation of HTTP/2 and its header compression algorithm, HPACK."
 
@@ -22,7 +22,7 @@ DESCRIPTION="nghttp2 is an implementation of HTTP/2 and its header compression a
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/nghttp2/nghttp2/releases/download/v1.46.0/nghttp2-1.46.0.tar.xz
+wget -nc https://github.com/nghttp2/nghttp2/releases/download/v1.52.0/nghttp2-1.52.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -47,7 +47,7 @@ echo $USER > /tmp/currentuser
 ./configure --prefix=/usr     \
             --disable-static  \
             --enable-lib-only \
-            --docdir=/usr/share/doc/nghttp2-1.46.0 &&
+            --docdir=/usr/share/doc/nghttp2-1.52.0 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

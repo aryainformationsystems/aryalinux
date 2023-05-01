@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=alsa-utils
-VERSION=1.2.6
-URL=https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.6.tar.bz2
+VERSION=1.2.8
+URL=https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.8.tar.bz2
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="The ALSA Utilities package contains various utilities which are useful for controlling your sound card."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The ALSA Utilities package contains various utilities which are use
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.6.tar.bz2
-wget -nc ftp://ftp.alsa-project.org/pub/utils/alsa-utils-1.2.6.tar.bz2
+wget -nc https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.8.tar.bz2
+wget -nc ftp://ftp.alsa-project.org/pub/utils/alsa-utils-1.2.8.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -53,6 +53,35 @@ make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+cat > /etc/asound.conf << "EOF"
+# Begin /etc/asound.conf
+
+defaults.pcm.card 1
+defaults.ctl.card 1
+
+# End /etc/asound.conf
+EOF
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+#!/bin/bash
+
+set -e
+set +h
+
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-alsa
+popd
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

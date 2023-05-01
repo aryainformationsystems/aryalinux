@@ -45,13 +45,15 @@ mkfs.vfat /dev/sdx1
 fdisk /dev/sdx
 mkdir -pv /mnt/rescue &&
 mount -v -t vfat /dev/sdx1 /mnt/rescue
-grub-install --removable --efi-directory=/mnt/rescue --boot-directory=/mnt/rescue/grub
+grub-install --target=x86_64-efi --removable --efi-directory=/mnt/rescue --boot-directory=/mnt/rescue
 umount /mnt/rescue
 fdisk -l /dev/sda
 mkdir -pv /boot/efi &&
 mount -v -t vfat /dev/sda1 /boot/efi
 cat >> /etc/fstab << EOF
+grub-install --target=x86_64-efi --removable
 mountpoint /sys/firmware/efi/efivars || mount -v -t efivarfs efivarfs /sys/firmware/efi/efivars
+cat >> /etc/fstab << EOF
 grub-install --bootloader-id=LFS --recheck
 cat > /boot/grub/grub.cfg << EOF
 cat >> /boot/grub/grub.cfg << EOF

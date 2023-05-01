@@ -9,6 +9,7 @@ set +h
 
 #REQ:gsettings-desktop-schemas
 #REQ:gtk3
+#REQ:gtk4
 #REQ:iso-codes
 #REQ:itstool
 #REQ:libseccomp
@@ -21,8 +22,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnome-desktop
-VERSION=41.3
-URL=https://download.gnome.org/sources/gnome-desktop/41/gnome-desktop-41.3.tar.xz
+VERSION=43.2
+URL=https://download.gnome.org/sources/gnome-desktop/43/gnome-desktop-43.2.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The GNOME Desktop package contains a library that provides an API shared by several applications on the GNOME Desktop."
 
@@ -30,8 +31,8 @@ DESCRIPTION="The GNOME Desktop package contains a library that provides an API s
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-desktop/41/gnome-desktop-41.3.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-desktop/41/gnome-desktop-41.3.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-desktop/43/gnome-desktop-43.2.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-desktop/43/gnome-desktop-43.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -56,9 +57,9 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr                 \
-      --buildtype=release           \
-      -Dgnome_distributor="BLFS" .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            ..                  &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -8,14 +8,14 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:apr-util
-#REQ:pcre
+#REQ:pcre2
 
 
 cd $SOURCE_DIR
 
 NAME=apache
-VERSION=2.4.52
-URL=https://archive.apache.org/dist/httpd/httpd-2.4.52.tar.bz2
+VERSION=2.4.57
+URL=https://archive.apache.org/dist/httpd/httpd-2.4.57.tar.bz2
 SECTION="Major Servers"
 DESCRIPTION="The Apache HTTPD package contains an open-source HTTP server. It is useful for creating local intranet web sites or running huge web serving operations."
 
@@ -23,8 +23,8 @@ DESCRIPTION="The Apache HTTPD package contains an open-source HTTP server. It is
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.apache.org/dist/httpd/httpd-2.4.52.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/httpd-2.4.52-blfs_layout-1.patch
+wget -nc https://archive.apache.org/dist/httpd/httpd-2.4.57.tar.bz2
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/httpd-2.4.57-blfs_layout-1.patch
 
 
 if [ ! -z $URL ]
@@ -57,9 +57,14 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-patch -Np1 -i ../httpd-2.4.52-blfs_layout-1.patch             &&
+patch -Np1 -i ../httpd-2.4.57-blfs_layout-1.patch             &&
 
 sed '/dir.*CFG_PREFIX/s@^@#@' -i support/apxs.in              &&
+
+sed -e '/HTTPD_ROOT/s:${ap_prefix}:/etc/httpd:'       \
+    -e '/SERVER_CONFIG_FILE/s:${rel_sysconfdir}/::'   \
+    -e '/AP_TYPES_CONFIG_FILE/s:${rel_sysconfdir}/::' \
+    -i configure  &&
 
 ./configure --enable-authnz-fcgi                              \
             --enable-layout=BLFS                              \

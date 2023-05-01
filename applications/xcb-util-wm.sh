@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xcb-util-wm
-VERSION=0.4.1
-URL=https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
+VERSION=0.4.2
+URL=https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.2.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The xcb-util-wm package contains libraries which provide client and window-manager helpers for EWMH and ICCCM."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The xcb-util-wm package contains libraries which provide client and
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
+wget -nc https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.2.tar.xz
 
 
 if [ ! -z $URL ]

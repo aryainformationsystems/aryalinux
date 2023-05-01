@@ -9,7 +9,8 @@ set +h
 
 #REQ:geocode-glib
 #REQ:gtk3
-#REQ:libsoup
+#REQ:libsoup3
+#REQ:python-modules#pygobject3
 #REQ:gobject-introspection
 #REQ:libxml2
 #REQ:vala
@@ -19,8 +20,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libgweather
-VERSION=40.0
-URL=https://download.gnome.org/sources/libgweather/40/libgweather-40.0.tar.xz
+VERSION=4.2.0
+URL=https://download.gnome.org/sources/libgweather/4.2/libgweather-4.2.0.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The libgweather package is a library used to access weather information from online services for numerous locations."
 
@@ -28,8 +29,8 @@ DESCRIPTION="The libgweather package is a library used to access weather informa
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/libgweather/40/libgweather-40.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libgweather/40/libgweather-40.0.tar.xz
+wget -nc https://download.gnome.org/sources/libgweather/4.2/libgweather-4.2.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libgweather/4.2/libgweather-4.2.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -54,7 +55,14 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dgtk_doc=false     \
+            ..                  &&
+ninja
+sed "s/libgweather_full_version/'libgweather-4.2.0'/" \
+    -i ../doc/meson.build                             &&
+meson configure -Dgtk_doc=true                        &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

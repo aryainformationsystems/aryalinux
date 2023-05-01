@@ -7,26 +7,28 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
+#REQ:perl-deps#perl-clone
 #REQ:perl-deps#perl-encode-locale
 #REQ:perl-deps#perl-http-date
 #REQ:perl-deps#perl-io-html
 #REQ:perl-deps#perl-lwp-mediatypes
 #REQ:perl-modules#perl-uri
+#REQ:perl-deps#perl-test-needs
 #REQ:perl-deps#perl-try-tiny
 
 
 cd $SOURCE_DIR
 
 NAME=perl-deps#perl-http-message
-VERSION=6.36
-URL=https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTTP-Message-6.36.tar.gz
+VERSION=6.44
+URL=https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTTP-Message-6.44.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTTP-Message-6.36.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTTP-Message-6.44.tar.gz
 
 
 if [ ! -z $URL ]

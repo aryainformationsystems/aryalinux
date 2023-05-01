@@ -13,7 +13,7 @@ cd $SOURCE_DIR
 
 NAME=icu
 VERSION=7
-URL=https://github.com/unicode-org/icu/releases/download/release-70-1/icu4c-70_1-src.tgz
+URL=https://github.com/unicode-org/icu/releases/download/release-73-1/icu4c-73_1-src.tgz
 SECTION="General Libraries"
 DESCRIPTION="The International Components for Unicode (ICU) package is a mature, widely used set of C/C++ libraries providing Unicode and Globalization support for software applications. ICU is widely portable and gives applications the same results on all platforms."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The International Components for Unicode (ICU) package is a mature,
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/unicode-org/icu/releases/download/release-70-1/icu4c-70_1-src.tgz
+wget -nc https://github.com/unicode-org/icu/releases/download/release-73-1/icu4c-73_1-src.tgz
 
 
 if [ ! -z $URL ]

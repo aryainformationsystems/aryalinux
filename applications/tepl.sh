@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=tepl
-VERSION=6.00.0
-URL=https://download.gnome.org/sources/tepl/6.00/tepl-6.00.0.tar.xz
+VERSION=6.4.0
+URL=https://download.gnome.org/sources/tepl/6.4/tepl-6.4.0.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="The Tepl package contains a library that eases the development of GtkSourceView-based text editors and IDEs."
 
@@ -25,8 +25,8 @@ DESCRIPTION="The Tepl package contains a library that eases the development of G
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/tepl/6.00/tepl-6.00.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/tepl/6.00/tepl-6.00.0.tar.xz
+wget -nc https://download.gnome.org/sources/tepl/6.4/tepl-6.4.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/tepl/6.4/tepl-6.4.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -48,10 +48,13 @@ fi
 echo $USER > /tmp/currentuser
 
 
-mkdir build &&
-cd    build &&
+mkdir tepl-build &&
+cd    tepl-build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dgtk_doc=false     \
+            .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

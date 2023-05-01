@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libvpx
-VERSION=1.11.0
-URL=https://github.com/webmproject/libvpx/archive/v1.11.0/libvpx-1.11.0.tar.gz
+VERSION=1.13.0
+URL=https://github.com/webmproject/libvpx/archive/v1.13.0/libvpx-1.13.0.tar.gz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="This package, from the WebM project, provides the reference implementations of the VP8 Codec, used in most current html5 video, and of the next-generation VP9 Codec."
 
@@ -24,7 +24,7 @@ DESCRIPTION="This package, from the WebM project, provides the reference impleme
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/webmproject/libvpx/archive/v1.11.0/libvpx-1.11.0.tar.gz
+wget -nc https://github.com/webmproject/libvpx/archive/v1.13.0/libvpx-1.13.0.tar.gz
 
 
 if [ ! -z $URL ]

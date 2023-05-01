@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=parted
-VERSION=3.4
-URL=https://ftp.gnu.org/gnu/parted/parted-3.4.tar.xz
+VERSION=3.6
+URL=https://ftp.gnu.org/gnu/parted/parted-3.6.tar.xz
 SECTION="File Systems and Disk Management"
 DESCRIPTION="The Parted package is a disk partitioning and partition resizing tool."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The Parted package is a disk partitioning and partition resizing to
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/parted/parted-3.4.tar.xz
-wget -nc ftp://ftp.gnu.org/gnu/parted/parted-3.4.tar.xz
+wget -nc https://ftp.gnu.org/gnu/parted/parted-3.6.tar.xz
+wget -nc ftp://ftp.gnu.org/gnu/parted/parted-3.6.tar.xz
 
 
 if [ ! -z $URL ]
@@ -54,11 +54,11 @@ makeinfo --plaintext -o doc/parted.txt doc/parted.texi
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
-install -v -m755 -d /usr/share/doc/parted-3.4/html &&
+install -v -m755 -d /usr/share/doc/parted-3.6/html &&
 install -v -m644    doc/html/* \
-                    /usr/share/doc/parted-3.4/html &&
+                    /usr/share/doc/parted-3.6/html &&
 install -v -m644    doc/{FAT,API,parted.{txt,html}} \
-                    /usr/share/doc/parted-3.4
+                    /usr/share/doc/parted-3.6
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

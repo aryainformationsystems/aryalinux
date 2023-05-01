@@ -45,6 +45,30 @@ echo $USER > /tmp/currentuser
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cat >> /etc/syslog.conf << "EOF"
+# Begin fcron addition to /etc/syslog.conf
+
+cron.* -/var/log/cron.log
+
+# End fcron addition
+EOF
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+/etc/rc.d/init.d/sysklogd reload
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 groupadd -g 22 fcron &&
 useradd -d /dev/null -c "Fcron User" -g fcron -s /bin/false -u 22 fcron
 ENDOFROOTSCRIPT
@@ -53,12 +77,13 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+find doc -type f -exec sed -i 's:/usr/local::g' {} \;
 ./configure --prefix=/usr          \
             --sysconfdir=/etc      \
             --localstatedir=/var   \
             --without-sendmail     \
-            --with-piddir=/run     \
-            --with-boot-install=no &&
+            --with-boot-install=no \
+            --with-systemdsystemunitdir=no &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
@@ -153,7 +178,19 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable fcron
+#!/bin/bash
+
+set -e
+set +h
+
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-fcron
+popd
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -162,7 +199,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl start fcron &&
+/etc/rc.d/init.d/fcron start &&
 fcrontab -z -u systab
 ENDOFROOTSCRIPT
 

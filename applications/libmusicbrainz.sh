@@ -23,7 +23,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc http://ftp.musicbrainz.org/pub/musicbrainz/historical/libmusicbrainz-2.1.5.tar.gz
 wget -nc ftp://ftp.musicbrainz.org/pub/musicbrainz/historical/libmusicbrainz-2.1.5.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/libmusicbrainz-2.1.5-missing-includes-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/libmusicbrainz-2.1.5-missing-includes-1.patch
 
 
 if [ ! -z $URL ]

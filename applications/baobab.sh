@@ -8,17 +8,17 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:adwaita-icon-theme
-#REQ:gtk3
+#REQ:gtk4
 #REQ:itstool
-#REQ:libhandy1
+#REQ:libadwaita
 #REQ:vala
 
 
 cd $SOURCE_DIR
 
 NAME=baobab
-VERSION=41.0
-URL=https://download.gnome.org/sources/baobab/41/baobab-41.0.tar.xz
+VERSION=43.0
+URL=https://download.gnome.org/sources/baobab/43/baobab-43.0.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="The Baobab package contains a graphical directory tree analyzer."
 
@@ -26,8 +26,8 @@ DESCRIPTION="The Baobab package contains a graphical directory tree analyzer."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/baobab/41/baobab-41.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/baobab/41/baobab-41.0.tar.xz
+wget -nc https://download.gnome.org/sources/baobab/43/baobab-43.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/baobab/43/baobab-43.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -52,7 +52,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

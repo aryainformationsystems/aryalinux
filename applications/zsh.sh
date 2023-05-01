@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=zsh
-VERSION=5.8.1
-URL=https://www.zsh.org/pub/zsh-5.8.1.tar.xz
+VERSION=5.9
+URL=https://www.zsh.org/pub/zsh-5.9.tar.xz
 SECTION="Shells"
 DESCRIPTION="The zsh package contains a command interpreter (shell) usable as an interactive login shell and as a shell script command processor. Of the standard shells, zsh most closely resembles ksh but includes many enhancements."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The zsh package contains a command interpreter (shell) usable as an
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.zsh.org/pub/zsh-5.8.1.tar.xz
-wget -nc https://www.zsh.org/pub/zsh-5.8.1-doc.tar.xz
+wget -nc https://www.zsh.org/pub/zsh-5.9.tar.xz
+wget -nc https://www.zsh.org/pub/zsh-5.9-doc.tar.xz
 
 
 if [ ! -z $URL ]
@@ -44,10 +44,12 @@ fi
 echo $USER > /tmp/currentuser
 
 
-tar --strip-components=1 -xvf ../zsh-5.8.1-doc.tar.xz
-./configure --prefix=/usr         \
-            --sysconfdir=/etc/zsh \
-            --enable-etcdir=/etc/zsh                  &&
+tar --strip-components=1 -xvf ../zsh-5.9-doc.tar.xz
+./configure --prefix=/usr            \
+            --sysconfdir=/etc/zsh    \
+            --enable-etcdir=/etc/zsh \
+            --enable-cap             \
+            --enable-gdbm                             &&
 make                                                  &&
 
 makeinfo  Doc/zsh.texi --plaintext -o Doc/zsh.txt     &&
@@ -59,9 +61,9 @@ cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install                              &&
 make infodir=/usr/share/info install.info &&
 
-install -v -m755 -d                 /usr/share/doc/zsh-5.8.1/html &&
-install -v -m644 Doc/html/*         /usr/share/doc/zsh-5.8.1/html &&
-install -v -m644 Doc/zsh.{html,txt} /usr/share/doc/zsh-5.8.1
+install -v -m755 -d                 /usr/share/doc/zsh-5.9/html &&
+install -v -m644 Doc/html/*         /usr/share/doc/zsh-5.9/html &&
+install -v -m644 Doc/zsh.{html,txt} /usr/share/doc/zsh-5.9
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -70,8 +72,8 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make htmldir=/usr/share/doc/zsh-5.8.1/html install.html &&
-install -v -m644 Doc/zsh.dvi /usr/share/doc/zsh-5.8.1
+make htmldir=/usr/share/doc/zsh-5.9/html install.html &&
+install -v -m644 Doc/zsh.dvi /usr/share/doc/zsh-5.9
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -80,7 +82,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m644 Doc/zsh.pdf /usr/share/doc/zsh-5.8.1
+install -v -m644 Doc/zsh.pdf /usr/share/doc/zsh-5.9
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

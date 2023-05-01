@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=qca
-VERSION=2.3.4
-URL=https://download.kde.org/stable/qca/2.3.4/qca-2.3.4.tar.xz
+VERSION=2.3.5
+URL=https://download.kde.org/stable/qca/2.3.5/qca-2.3.5.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="Qca aims to provide a straightforward and cross-platform crypto API, using Qt datatypes and conventions. Qca separates the API from the implementation, using plugins known as Providers."
 
@@ -25,7 +25,7 @@ DESCRIPTION="Qca aims to provide a straightforward and cross-platform crypto API
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/qca/2.3.4/qca-2.3.4.tar.xz
+wget -nc https://download.kde.org/stable/qca/2.3.5/qca-2.3.5.tar.xz
 
 
 if [ ! -z $URL ]

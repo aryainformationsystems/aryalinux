@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnome-nettool
-VERSION=3.8.1
-URL=https://download.gnome.org/sources/gnome-nettool/3.8/gnome-nettool-3.8.1.tar.xz
+VERSION=42.0
+URL=https://download.gnome.org/sources/gnome-nettool/42/gnome-nettool-42.0.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="The GNOME Nettool package is a network information tool which provides GUI interface for some of the most common command line network tools."
 
@@ -24,9 +24,9 @@ DESCRIPTION="The GNOME Nettool package is a network information tool which provi
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-nettool/3.8/gnome-nettool-3.8.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-nettool/3.8/gnome-nettool-3.8.1.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/gnome-nettool-3.8.1-ping_and_netstat_fixes-1.patch
+wget -nc https://download.gnome.org/sources/gnome-nettool/42/gnome-nettool-42.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-nettool/42/gnome-nettool-42.0.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/gnome-nettool-42.0-ping_and_netstat_fixes-1.patch
 
 
 if [ ! -z $URL ]
@@ -48,12 +48,16 @@ fi
 echo $USER > /tmp/currentuser
 
 
-patch -Np1 -i ../gnome-nettool-3.8.1-ping_and_netstat_fixes-1.patch
-./configure --prefix=/usr &&
-make
+patch -Np1 -i ../gnome-nettool-42.0-ping_and_netstat_fixes-1.patch
+sed -i '/merge_file/s/(.*/(/' data/meson.build
+mkdir build &&
+cd build   &&
+
+meson setup --prefix=/usr --buildtype=release &&
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

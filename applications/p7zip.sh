@@ -13,7 +13,7 @@ cd $SOURCE_DIR
 
 NAME=p7zip
 VERSION=17.04
-URL=https://github.com/jinfeihan57/p7zip/archive/v17.04/p7zip-17.04.tar.gz
+URL=https://github.com/p7zip-project/p7zip/archive/v17.04/p7zip-17.04.tar.gz
 SECTION="System Utilities"
 DESCRIPTION="p7zip is the Unix command-line port of 7-Zip, a file archiver that archives with high compression ratios. It handles 7z, ZIP, GZIP, Brotli, BZIP2, XZ, TAR, APM, ARJ, CAB, CHM, CPIO, CramFS, DEB, DMG, FAT, HFS, ISO, Lizard, LZ5, LZFSE, LZH, LZMA, LZMA2, MBR, MSI, MSLZ, NSIS, NTFS, RAR, RPM, SquashFS, UDF, VHD, WIM, XAR, Z, and Zstd formats."
 
@@ -21,7 +21,7 @@ DESCRIPTION="p7zip is the Unix command-line port of 7-Zip, a file archiver that 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/jinfeihan57/p7zip/archive/v17.04/p7zip-17.04.tar.gz
+wget -nc https://github.com/p7zip-project/p7zip/archive/v17.04/p7zip-17.04.tar.gz
 
 
 if [ ! -z $URL ]

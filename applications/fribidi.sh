@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=fribidi
-VERSION=1.0.11
-URL=https://github.com/fribidi/fribidi/releases/download/v1.0.11/fribidi-1.0.11.tar.xz
+VERSION=1.0.12
+URL=https://github.com/fribidi/fribidi/releases/download/v1.0.12/fribidi-1.0.12.tar.xz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The FriBidi package is an implementation of the Unicode Bidirectional Algorithm (BIDI). This is useful for supporting Arabic and Hebrew alphabets in other packages."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The FriBidi package is an implementation of the Unicode Bidirection
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/fribidi/fribidi/releases/download/v1.0.11/fribidi-1.0.11.tar.xz
+wget -nc https://github.com/fribidi/fribidi/releases/download/v1.0.12/fribidi-1.0.12.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

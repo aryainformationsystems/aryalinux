@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=newt
-VERSION=0.52.21
-URL=https://releases.pagure.org/newt/newt-0.52.21.tar.gz
+VERSION=0.52.23
+URL=https://releases.pagure.org/newt/newt-0.52.23.tar.gz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="Newt is a programming library for color text mode, widget based user interfaces. It can be used to add stacked windows, entry widgets, checkboxes, radio buttons, labels, plain text fields, scrollbars, etc., to text mode user interfaces. Newt is based on the S-Lang library."
 
@@ -24,7 +24,7 @@ DESCRIPTION="Newt is a programming library for color text mode, widget based use
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://releases.pagure.org/newt/newt-0.52.21.tar.gz
+wget -nc https://releases.pagure.org/newt/newt-0.52.23.tar.gz
 
 
 if [ ! -z $URL ]
@@ -46,14 +46,14 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -e 's/^LIBNEWT =/#&/'                   \
-    -e '/install -m 644 $(LIBNEWT)/ s/^/#/' \
-    -e 's/$(LIBNEWT)/$(LIBNEWTSONAME)/g'    \
+sed -e '/install -m 644 $(LIBNEWT)/ s/^/#/' \
+    -e '/$(LIBNEWT):/,/rv/ s/^/#/'          \
+    -e 's/$(LIBNEWT)/$(LIBNEWTSH)/g'        \
     -i Makefile.in                          &&
 
 ./configure --prefix=/usr           \
             --with-gpm-support      \
-            --with-python=python3.10 &&
+            --with-python=python3.11 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

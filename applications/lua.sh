@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://www.lua.org/ftp/lua-5.4.4.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/lua-5.4.4-shared_library-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/lua-5.4.4-shared_library-2.patch
 wget -nc https://www.lua.org/tests/lua-5.4.4-tests.tar.gz
 
 
@@ -67,7 +67,7 @@ Requires:
 Libs: -L${libdir} -llua -lm -ldl
 Cflags: -I${includedir}
 EOF
-patch -Np1 -i ../lua-5.4.4-shared_library-1.patch &&
+patch -Np1 -i ../lua-5.4.4-shared_library-2.patch &&
 make linux
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

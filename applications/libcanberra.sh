@@ -11,13 +11,14 @@ set +h
 #REQ:alsa-lib
 #REQ:gstreamer10
 #REQ:gtk3
+#REQ:sound-theme-freedesktop
 
 
 cd $SOURCE_DIR
 
 NAME=libcanberra
 VERSION=0.30
-URL=http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
+URL=https://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="libcanberra is an implementation of the XDG Sound Theme and Name Specifications, for generating event sounds on free desktops, such as GNOME."
 
@@ -25,8 +26,8 @@ DESCRIPTION="libcanberra is an implementation of the XDG Sound Theme and Name Sp
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/libcanberra-0.30-wayland-1.patch
+wget -nc https://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/libcanberra-0.30-wayland-1.patch
 
 
 if [ ! -z $URL ]

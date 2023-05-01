@@ -9,18 +9,20 @@ set +h
 
 #REQ:json-glib
 #REQ:libseccomp
-#REQ:libsoup
 #REQ:vala
 #REQ:gobject-introspection
 #REQ:icu
+#REQ:libsoup3
+#REQ:python-modules#pygobject3
 #REQ:sqlite
+#REQ:tracker3-miners
 
 
 cd $SOURCE_DIR
 
 NAME=tracker3
-VERSION=3.2.1
-URL=https://download.gnome.org/sources/tracker/3.2/tracker-3.2.1.tar.xz
+VERSION=3.4.2
+URL=https://download.gnome.org/sources/tracker/3.4/tracker-3.4.2.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="Tracker is the file indexing and search provider used in the GNOME desktop environment."
 
@@ -28,8 +30,8 @@ DESCRIPTION="Tracker is the file indexing and search provider used in the GNOME 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/tracker/3.2/tracker-3.2.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/tracker/3.2/tracker-3.2.1.tar.xz
+wget -nc https://download.gnome.org/sources/tracker/3.4/tracker-3.4.2.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/tracker/3.4/tracker-3.4.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -54,10 +56,12 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr       \
-      --buildtype=release \
-      -Ddocs=false        \
-      -Dman=false ..      &&
+meson setup --prefix=/usr                 \
+            --buildtype=release           \
+            -Ddocs=false                  \
+            -Dman=false                   \
+            -Dsystemd_user_services=false \
+            ..                            &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

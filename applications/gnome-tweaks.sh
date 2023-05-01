@@ -17,17 +17,17 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnome-tweaks
-VERSION=40.0
-URL=https://download.gnome.org/sources/gnome-tweaks/40/gnome-tweaks-40.0.tar.xz
-SECTION="GNOME Applications"
+VERSION=40.10
+URL=https://download.gnome.org/sources/gnome-tweaks/40/gnome-tweaks-40.10.tar.xz
+SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="GNOME Tweaks is a simple program used to tweak advanced GNOME settings."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-tweaks/40/gnome-tweaks-40.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-tweaks/40/gnome-tweaks-40.0.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-tweaks/40/gnome-tweaks-40.10.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-tweaks/40/gnome-tweaks-40.10.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,20 +49,10 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-rm -rf /usr/lib/python3.10/site-packages/gtweak
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sed -i '/merge_file/s/(.*/(/' data/meson.build
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release &&
+meson setup --prefix=/usr --buildtype=release &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

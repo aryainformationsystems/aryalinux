@@ -14,15 +14,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-text-csv
-VERSION=2.01
-URL=https://www.cpan.org/authors/id/I/IS/ISHIGAKI/Text-CSV-2.01.tar.gz
+VERSION=2.02
+URL=https://www.cpan.org/authors/id/I/IS/ISHIGAKI/Text-CSV-2.02.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/I/IS/ISHIGAKI/Text-CSV-2.01.tar.gz
+wget -nc https://www.cpan.org/authors/id/I/IS/ISHIGAKI/Text-CSV-2.02.tar.gz
 
 
 if [ ! -z $URL ]

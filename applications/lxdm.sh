@@ -77,7 +77,7 @@ sed -e 's/^bg/#&/'        \
 ./configure --prefix=/usr     \
             --sysconfdir=/etc \
             --with-pam        \
-            --with-systemdsystemunitdir=/lib/systemd/system &&
+            --with-systemdsystemunitdir=no &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
@@ -90,7 +90,38 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable lxdm
+#!/bin/bash
+
+set -e
+set +h
+
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-lxdm
+popd
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+telinit 5
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cp -v /etc/inittab{,-orig} &&
+sed -i '/initdefault/ s/3/5/' /etc/inittab
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

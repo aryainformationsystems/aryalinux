@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=scons
-VERSION=4.3.0
-URL=https://downloads.sourceforge.net/scons/SCons-4.3.0.tar.gz
+VERSION=4.5.2
+URL=https://downloads.sourceforge.net/scons/SCons-4.5.2.tar.gz
 SECTION="Programming"
 DESCRIPTION="SCons is a tool for building software (and other files) implemented in Python."
 
@@ -21,7 +21,7 @@ DESCRIPTION="SCons is a tool for building software (and other files) implemented
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/scons/SCons-4.3.0.tar.gz
+wget -nc https://downloads.sourceforge.net/scons/SCons-4.5.2.tar.gz
 
 
 if [ ! -z $URL ]
@@ -45,12 +45,13 @@ echo $USER > /tmp/currentuser
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-sed -i 's/env python/&3/' SCons/Utilities/*.py              &&
-sed -i 's:build/doc/man/::' setup.cfg                       &&
-python3 setup.py install --prefix=/usr  \
-                         --optimize=1   \
-                         --install-data=/usr/share/man/man1 &&
-cp scons{,ign}.1 /usr/share/man/man1
+sed -i 's/env python/&3/' SCons/Utilities/*.py &&
+
+python3 setup.py install --prefix=/usr \
+                         --optimize=1  &&
+
+mv -v /usr/lib/python3.11/site-packages/SCons-4.5.2-py3.11.egg/*.1 \
+      /usr/share/man/man1
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

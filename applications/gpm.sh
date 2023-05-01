@@ -23,7 +23,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://anduin.linuxfromscratch.org/BLFS/gpm/gpm-1.20.7.tar.bz2
 wget -nc ftp://anduin.linuxfromscratch.org/BLFS/gpm/gpm-1.20.7.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/gpm-1.20.7-consolidated-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/gpm-1.20.7-consolidated-1.patch
 
 
 if [ ! -z $URL ]
@@ -92,11 +92,23 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-install -v -dm755 /etc/systemd/system/gpm.service.d &&
-cat > /etc/systemd/system/gpm.service.d/99-user.conf << EOF
-[Service]
-ExecStart=/usr/sbin/gpm <list of parameters>
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cat > /etc/sysconfig/mouse << "EOF"
+# Begin /etc/sysconfig/mouse
+
+MDEVICE="<yourdevice>"
+PROTOCOL="<yourprotocol>"
+GPMOPTS="<additional options>"
+
+# End /etc/sysconfig/mouse
 EOF
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

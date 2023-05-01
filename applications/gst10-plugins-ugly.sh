@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gst10-plugins-ugly
-VERSION=1.20.0
-URL=https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.0.tar.xz
+VERSION=1.22.2
+URL=https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.2.tar.xz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="The GStreamer Ugly Plug-ins is a set of plug-ins considered by the GStreamer developers to have good quality and correct functionality, but distributing them might pose problems. The license on either the plug-ins or the supporting libraries might not be how the GStreamer developers would like. The code might be widely known to present patent problems."
 
@@ -25,7 +25,7 @@ DESCRIPTION="The GStreamer Ugly Plug-ins is a set of plug-ins considered by the 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.0.tar.xz
+wget -nc https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -50,10 +50,12 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson  --prefix=/usr       \
+meson  setup ..            \
+       --prefix=/usr       \
        --buildtype=release \
+       -Dgpl=enabled       \
        -Dpackage-origin=https://www.linuxfromscratch.org/blfs/view/svn/ \
-       -Dpackage-name="GStreamer 1.20.0 BLFS" &&
+       -Dpackage-name="GStreamer 1.22.2 BLFS" &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

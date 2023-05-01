@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=liburcu
-VERSION=0.13.1
-URL=https://lttng.org/files/urcu/userspace-rcu-0.13.1.tar.bz2
+VERSION=0.14.0
+URL=https://lttng.org/files/urcu/userspace-rcu-0.14.0.tar.bz2
 SECTION="General Libraries"
 DESCRIPTION="The userspace-rcu package provides a set of userspace RCU (read-copy-update) libraries. These data synchronization libraries provide read-side access which scales linearly with the number of cores. It does so by allowing multiples copies of a given data structure to live at the same time, and by monitoring the data structure accesses to detect grace periods after which memory reclamation is possible."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The userspace-rcu package provides a set of userspace RCU (read-cop
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://lttng.org/files/urcu/userspace-rcu-0.13.1.tar.bz2
+wget -nc https://lttng.org/files/urcu/userspace-rcu-0.14.0.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -45,7 +45,7 @@ echo $USER > /tmp/currentuser
 
 ./configure --prefix=/usr    \
             --disable-static \
-            --docdir=/usr/share/doc/liburcu-0.13.1 &&
+            --docdir=/usr/share/doc/liburcu-0.14.0 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

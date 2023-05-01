@@ -17,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=wireshark
-VERSION=3.6.2
-URL=https://www.wireshark.org/download/src/all-versions/wireshark-3.6.2.tar.xz
+VERSION=4.0.5
+URL=https://www.wireshark.org/download/src/all-versions/wireshark-4.0.5.tar.xz
 SECTION="Networking Utilities"
 DESCRIPTION="The Wireshark package contains a network protocol analyzer, also known as a “sniffer”. This is useful for analyzing data captured “off the wire” from a live network connection, or data read from a capture file."
 
@@ -26,7 +26,7 @@ DESCRIPTION="The Wireshark package contains a network protocol analyzer, also kn
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.wireshark.org/download/src/all-versions/wireshark-3.6.2.tar.xz
+wget -nc https://www.wireshark.org/download/src/all-versions/wireshark-4.0.5.tar.xz
 wget -nc https://www.wireshark.org/download/docs/
 
 
@@ -63,7 +63,7 @@ cd    build &&
 
 cmake -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release  \
-      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/wireshark-3.6.2 \
+      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/wireshark-4.0.5 \
       -G Ninja \
       .. &&
 ninja
@@ -71,11 +71,11 @@ sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install &&
 
-install -v -m755 -d /usr/share/doc/wireshark-3.6.2 &&
+install -v -m755 -d /usr/share/doc/wireshark-4.0.5 &&
 install -v -m644    ../README.linux ../doc/README.* ../doc/randpkt.txt \
-                    /usr/share/doc/wireshark-3.6.2 &&
+                    /usr/share/doc/wireshark-4.0.5 &&
 
-pushd /usr/share/doc/wireshark-3.6.2 &&
+pushd /usr/share/doc/wireshark-4.0.5 &&
    for FILENAME in ../../wireshark/*.html; do
       ln -s -v -f $FILENAME .
    done &&
@@ -90,7 +90,7 @@ sudo rm -rf /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 install -v -m644 <Downloaded_Files> \
-                 /usr/share/doc/wireshark-3.6.2
+                 /usr/share/doc/wireshark-4.0.5
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

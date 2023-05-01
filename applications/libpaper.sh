@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libpaper
-VERSION=1.1.2
-URL=https://ftp.debian.org/debian/pool/main/libp/libpaper/libpaper_1.1.24+nmu5.tar.gz
+VERSION=2.1.0
+URL=https://github.com/rrthomas/libpaper/releases/download/v2.1.0/libpaper-2.1.0.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="This package is intended to provide a simple way for applications to take actions based on a system or user-specified paper size."
 
@@ -21,7 +21,7 @@ DESCRIPTION="This package is intended to provide a simple way for applications t
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.debian.org/debian/pool/main/libp/libpaper/libpaper_1.1.24+nmu5.tar.gz
+wget -nc https://github.com/rrthomas/libpaper/releases/download/v2.1.0/libpaper-2.1.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -43,32 +43,24 @@ fi
 echo $USER > /tmp/currentuser
 
 
-autoreconf -fi                &&
-./configure --prefix=/usr     \
-            --sysconfdir=/etc \
-            --disable-static &&
+./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --disable-static     \
+            --enable-relocatable \
+            --docdir=/usr/share/doc/paper-2.1.0 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install &&
-mkdir -vp /etc/libpaper.d
+make install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cat > /etc/papersize << "EOF"
-a4
-EOF
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
+mkdir -pv ~/.config &&
+echo "a4" > ~/.config/papersize
+echo "PAPERSIZE=a4" > /etc/profile.d/libpaper.sh
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

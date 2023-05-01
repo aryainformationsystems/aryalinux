@@ -14,7 +14,7 @@ cd $SOURCE_DIR
 
 NAME=boost
 VERSION=
-URL=https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
+URL=https://boostorg.jfrog.io/artifactory/main/release/1.82.0/source/boost_1_82_0.tar.bz2
 SECTION="General Libraries"
 DESCRIPTION="Boost provides a set of free peer-reviewed portable C++ source libraries. It includes libraries for linear algebra, pseudorandom number generation, multithreading, image processing, regular expressions and unit testing."
 
@@ -22,7 +22,7 @@ DESCRIPTION="Boost provides a set of free peer-reviewed portable C++ source libr
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
+wget -nc https://boostorg.jfrog.io/artifactory/main/release/1.82.0/source/boost_1_82_0.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -44,6 +44,8 @@ fi
 echo $USER > /tmp/currentuser
 
 
+sed -i '/#include.*phoenix.*tuple.hpp.*/d' \
+  boost/phoenix/stl.hpp
 ./bootstrap.sh --prefix=/usr --with-python=python3 &&
 ./b2 stage -j$(nproc) threading=multi link=shared
 sudo rm -rf /tmp/rootscript.sh

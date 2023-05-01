@@ -59,7 +59,8 @@ echo $USER > /tmp/currentuser
 
 ./configure --prefix=/usr                \
             --enable-compile-warnings=no \
-            --enable-cxx-warnings=no     &&
+            --enable-cxx-warnings=no     \
+            --disable-nautilus           &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

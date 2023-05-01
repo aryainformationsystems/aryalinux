@@ -8,15 +8,15 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:gjs
+#REQ:libadwaita
 #REQ:libgweather
-#REQ:libhandy1
 
 
 cd $SOURCE_DIR
 
 NAME=gnome-weather
-VERSION=41.0
-URL=https://download.gnome.org/sources/gnome-weather/41/gnome-weather-41.0.tar.xz
+VERSION=43.0
+URL=https://download.gnome.org/sources/gnome-weather/43/gnome-weather-43.0.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="GNOME Weather is a small application that allows you to monitor the current weather conditions for your city, or anywhere in the world, and to access updated forecasts provided by various internet services."
 
@@ -24,8 +24,8 @@ DESCRIPTION="GNOME Weather is a small application that allows you to monitor the
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-weather/41/gnome-weather-41.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-weather/41/gnome-weather-41.0.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-weather/43/gnome-weather-43.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-weather/43/gnome-weather-43.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -47,11 +47,10 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i '/merge_file/{n;d}' data/meson.build
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -23,8 +23,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=cheese
-VERSION=41.1
-URL=https://download.gnome.org/sources/cheese/41/cheese-41.1.tar.xz
+VERSION=43.0
+URL=https://download.gnome.org/sources/cheese/43/cheese-43.0.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="Cheese is used to take photos and videos with fun graphical effects."
 
@@ -32,8 +32,8 @@ DESCRIPTION="Cheese is used to take photos and videos with fun graphical effects
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/cheese/41/cheese-41.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/cheese/41/cheese-41.1.tar.xz
+wget -nc https://download.gnome.org/sources/cheese/43/cheese-43.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/cheese/43/cheese-43.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -58,7 +58,11 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dgtk_doc=false .. &&
+meson setup --prefix=/usr        \
+            --buildtype=release  \
+            -Dgtk_doc=false      \
+            -Dtests=true         \
+            ..                   &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

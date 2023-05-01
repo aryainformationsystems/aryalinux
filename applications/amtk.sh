@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=amtk
-VERSION=5.2.0
-URL=https://download.gnome.org/sources/amtk/5.2/amtk-5.2.0.tar.xz
+VERSION=5.6.1
+URL=https://download.gnome.org/sources/amtk/5.6/amtk-5.6.1.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="The Amtk package contains a basic GTKUIManager replacement based on GAction."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The Amtk package contains a basic GTKUIManager replacement based on
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/amtk/5.2/amtk-5.2.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/amtk/5.2/amtk-5.2.0.tar.xz
+wget -nc https://download.gnome.org/sources/amtk/5.6/amtk-5.6.1.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/amtk/5.6/amtk-5.6.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -45,11 +45,17 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr &&
-make
+mkdir amtk-build &&
+cd    amtk-build &&
+
+meson setup ..              \
+      --prefix=/usr         \
+      --buildtype=release   \
+      -Dgtk_doc=false       &&
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

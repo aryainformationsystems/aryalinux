@@ -8,7 +8,6 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:cmake
-#REQ:ffmpeg
 #REQ:libvdpau
 #REQ:libva
 

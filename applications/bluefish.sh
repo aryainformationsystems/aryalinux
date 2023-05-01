@@ -15,16 +15,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=bluefish
-VERSION=2.2.12
-URL=https://www.bennewitz.com/bluefish/stable/source/bluefish-2.2.12.tar.bz2
-SECTION="Editors"
+VERSION=2.2.13
+URL=https://www.bennewitz.com/bluefish/stable/source/bluefish-2.2.13.tar.bz2
+SECTION="Text Editors"
 DESCRIPTION="Bluefish is a GTK+ text editor targeted towards programmers and web designers, with many options to write websites, scripts and programming code. Bluefish supports many programming and markup languages, and it focuses on editing dynamic and interactive websites."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.bennewitz.com/bluefish/stable/source/bluefish-2.2.12.tar.bz2
+wget -nc https://www.bennewitz.com/bluefish/stable/source/bluefish-2.2.13.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr --docdir=/usr/share/doc/bluefish-2.2.12 &&
+./configure --prefix=/usr --docdir=/usr/share/doc/bluefish-2.2.13 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

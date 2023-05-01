@@ -8,6 +8,7 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:gnupg
+#REQ:perl-modules#perl-libwww-perl
 #REQ:gs
 #REQ:x7lib
 #REQ:libxcb
@@ -16,6 +17,7 @@ set +h
 #REQ:python2
 #REQ:ruby
 #REQ:tk
+#REQ:gs
 
 
 cd $SOURCE_DIR
@@ -52,6 +54,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
+ln -sv libGL.so.1 /usr/lib/libGLX.so.0
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 TEXLIVE_INSTALL_PREFIX=/opt/texlive ./install-tl
@@ -63,7 +66,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-for F in /opt/texlive/2021/texmf-dist/scripts/latex-make/*.py ; do
+for F in /opt/texlive/2023/texmf-dist/scripts/latex-make/*.py ; do
   test -f $F && sed -i 's%/usr/bin/env python%/usr/bin/python3%' $F || true
 done
 ENDOFROOTSCRIPT

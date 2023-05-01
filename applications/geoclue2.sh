@@ -8,7 +8,7 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:json-glib
-#REQ:libsoup
+#REQ:libsoup3
 #REQ:modemmanager
 #REQ:vala
 #REQ:avahi
@@ -18,8 +18,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=geoclue2
-VERSION=2.6.0
-URL=https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.6.0/geoclue-2.6.0.tar.bz2
+VERSION=2.7.0
+URL=https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.0/geoclue-2.7.0.tar.bz2
 SECTION="Networking Libraries"
 DESCRIPTION="GeoClue is a modular geoinformation service built on top of the D-Bus messaging system. The goal of the GeoClue project is to make creating location-aware applications as simple as possible."
 
@@ -27,7 +27,7 @@ DESCRIPTION="GeoClue is a modular geoinformation service built on top of the D-B
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.6.0/geoclue-2.6.0.tar.bz2
+wget -nc https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.0/geoclue-2.7.0.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -52,7 +52,10 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dgtk-doc=false .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dgtk-doc=false     \
+            ..                  &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

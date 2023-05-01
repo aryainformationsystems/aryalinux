@@ -14,15 +14,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-html-parser
-VERSION=3.76
-URL=https://www.cpan.org/authors/id/O/OA/OALDERS/HTML-Parser-3.76.tar.gz
+VERSION=3.81
+URL=https://www.cpan.org/authors/id/O/OA/OALDERS/HTML-Parser-3.81.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/O/OA/OALDERS/HTML-Parser-3.76.tar.gz
+wget -nc https://www.cpan.org/authors/id/O/OA/OALDERS/HTML-Parser-3.81.tar.gz
 
 
 if [ ! -z $URL ]

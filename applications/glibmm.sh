@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=glibmm
-VERSION=2.66.2
-URL=https://download.gnome.org/sources/glibmm/2.66/glibmm-2.66.2.tar.xz
+VERSION=2.66.5
+URL=https://download.gnome.org/sources/glibmm/2.66/glibmm-2.66.5.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The GLibmm package is a set of C++ bindings for GLib."
 
@@ -23,8 +23,8 @@ DESCRIPTION="The GLibmm package is a set of C++ bindings for GLib."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/glibmm/2.66/glibmm-2.66.2.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/glibmm/2.66/glibmm-2.66.2.tar.xz
+wget -nc https://download.gnome.org/sources/glibmm/2.66/glibmm-2.66.5.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/glibmm/2.66/glibmm-2.66.5.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ echo $USER > /tmp/currentuser
 mkdir bld &&
 cd    bld &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

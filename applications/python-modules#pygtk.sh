@@ -9,7 +9,7 @@ set +h
 
 #REQ:python-modules#pygobject2
 #REQ:python2
-#REQ:atk
+#REQ:at-spi2-core
 #REQ:pango
 #REQ:python-modules#pycairo2
 #REQ:pango

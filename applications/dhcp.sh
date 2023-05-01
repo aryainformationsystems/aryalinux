@@ -13,7 +13,7 @@ cd $SOURCE_DIR
 
 NAME=dhcp
 VERSION=4.4.
-URL=https://ftp.isc.org/isc/dhcp/4.4.2-P1/dhcp-4.4.2-P1.tar.gz
+URL=https://ftp.isc.org/isc/dhcp/4.4.3-P1/dhcp-4.4.3-P1.tar.gz
 SECTION="Connecting to a Network"
 DESCRIPTION="The ISC DHCP package contains both the client and server programs for DHCP. dhclient (the client) is used for connecting to a network which uses DHCP to assign network addresses. dhcpd (the server) is used for assigning network addresses on private networks."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The ISC DHCP package contains both the client and server programs f
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.isc.org/isc/dhcp/4.4.2-P1/dhcp-4.4.2-P1.tar.gz
-wget -nc ftp://ftp.isc.org/isc/dhcp/4.4.2-P1/dhcp-4.4.2-P1.tar.gz
+wget -nc https://ftp.isc.org/isc/dhcp/4.4.3-P1/dhcp-4.4.3-P1.tar.gz
+wget -nc ftp://ftp.isc.org/isc/dhcp/4.4.3-P1/dhcp-4.4.3-P1.tar.gz
 
 
 if [ ! -z $URL ]
@@ -44,10 +44,6 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i '/o.*dhcp_type/d' server/mdb.c &&
-sed -r '/u.*(local|remote)_port/d'    \
-    -i client/dhclient.c              \
-       relay/dhcrelay.c
 ( export CFLAGS="${CFLAGS:--g -O2} -Wall -fno-strict-aliasing                 \
         -D_PATH_DHCLIENT_SCRIPT='\"/usr/sbin/dhclient-script\"'     \
         -D_PATH_DHCPD_CONF='\"/etc/dhcp/dhcpd.conf\"'               \
@@ -130,6 +126,15 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+dhclient <eth0>
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 #!/bin/bash
 
 set -e
@@ -141,8 +146,31 @@ pushd $SOURCE_DIR
 wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
 tar xf blfs-systemd-units-20180105.tar.bz2
 cd blfs-systemd-units-20180105
-sudo make install-dhclient
+sudo make install-service-dhclient
 popd
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cat > /etc/sysconfig/ifconfig.eth0 << "EOF"
+ONBOOT="yes"
+IFACE="eth0"
+SERVICE="dhclient"
+DHCP_START=""
+DHCP_STOP=""
+
+# Set PRINTIP="yes" to have the script print
+# the DHCP assigned IP address
+PRINTIP="no"
+
+# Set PRINTALL="yes" to print the DHCP assigned values for
+# IP, SM, DG, and 1st NS. This requires PRINTIP="yes".
+PRINTALL="no"
+EOF
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -182,7 +210,8 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -dm 755 /var/lib/dhcpd
+install -v -dm 755 /var/lib/dhcpd &&
+touch /var/lib/dhcpd/dhcpd.leases
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

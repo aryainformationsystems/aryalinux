@@ -13,15 +13,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-deps#perl-clone
-VERSION=0.45
-URL=https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/Clone-0.45.tar.gz
+VERSION=0.46
+URL=https://cpan.metacpan.org/authors/id/G/GA/GARU/Clone-0.46.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/Clone-0.45.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/G/GA/GARU/Clone-0.46.tar.gz
 
 
 if [ ! -z $URL ]

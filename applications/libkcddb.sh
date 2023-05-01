@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libkcddb
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/libkcddb-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/libkcddb-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
 DESCRIPTION="The libkcddb package contains a library used to retrieve audio CD meta data from the internet."
 
@@ -23,7 +23,7 @@ DESCRIPTION="The libkcddb package contains a library used to retrieve audio CD m
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/libkcddb-21.12.2.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/libkcddb-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]

@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libportal
-VERSION=0.5
-URL=https://github.com/flatpak/libportal/releases/download/0.5/libportal-0.5.tar.xz
+VERSION=0.6
+URL=https://github.com/flatpak/libportal/releases/download/0.6/libportal-0.6.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The libportal package provides a library that contains GIO-style async APIs for most Flatpak portals."
 
@@ -25,7 +25,7 @@ DESCRIPTION="The libportal package provides a library that contains GIO-style as
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/flatpak/libportal/releases/download/0.5/libportal-0.5.tar.xz
+wget -nc https://github.com/flatpak/libportal/releases/download/0.6/libportal-0.6.tar.xz
 
 
 if [ ! -z $URL ]
@@ -47,14 +47,25 @@ fi
 echo $USER > /tmp/currentuser
 
 
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 if [ -e /usr/include/libportal ]; then
     rm -rf /usr/include/libportal.old &&
     mv -vf /usr/include/libportal{,.old}
 fi
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Ddocs=false .. &&
+meson setup --prefix=/usr --buildtype=release -Ddocs=false .. &&
+ninja
+sed "/output/s/-1/-0.6/" -i ../doc/meson.build &&
+meson configure -Ddocs=true                    &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

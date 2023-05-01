@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xarchiver
-VERSION=0.5.4.17
-URL=https://github.com/ib/xarchiver/archive/0.5.4.17/xarchiver-0.5.4.17.tar.gz
+VERSION=0.5.4.20
+URL=https://github.com/ib/xarchiver/archive/0.5.4.20/xarchiver-0.5.4.20.tar.gz
 SECTION="Other X-based Programs"
 DESCRIPTION="XArchiver is a GTK+ archive manager with support for tar, xz, bzip2, gzip, zip, 7z, rar, lzo and many other archive formats."
 
@@ -23,7 +23,7 @@ DESCRIPTION="XArchiver is a GTK+ archive manager with support for tar, xz, bzip2
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/ib/xarchiver/archive/0.5.4.17/xarchiver-0.5.4.17.tar.gz
+wget -nc https://github.com/ib/xarchiver/archive/0.5.4.20/xarchiver-0.5.4.20.tar.gz
 
 
 if [ ! -z $URL ]
@@ -47,7 +47,7 @@ echo $USER > /tmp/currentuser
 
 ./configure  --prefix=/usr               \
              --libexecdir=/usr/lib/xfce4 \
-             --docdir=/usr/share/doc/xarchiver-0.5.4.17 &&
+             --docdir=/usr/share/doc/xarchiver-0.5.4.20 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

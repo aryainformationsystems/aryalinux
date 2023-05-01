@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xterm
-VERSION=370
-URL=https://invisible-mirror.net/archives/xterm/xterm-370.tgz
+VERSION=379
+URL=https://invisible-mirror.net/archives/xterm/xterm-379.tgz
 SECTION="Graphical Environments"
 DESCRIPTION="xterm is a terminal emulator for the X Window System."
 
@@ -22,7 +22,7 @@ DESCRIPTION="xterm is a terminal emulator for the X Window System."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://invisible-mirror.net/archives/xterm/xterm-370.tgz
+wget -nc https://invisible-mirror.net/archives/xterm/xterm-379.tgz
 wget -nc https://sourceforge.net/projects/aryalinux/files/releases/4.0/FiraMono.zip
 
 

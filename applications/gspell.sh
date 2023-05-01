@@ -8,14 +8,15 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:enchant
+#REQ:icu
 #REQ:gtk3
 
 
 cd $SOURCE_DIR
 
 NAME=gspell
-VERSION=1.8.4
-URL=https://download.gnome.org/sources/gspell/1.8/gspell-1.8.4.tar.xz
+VERSION=1.12.0
+URL=https://download.gnome.org/sources/gspell/1.12/gspell-1.12.0.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The gspell package provides a flexible API to add spell checking to a GTK+ application."
 
@@ -23,7 +24,7 @@ DESCRIPTION="The gspell package provides a flexible API to add spell checking to
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gspell/1.8/gspell-1.8.4.tar.xz
+wget -nc https://download.gnome.org/sources/gspell/1.12/gspell-1.12.0.tar.xz
 
 
 if [ ! -z $URL ]

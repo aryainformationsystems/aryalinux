@@ -21,8 +21,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gcr
-VERSION=3.40.0
-URL=https://download.gnome.org/sources/gcr/3.40/gcr-3.40.0.tar.xz
+VERSION=3.41.1
+URL=https://download.gnome.org/sources/gcr/3.41/gcr-3.41.1.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The Gcr package contains libraries used for displaying certificates and accessing key stores. It also provides the viewer for crypto files on the GNOME Desktop."
 
@@ -30,8 +30,8 @@ DESCRIPTION="The Gcr package contains libraries used for displaying certificates
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gcr/3.40/gcr-3.40.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gcr/3.40/gcr-3.40.0.tar.xz
+wget -nc https://download.gnome.org/sources/gcr/3.41/gcr-3.41.1.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gcr/3.41/gcr-3.41.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -53,17 +53,20 @@ fi
 echo $USER > /tmp/currentuser
 
 
-find . -name meson.build | xargs sed -i /packages.\*deps/d
 sed -i 's:"/desktop:"/org:' schema/*.xml &&
-
-sed -e '208 s/@BASENAME@/gcr-viewer.desktop/'   \
-    -e '231 s/@BASENAME@/gcr-prompter.desktop/' \
-    -i ui/meson.build                           &&
 
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dgtk_doc=false .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dgtk_doc=false     \
+            ..                  &&
+ninja
+sed -e "/install_dir/s@,\$@ / 'gcr-3.41.1'&@" \
+    -e "/fatal-warnings/d"                    \
+    -i ../docs/*/meson.build                  &&
+meson configure -Dgtk_doc=true                &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -23,6 +23,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://github.com/rhboot/efivar/releases/download/38/efivar-38.tar.bz2
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/efivar-38-i686-1.patch
 
 
 if [ ! -z $URL ]
@@ -45,6 +46,7 @@ echo $USER > /tmp/currentuser
 
 
 sed '/prep :/a\\ttouch prep' -i src/Makefile
+[ $(getconf LONG_BIT) = 64 ] || patch -Np1 -i ../efivar-38-i686-1.patch
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

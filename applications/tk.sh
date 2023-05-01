@@ -14,7 +14,7 @@ cd $SOURCE_DIR
 
 NAME=tk
 VERSION=
-URL=https://downloads.sourceforge.net/tcl/tk8.6.12-src.tar.gz
+URL=https://downloads.sourceforge.net/tcl/tk8.6.13-src.tar.gz
 SECTION="Programming"
 DESCRIPTION="The Tk package contains a TCL GUI Toolkit."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The Tk package contains a TCL GUI Toolkit."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/tcl/tk8.6.12-src.tar.gz
+wget -nc https://downloads.sourceforge.net/tcl/tk8.6.13-src.tar.gz
 
 
 if [ ! -z $URL ]

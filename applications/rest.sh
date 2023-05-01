@@ -7,16 +7,17 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
+#REQ:json-glib
+#REQ:libsoup3
 #REQ:make-ca
-#REQ:libsoup
 #REQ:gobject-introspection
 
 
 cd $SOURCE_DIR
 
 NAME=rest
-VERSION=0.8.1
-URL=https://download.gnome.org/sources/rest/0.8/rest-0.8.1.tar.xz
+VERSION=0.9.1
+URL=https://download.gnome.org/sources/rest/0.9/rest-0.9.1.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The rest package contains a library that was designed to make it easier to access web services that claim to be \"RESTful\". It includes convenience wrappers for libsoup and libxml to ease remote use of the RESTful API."
 
@@ -24,8 +25,8 @@ DESCRIPTION="The rest package contains a library that was designed to make it ea
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/rest/0.8/rest-0.8.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/rest/0.8/rest-0.8.1.tar.xz
+wget -nc https://download.gnome.org/sources/rest/0.9/rest-0.9.1.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/rest/0.9/rest-0.9.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -47,11 +48,21 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr &&
-make
+mkdir build &&
+cd    build &&
+
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dexamples=false    \
+            -Dgtk_doc=false     \
+            ..                  &&
+ninja
+sed "/output/s/librest-1.0/rest-0.9.1/" -i ../docs/meson.build &&
+meson configure -Dgtk_doc=true                                 &&
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

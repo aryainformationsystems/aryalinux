@@ -10,7 +10,6 @@ set +h
 #REQ:boost
 #REQ:double-conversion
 #REQ:gc
-#REQ:gdl
 #REQ:gsl
 #REQ:gtkmm3
 #REQ:libsoup
@@ -23,15 +22,19 @@ set +h
 #REQ:lcms
 #REQ:libcanberra
 #REQ:potrace
+#REQ:python-modules#cachecontrol
+#REQ:python-modules#cssselect
 #REQ:python-modules#lxml
+#REQ:python-modules#numpy
+#REQ:python-modules#pyserial
 #REQ:python-modules#scour
 
 
 cd $SOURCE_DIR
 
 NAME=inkscape
-VERSION=1.1.2
-URL=https://inkscape.org/gallery/item/31668/inkscape-1.1.2.tar.xz
+VERSION=1.2.2
+URL=https://inkscape.org/gallery/item/37360/inkscape-1.2.2.tar.xz
 SECTION="Other X-based Programs"
 DESCRIPTION="Inkscape is a what you see is what you get Scalable Vector Graphics editor. It is useful for creating, viewing and changing SVG images."
 
@@ -39,7 +42,7 @@ DESCRIPTION="Inkscape is a what you see is what you get Scalable Vector Graphics
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://inkscape.org/gallery/item/31668/inkscape-1.1.2.tar.xz
+wget -nc https://inkscape.org/gallery/item/37360/inkscape-1.2.2.tar.xz
 
 
 if [ ! -z $URL ]

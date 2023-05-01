@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libksba
-VERSION=1.6.0
-URL=https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.6.0.tar.bz2
+VERSION=1.6.3
+URL=https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.6.3.tar.bz2
 SECTION="General Libraries"
 DESCRIPTION="The Libksba package contains a library used to make X.509 certificates as well as making the CMS (Cryptographic Message Syntax) easily accessible by other applications. Both specifications are building blocks of S/MIME and TLS. The library does not rely on another cryptographic library but provides hooks for easy integration with Libgcrypt."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The Libksba package contains a library used to make X.509 certifica
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.6.0.tar.bz2
-wget -nc ftp://ftp.gnupg.org/gcrypt/libksba/libksba-1.6.0.tar.bz2
+wget -nc https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.6.3.tar.bz2
+wget -nc ftp://ftp.gnupg.org/gcrypt/libksba/libksba-1.6.3.tar.bz2
 
 
 if [ ! -z $URL ]

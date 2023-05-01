@@ -7,7 +7,7 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:xcursor-themes
+#REQ:x7font
 
 
 cd $SOURCE_DIR
@@ -47,13 +47,13 @@ echo $USER > /tmp/currentuser
 export XORG_CONFIG="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-static"
 
 cat > legacy.dat << "EOF"
-2a455d3c02390597feb9cefb3fe97a45 app/ bdftopcf-1.1.tar.bz2
-1347c3031b74c9e91dc4dfa53b12f143 font/ font-adobe-100dpi-1.0.3.tar.bz2
-6c9f26c92393c0756f3e8d614713495b font/ font-adobe-75dpi-1.0.3.tar.bz2
-cb7b57d7800fd9e28ec35d85761ed278 font/ font-jis-misc-1.0.3.tar.bz2
-0571bf77f8fab465a5454569d9989506 font/ font-daewoo-misc-1.0.3.tar.bz2
-a2401caccbdcf5698e001784dbd43f1a font/ font-isas-misc-1.0.3.tar.bz2
-c88eb44b3b903d79fb44b860a213e623 font/ font-misc-misc-1.1.2.tar.bz2
+e09b61567ab4a4d534119bba24eddfb1 util/ bdftopcf-1.1.1.tar.xz
+20239f6f99ac586f10360b0759f73361 font/ font-adobe-100dpi-1.0.4.tar.xz
+2dc044f693ee8e0836f718c2699628b9 font/ font-adobe-75dpi-1.0.4.tar.xz
+2c939d5bd4609d8e284be9bef4b8b330 font/ font-jis-misc-1.0.4.tar.xz
+6300bc99a1e45fbbe6075b3de728c27f font/ font-daewoo-misc-1.0.4.tar.xz
+fe2c44307639062d07c6e9f75f4d6a13 font/ font-isas-misc-1.0.4.tar.xz
+145128c4b5f7820c974c8c5b9f6ffe94 font/ font-misc-misc-1.1.3.tar.xz
 EOF
 mkdir legacy &&
 cd    legacy &&
@@ -73,7 +73,7 @@ export -f as_root
 bash -e
 for package in $(grep -v '^#' ../legacy.md5 | awk '{print $2}')
 do
-  packagedir=${package%.tar.bz2}
+  packagedir=${package%.tar.?z*}
   tar -xf $package
   pushd $packagedir
     ./configure $XORG_CONFIG

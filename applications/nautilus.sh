@@ -11,16 +11,17 @@ set +h
 #REQ:gexiv2
 #REQ:gnome-autoar
 #REQ:gnome-desktop
-#REQ:libhandy1
+#REQ:libadwaita
+#REQ:libcloudproviders
 #REQ:libnotify
+#REQ:libportal
 #REQ:libseccomp
-#REQ:tracker3-miners
+#REQ:tracker3
 #REQ:desktop-file-utils
 #REQ:exempi
 #REQ:gobject-introspection
 #REQ:gst10-plugins-base
 #REQ:libexif
-#REQ:libportal
 #REQ:adwaita-icon-theme
 #REQ:gvfs
 
@@ -28,8 +29,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=nautilus
-VERSION=41.2
-URL=https://download.gnome.org/sources/nautilus/41/nautilus-41.2.tar.xz
+VERSION=43.2
+URL=https://download.gnome.org/sources/nautilus/43/nautilus-43.2.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The Nautilus package contains the GNOME file manager."
 
@@ -37,8 +38,8 @@ DESCRIPTION="The Nautilus package contains the GNOME file manager."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/nautilus/41/nautilus-41.2.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/nautilus/41/nautilus-41.2.tar.xz
+wget -nc https://download.gnome.org/sources/nautilus/43/nautilus-43.2.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/nautilus/43/nautilus-43.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -60,16 +61,15 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed "/dependency/s@'libportal'@'libportal-gtk3'@" -i meson.build
-sed "/portal-gtk3/s@portal/@portal-gtk3/@" -i src/nautilus-files-view.c
+sed "/docdir =/s@\$@ / 'nautilus-43.2'@" -i meson.build
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr       \
-      --buildtype=release \
-      -Dselinux=false     \
-      -Dpackagekit=false  \
-      .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dselinux=false     \
+            -Dpackagekit=false  \
+            ..                  &&
 
 ninja
 sudo rm -rf /tmp/rootscript.sh

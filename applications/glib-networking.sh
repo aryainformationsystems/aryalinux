@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=glib-networking
-VERSION=2.70.1
-URL=https://download.gnome.org/sources/glib-networking/2.70/glib-networking-2.70.1.tar.xz
+VERSION=2.76.0
+URL=https://download.gnome.org/sources/glib-networking/2.76/glib-networking-2.76.0.tar.xz
 SECTION="Networking Libraries"
 DESCRIPTION="The GLib Networking package contains Network related gio modules for GLib."
 
@@ -25,7 +25,7 @@ DESCRIPTION="The GLib Networking package contains Network related gio modules fo
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/glib-networking/2.70/glib-networking-2.70.1.tar.xz
+wget -nc https://download.gnome.org/sources/glib-networking/2.76/glib-networking-2.76.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -50,8 +50,11 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr       \
-      --buildtype=release &&
+meson setup            \
+   --prefix=/usr       \
+   --buildtype=release \
+   -Dlibproxy=disabled \
+   .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=mlt
-VERSION=7.4.0
-URL=https://github.com/mltframework/mlt/releases/download/v7.4.0/mlt-7.4.0.tar.gz
+VERSION=7.14.0
+URL=https://github.com/mltframework/mlt/releases/download/v7.14.0/mlt-7.14.0.tar.gz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="MLT package is the Media Lovin Toolkit. It is an open source multimedia framework, designed and developed for television broadcasting. It provides a toolkit for broadcasters, video editors, media players, transcoders, web streamers and many more types of applications."
 
@@ -22,7 +22,7 @@ DESCRIPTION="MLT package is the Media Lovin Toolkit. It is an open source multim
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/mltframework/mlt/releases/download/v7.4.0/mlt-7.4.0.tar.gz
+wget -nc https://github.com/mltframework/mlt/releases/download/v7.14.0/mlt-7.14.0.tar.gz
 
 
 if [ ! -z $URL ]

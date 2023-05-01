@@ -12,7 +12,6 @@ set +h
 #REQ:libsamplerate
 #REQ:shared-mime-info
 #REQ:udisks2
-#REQ:ffmpeg
 #REQ:libburn
 #REQ:libdvdread
 #REQ:taglib
@@ -24,8 +23,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=k3b
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/k3b-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/k3b-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
 DESCRIPTION="The K3b package contains a KF5-based graphical interface to the Cdrtools and dvd+rw-tools CD/DVD manipulation tools. It also combines the capabilities of many other multimedia packages into one central interface to provide a simple-to-operate application that can be used to handle many of your CD/DVD recording and formatting requirements. It is used for creating audio, data, video and mixed-mode CDs as well as copying, ripping and burning CDs and DVDs."
 
@@ -33,7 +32,7 @@ DESCRIPTION="The K3b package contains a KF5-based graphical interface to the Cdr
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/k3b-21.12.2.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/k3b-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]

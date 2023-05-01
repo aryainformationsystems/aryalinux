@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=konsole5
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/konsole-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/konsole-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
 DESCRIPTION="The Konsole package is a KF5 based terminal emulator."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The Konsole package is a KF5 based terminal emulator."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/konsole-21.12.2.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/konsole-21.12.2-scrollbar-1.patch
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/konsole-22.12.2.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/konsole-22.12.2-scrollbar-1.patch
 
 
 if [ ! -z $URL ]
@@ -45,7 +45,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-patch -Np1 -i ../konsole-21.12.2-scrollbar-1.patch
+patch -Np1 -i ../konsole-22.12.2-scrollbar-1.patch
 mkdir build &&
 cd    build &&
 

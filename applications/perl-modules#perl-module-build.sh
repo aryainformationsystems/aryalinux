@@ -12,15 +12,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-module-build
-VERSION=0.4231
-URL=https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-0.4231.tar.gz
+VERSION=0.4232
+URL=https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-0.4232.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-0.4231.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-0.4232.tar.gz
 
 
 if [ ! -z $URL ]

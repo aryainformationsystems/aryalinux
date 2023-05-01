@@ -7,7 +7,7 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:atk
+#REQ:at-spi2-core
 #REQ:cogl
 #REQ:json-glib
 #REQ:gobject-introspection

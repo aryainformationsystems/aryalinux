@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=double-conversion
-VERSION=3.2.0
-URL=https://github.com/google/double-conversion/archive/v3.2.0/double-conversion-3.2.0.tar.gz
+VERSION=3.2.1
+URL=https://github.com/google/double-conversion/archive/v3.2.1/double-conversion-3.2.1.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="The Double-conversion package contains a library that facilitates binary-to-decimal and decimal-to-binary routines for IEEE doubles."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The Double-conversion package contains a library that facilitates b
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/google/double-conversion/archive/v3.2.0/double-conversion-3.2.0.tar.gz
+wget -nc https://github.com/google/double-conversion/archive/v3.2.1/double-conversion-3.2.1.tar.gz
 
 
 if [ ! -z $URL ]

@@ -11,7 +11,7 @@ set +h
 #REQ:libxml2
 #REQ:gobject-introspection
 #REQ:gtk3
-#REQ:libsoup
+#REQ:libsoup3
 #REQ:totem-pl-parser
 #REQ:vala
 
@@ -19,8 +19,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=grilo
-VERSION=0.3.14
-URL=https://download.gnome.org/sources/grilo/0.3/grilo-0.3.14.tar.xz
+VERSION=0.3.15
+URL=https://download.gnome.org/sources/grilo/0.3/grilo-0.3.15.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="Grilo is a framework focused on making media discovery and browsing easy for applications and application developers."
 
@@ -28,8 +28,8 @@ DESCRIPTION="Grilo is a framework focused on making media discovery and browsing
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/grilo/0.3/grilo-0.3.14.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/grilo/0.3/grilo-0.3.14.tar.xz
+wget -nc https://download.gnome.org/sources/grilo/0.3/grilo-0.3.15.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/grilo/0.3/grilo-0.3.15.tar.xz
 
 
 if [ ! -z $URL ]
@@ -54,9 +54,10 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build    &&
 
-meson --prefix=/usr       \
-      --buildtype=release \
-      -Denable-gtk-doc=false .. &&
+meson setup --prefix=/usr          \
+            --buildtype=release    \
+            -Denable-gtk-doc=false \
+            ..                     &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

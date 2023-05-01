@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libgsf
-VERSION=1.14.48
-URL=https://download.gnome.org/sources/libgsf/1.14/libgsf-1.14.48.tar.xz
+VERSION=1.14.50
+URL=https://download.gnome.org/sources/libgsf/1.14/libgsf-1.14.50.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The libgsf package contains a library used for providing an extensible input/output abstraction layer for structured file formats."
 
@@ -24,8 +24,8 @@ DESCRIPTION="The libgsf package contains a library used for providing an extensi
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/libgsf/1.14/libgsf-1.14.48.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libgsf/1.14/libgsf-1.14.48.tar.xz
+wget -nc https://download.gnome.org/sources/libgsf/1.14/libgsf-1.14.50.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libgsf/1.14/libgsf-1.14.50.tar.xz
 
 
 if [ ! -z $URL ]

@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=python3
-VERSION=3.10.2
-URL=https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
+VERSION=3.11.3
+URL=https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tar.xz
 SECTION="Programming"
 DESCRIPTION="The Python 3 package contains the Python development environment. This is useful for object-oriented programming, writing scripts, prototyping large programs or developing entire applications."
 
@@ -22,7 +22,8 @@ DESCRIPTION="The Python 3 package contains the Python development environment. T
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
+wget -nc https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tar.xz
+wget -nc https://www.python.org/ftp/python/doc/3.11.3/python-3.11.3-docs-html.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -49,7 +50,6 @@ CXX="/usr/bin/g++"               \
             --enable-shared      \
             --with-system-expat  \
             --with-system-ffi    \
-            --with-ensurepip=yes \
             --enable-optimizations &&
 make
 sudo rm -rf /tmp/rootscript.sh
@@ -63,7 +63,22 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ln -svfn python-3.10.2 /usr/share/doc/python-3
+install -v -dm755 /usr/share/doc/python-3.11.3/html
+
+tar --strip-components=1  \
+    --no-same-owner       \
+    --no-same-permissions \
+    -C /usr/share/doc/python-3.11.3/html \
+    -xvf ../python-3.11.3-docs-html.tar.bz2
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+ln -svfn python-3.11.3 /usr/share/doc/python-3
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

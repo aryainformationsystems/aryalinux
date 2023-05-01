@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=kdenlive
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/kdenlive-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/kdenlive-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
 DESCRIPTION="The Kdenlive package is a KF5 based video editor."
 
@@ -25,7 +25,7 @@ DESCRIPTION="The Kdenlive package is a KF5 based video editor."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/kdenlive-21.12.2.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/kdenlive-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]

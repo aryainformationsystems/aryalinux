@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=asciidoctor
-VERSION=2.0.17
-URL=https://github.com/asciidoctor/asciidoctor/archive/v2.0.17/asciidoctor-2.0.17.tar.gz
+VERSION=2.0.18
+URL=https://github.com/asciidoctor/asciidoctor/archive/v2.0.18/asciidoctor-2.0.18.tar.gz
 SECTION="General Utilities"
 DESCRIPTION="Asciidoctor is a fast, open source text processor and publishing toolchain for converting AsciiDoc content to HTML5, DocBook, PDF, and other formats."
 
@@ -22,7 +22,7 @@ DESCRIPTION="Asciidoctor is a fast, open source text processor and publishing to
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/asciidoctor/asciidoctor/archive/v2.0.17/asciidoctor-2.0.17.tar.gz
+wget -nc https://github.com/asciidoctor/asciidoctor/archive/v2.0.18/asciidoctor-2.0.18.tar.gz
 
 
 if [ ! -z $URL ]
@@ -47,7 +47,7 @@ echo $USER > /tmp/currentuser
 gem build asciidoctor.gemspec
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-gem install asciidoctor-2.0.17.gem &&
+gem install asciidoctor-2.0.18.gem &&
 install -vm644 man/asciidoctor.1 /usr/share/man/man1
 ENDOFROOTSCRIPT
 

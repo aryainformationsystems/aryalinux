@@ -22,6 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://www.libssh2.org/download/libssh2-1.10.0.tar.gz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/libssh2-1.10.0-upstream_fix-1.patch
 
 
 if [ ! -z $URL ]
@@ -43,6 +44,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
+patch -Np1 -i ../libssh2-1.10.0-upstream_fix-1.patch
 ./configure --prefix=/usr --disable-static &&
 make
 sudo rm -rf /tmp/rootscript.sh

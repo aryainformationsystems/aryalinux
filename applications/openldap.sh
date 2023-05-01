@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=openldap
-VERSION=2.6.1
-URL=https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.1.tgz
+VERSION=2.6.4
+URL=https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.4.tgz
 SECTION="Other Server Software"
 DESCRIPTION="The OpenLDAP package provides an open source implementation of the Lightweight Directory Access Protocol."
 
@@ -22,11 +22,11 @@ DESCRIPTION="The OpenLDAP package provides an open source implementation of the 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.1.tgz
-wget -nc ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.6.1.tgz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/openldap-2.6.1-consolidated-2.patch
+wget -nc https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.4.tgz
+wget -nc ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.6.4.tgz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/openldap-2.6.4-consolidated-1.patch
 wget -nc https://www.openldap.org/doc/admin26/
-wget -nc http://www.openldap.org/pub/
+wget -nc https://www.openldap.org/pub/
 
 
 if [ ! -z $URL ]
@@ -48,7 +48,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-patch -Np1 -i ../openldap-2.6.1-consolidated-2.patch &&
+patch -Np1 -i ../openldap-2.6.4-consolidated-1.patch &&
 autoconf &&
 
 ./configure --prefix=/usr     \
@@ -62,6 +62,15 @@ autoconf &&
 make depend &&
 make
 sudo make install
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+/etc/rc.d/init.d/slapd start
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

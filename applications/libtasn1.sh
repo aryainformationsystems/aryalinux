@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libtasn1
-VERSION=4.18.0
-URL=https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.18.0.tar.gz
+VERSION=4.19.0
+URL=https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.19.0.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="libtasn1 is a highly portable C library that encodes and decodes DER/BER data following an ASN.1 schema."
 
@@ -21,8 +21,8 @@ DESCRIPTION="libtasn1 is a highly portable C library that encodes and decodes DE
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.18.0.tar.gz
-wget -nc ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-4.18.0.tar.gz
+wget -nc https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.19.0.tar.gz
+wget -nc ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-4.19.0.tar.gz
 
 
 if [ ! -z $URL ]

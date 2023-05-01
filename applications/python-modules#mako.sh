@@ -13,15 +13,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=python-modules#mako
-VERSION=1.1.6
-URL=https://files.pythonhosted.org/packages/source/M/Mako/Mako-1.1.6.tar.gz
+VERSION=1.2.4
+URL=https://files.pythonhosted.org/packages/source/M/Mako/Mako-1.2.4.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://files.pythonhosted.org/packages/source/M/Mako/Mako-1.1.6.tar.gz
+wget -nc https://files.pythonhosted.org/packages/source/M/Mako/Mako-1.2.4.tar.gz
 
 
 if [ ! -z $URL ]
@@ -43,9 +43,10 @@ fi
 
 echo $USER > /tmp/currentuser
 
+pip3 wheel -w dist --no-build-isolation --no-deps $PWD
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-python3 setup.py install --optimize=1
+pip3 install --no-index --find-links dist --no-cache-dir --no-user Mako
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

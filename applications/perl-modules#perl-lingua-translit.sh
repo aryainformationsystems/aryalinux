@@ -12,15 +12,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-lingua-translit
-VERSION=0.28
-URL=https://www.cpan.org/authors/id/A/AL/ALINKE/Lingua-Translit-0.28.tar.gz
+VERSION=0.29
+URL=https://www.cpan.org/authors/id/A/AL/ALINKE/Lingua-Translit-0.29.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/A/AL/ALINKE/Lingua-Translit-0.28.tar.gz
+wget -nc https://www.cpan.org/authors/id/A/AL/ALINKE/Lingua-Translit-0.29.tar.gz
 
 
 if [ ! -z $URL ]

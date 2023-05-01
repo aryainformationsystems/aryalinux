@@ -8,14 +8,15 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:curl
+#REQ:icu
 #REQ:libxml2
 
 
 cd $SOURCE_DIR
 
 NAME=libqalculate
-VERSION=4.0.0
-URL=https://github.com/Qalculate/libqalculate/releases/download/v4.0.0/libqalculate-4.0.0.tar.gz
+VERSION=4.6.1
+URL=https://github.com/Qalculate/libqalculate/releases/download/v4.6.1/libqalculate-4.6.1.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="The libqalculate package contains a library that provides functions for a multi-purpose calculator."
 
@@ -23,7 +24,7 @@ DESCRIPTION="The libqalculate package contains a library that provides functions
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/Qalculate/libqalculate/releases/download/v4.0.0/libqalculate-4.0.0.tar.gz
+wget -nc https://github.com/Qalculate/libqalculate/releases/download/v4.6.1/libqalculate-4.6.1.tar.gz
 
 
 if [ ! -z $URL ]
@@ -45,7 +46,9 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr --disable-static &&
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/libqalculate-4.6.1 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

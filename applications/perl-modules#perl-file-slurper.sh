@@ -13,15 +13,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-file-slurper
-VERSION=0.013
-URL=https://www.cpan.org/authors/id/L/LE/LEONT/File-Slurper-0.013.tar.gz
+VERSION=0.014
+URL=https://www.cpan.org/authors/id/L/LE/LEONT/File-Slurper-0.014.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/L/LE/LEONT/File-Slurper-0.013.tar.gz
+wget -nc https://www.cpan.org/authors/id/L/LE/LEONT/File-Slurper-0.014.tar.gz
 
 
 if [ ! -z $URL ]

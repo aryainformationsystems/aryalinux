@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=valgrind
-VERSION=3.18.1
-URL=https://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2
+VERSION=3.20.0
+URL=https://sourceware.org/pub/valgrind/valgrind-3.20.0.tar.bz2
 SECTION="Programming"
 DESCRIPTION="Valgrind is an instrumentation framework for building dynamic analysis tools. There are Valgrind tools that can automatically detect many memory management and threading bugs, and profile programs in detail. Valgrind can also be used to build new tools."
 
@@ -21,9 +21,8 @@ DESCRIPTION="Valgrind is an instrumentation framework for building dynamic analy
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2
-wget -nc ftp://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/valgrind-3.18.1-upstream_fixes-1.patch
+wget -nc https://sourceware.org/pub/valgrind/valgrind-3.20.0.tar.bz2
+wget -nc ftp://sourceware.org/pub/valgrind/valgrind-3.20.0.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -45,11 +44,10 @@ fi
 echo $USER > /tmp/currentuser
 
 
-patch -Np1 -i ../valgrind-3.18.1-upstream_fixes-1.patch
 sed -i 's|/doc/valgrind||' docs/Makefile.in &&
 
 ./configure --prefix=/usr \
-            --datadir=/usr/share/doc/valgrind-3.18.1 &&
+            --datadir=/usr/share/doc/valgrind-3.20.0 &&
 make
 sed -e 's@prereq:.*@prereq: false@' \
     -i {helgrind,drd}/tests/pth_cond_destroy_busy.vgtest

@@ -17,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=parole
-VERSION=4.16.0
-URL=https://archive.xfce.org/src/apps/parole/4.16/parole-4.16.0.tar.bz2
+VERSION=4.18.0
+URL=https://archive.xfce.org/src/apps/parole/4.18/parole-4.18.0.tar.bz2
 SECTION="Xfce Applications"
 DESCRIPTION="Parole is a DVD/CD/music player for Xfce that uses GStreamer."
 
@@ -26,7 +26,7 @@ DESCRIPTION="Parole is a DVD/CD/music player for Xfce that uses GStreamer."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/apps/parole/4.16/parole-4.16.0.tar.bz2
+wget -nc https://archive.xfce.org/src/apps/parole/4.18/parole-4.18.0.tar.bz2
 
 
 if [ ! -z $URL ]

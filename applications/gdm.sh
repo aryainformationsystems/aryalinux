@@ -16,23 +16,23 @@ set +h
 #REQ:linux-pam
 #REQ:gnome-session
 #REQ:gnome-shell
-#REQ:systemd
+#REQ:elogind
 
 
 cd $SOURCE_DIR
 
 NAME=gdm
-VERSION=41.3
-URL=https://download.gnome.org/sources/gdm/41/gdm-41.3.tar.xz
-SECTION="GNOME Libraries and Desktop"
+VERSION=43.0
+URL=https://download.gnome.org/sources/gdm/43/gdm-43.0.tar.xz
+SECTION="Display Managers"
 DESCRIPTION="GDM is a system service that is responsible for providing graphical logins and managing local and remote displays."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gdm/41/gdm-41.3.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gdm/41/gdm-41.3.tar.xz
+wget -nc https://download.gnome.org/sources/gdm/43/gdm-43.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gdm/43/gdm-43.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -66,16 +66,27 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+sed -i -r '/(^| )systemd_dep/d' meson.build
+sed -e 's@systemd@elogind@'                                \
+    -e '/elogind/isession  required       pam_loginuid.so' \
+    -i data/pam-lfs/gdm-launch-environment.pam &&
+
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr               \
+meson setup ..                    \
+      --prefix=/usr               \
       --buildtype=release         \
-      -Dgdm-xsession=true ..      &&
+      -Dgdm-xsession=true         \
+      -Drun-dir=/run/gdm          \
+      -Dsystemd-journal=false     \
+      -Dsystemdsystemunitdir=/tmp \
+      -Dsystemduserunitdir=/tmp   &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ninja install
+ninja install &&
+rm -rv /tmp/*.{service,target.d}
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -84,7 +95,28 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable gdm
+#!/bin/bash
+
+set -e
+set +h
+
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-gdm
+popd
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+sed /initdefault/s/3/5/ -i /etc/inittab
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

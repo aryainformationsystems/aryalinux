@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gtksourceview4
-VERSION=4.8.2
-URL=https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.2.tar.xz
+VERSION=4.8.4
+URL=https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.4.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="The GtkSourceView package contains libraries used for extending the GTK+ text functions to include syntax highlighting."
 
@@ -24,8 +24,8 @@ DESCRIPTION="The GtkSourceView package contains libraries used for extending the
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.2.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gtksourceview/4.8/gtksourceview-4.8.2.tar.xz
+wget -nc https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.4.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gtksourceview/4.8/gtksourceview-4.8.4.tar.xz
 
 
 if [ ! -z $URL ]
@@ -50,7 +50,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

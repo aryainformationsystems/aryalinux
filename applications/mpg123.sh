@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=mpg123
-VERSION=1.29.3
-URL=https://downloads.sourceforge.net/mpg123/mpg123-1.29.3.tar.bz2
+VERSION=1.31.3
+URL=https://downloads.sourceforge.net/mpg123/mpg123-1.31.3.tar.bz2
 SECTION="Audio Utilities"
 DESCRIPTION="The mpg123 package contains a console-based MP3 player. It claims to be the fastest MP3 decoder for Unix."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The mpg123 package contains a console-based MP3 player. It claims t
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/mpg123/mpg123-1.29.3.tar.bz2
+wget -nc https://downloads.sourceforge.net/mpg123/mpg123-1.31.3.tar.bz2
 
 
 if [ ! -z $URL ]

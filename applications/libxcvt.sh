@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libxcvt
-VERSION=0.1.1
-URL=https://www.x.org/pub/individual/lib/libxcvt-0.1.1.tar.xz
+VERSION=0.1.2
+URL=https://www.x.org/pub/individual/lib/libxcvt-0.1.2.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="libxcvt is a library providing a standalone version of the X server implementation of the VESA CVT standard timing modelines generator. It is meant to be a direct replacement to the version formerly provided by the Xorg server."
 
@@ -21,8 +21,8 @@ DESCRIPTION="libxcvt is a library providing a standalone version of the X server
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/lib/libxcvt-0.1.1.tar.xz
-wget -nc ftp://ftp.x.org/pub/individual/lib/libxcvt-0.1.1.tar.xz
+wget -nc https://www.x.org/pub/individual/lib/libxcvt-0.1.2.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/lib/libxcvt-0.1.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -43,11 +43,12 @@ fi
 
 echo $USER > /tmp/currentuser
 
+export XORG_PREFIX="/usr"
 
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr .. &&
+meson setup --prefix=$XORG_PREFIX --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -9,22 +9,20 @@ set +h
 
 #REQ:clutter-gtk
 #REQ:desktop-file-utils
-#REQ:folks
 #REQ:geoclue2
 #REQ:geocode-glib
-#REQ:gfbgraph
 #REQ:gjs
-#REQ:libchamplain
-#REQ:libgee
-#REQ:libhandy1
+#REQ:libadwaita
+#REQ:libshumate
+#REQ:libgweather
 #REQ:rest
 
 
 cd $SOURCE_DIR
 
 NAME=gnome-maps
-VERSION=41.4
-URL=https://download.gnome.org/sources/gnome-maps/41/gnome-maps-41.4.tar.xz
+VERSION=43.4
+URL=https://download.gnome.org/sources/gnome-maps/43/gnome-maps-43.4.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="GNOME Maps is a map application for GNOME."
 
@@ -32,8 +30,8 @@ DESCRIPTION="GNOME Maps is a map application for GNOME."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-maps/41/gnome-maps-41.4.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-maps/41/gnome-maps-41.4.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-maps/43/gnome-maps-43.4.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-maps/43/gnome-maps-43.4.tar.xz
 
 
 if [ ! -z $URL ]
@@ -58,7 +56,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -14,15 +14,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=python-modules#python-dbusmock
-VERSION=0.25.0
-URL=https://github.com/martinpitt/python-dbusmock/releases/download/0.25.0/python-dbusmock-0.25.0.tar.gz
+VERSION=0.29.0
+URL=https://github.com/martinpitt/python-dbusmock/releases/download/0.29.0/dist.python-dbusmock-0.29.0.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/martinpitt/python-dbusmock/releases/download/0.25.0/python-dbusmock-0.25.0.tar.gz
+wget -nc https://github.com/martinpitt/python-dbusmock/releases/download/0.29.0/dist.python-dbusmock-0.29.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -44,10 +44,10 @@ fi
 
 echo $USER > /tmp/currentuser
 
-python3 setup.py build
+pip3 wheel -w dist --no-build-isolation --no-deps $PWD
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-python3 setup.py install --optimize=1
+pip3 install --no-index --find-links dist --no-cache-dir --no-user python-dbusmock
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

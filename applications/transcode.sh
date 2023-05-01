@@ -7,7 +7,6 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:ffmpeg
 #REQ:alsa-lib
 #REQ:lame
 #REQ:libdvdread
@@ -21,7 +20,7 @@ NAME=transcode
 VERSION=1.1.7
 URL=https://sources.archlinux.org/other/community/transcode/transcode-1.1.7.tar.bz2
 SECTION="Video Utilities"
-DESCRIPTION="Transcode was a fast, versatile and command-line based audio/video everything to everything converter primarily focussed on producing AVI video files with MP3 audio, but also including a program to read all the video and audio streams from a DVD."
+DESCRIPTION="Transcode was a fast, versatile and command-line based audio/video everything to everything converter primarily focused on producing AVI video files with MP3 audio, but also including a program to read all the video and audio streams from a DVD."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
@@ -29,8 +28,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://sources.archlinux.org/other/community/transcode/transcode-1.1.7.tar.bz2
 wget -nc ftp://ftp.mirrorservice.org/sites/distfiles.gentoo.org/distfiles/transcode-1.1.7.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/transcode-1.1.7-ffmpeg4-1.patch
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/transcode-1.1.7-gcc10_fix-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/transcode-1.1.7-gcc10_fix-1.patch
 
 
 if [ ! -z $URL ]
@@ -55,12 +53,12 @@ echo $USER > /tmp/currentuser
 sed -i 's|doc/transcode|&-$(PACKAGE_VERSION)|' \
        $(find . -name Makefile.in -exec grep -l 'docsdir =' {} \;) &&
 
-patch -Np1 -i ../transcode-1.1.7-ffmpeg4-1.patch   &&
 patch -Np1 -i ../transcode-1.1.7-gcc10_fix-1.patch &&
 
 ./configure --prefix=/usr     \
             --enable-alsa     \
-            --enable-libmpeg2 &&
+            --enable-libmpeg2 \
+            --disable-ffmpeg  &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

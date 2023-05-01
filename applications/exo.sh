@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=exo
-VERSION=4.16.3
-URL=https://archive.xfce.org/src/xfce/exo/4.16/exo-4.16.3.tar.bz2
+VERSION=4.18.0
+URL=https://archive.xfce.org/src/xfce/exo/4.18/exo-4.18.0.tar.bz2
 SECTION="Xfce Desktop"
 DESCRIPTION="Exo is a support library used in the Xfce desktop. It also has some helper applications that are used throughout Xfce."
 
@@ -24,7 +24,7 @@ DESCRIPTION="Exo is a support library used in the Xfce desktop. It also has some
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/xfce/exo/4.16/exo-4.16.3.tar.bz2
+wget -nc https://archive.xfce.org/src/xfce/exo/4.18/exo-4.18.0.tar.bz2
 
 
 if [ ! -z $URL ]

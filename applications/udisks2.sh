@@ -13,11 +13,12 @@ set +h
 #REQ:libxslt
 #REQ:polkit
 #REQ:btrfs-progs
+#REQ:dbus
 #REQ:dosfstools
 #REQ:gptfdisk
 #REQ:mdadm
 #REQ:xfsprogs
-#REQ:systemd
+#REQ:elogind
 
 
 cd $SOURCE_DIR
@@ -62,18 +63,6 @@ make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cat > /etc/udisks2/mount_options.conf << "EOF"
-[defaults]
-ntfs_defaults=uid=$UID,gid=$GID
-EOF
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

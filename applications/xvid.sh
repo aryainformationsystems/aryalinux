@@ -45,6 +45,7 @@ echo $USER > /tmp/currentuser
 
 cd build/generic &&
 sed -i 's/^LN_S=@LN_S@/& -f -v/' platform.inc.in &&
+
 ./configure --prefix=/usr &&
 make
 sudo rm -rf /tmp/rootscript.sh

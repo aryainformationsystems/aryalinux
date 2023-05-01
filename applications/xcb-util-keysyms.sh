@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xcb-util-keysyms
-VERSION=0.4.0
-URL=https://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
+VERSION=0.4.1
+URL=https://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.1.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The xcb-util-keysyms package contains a library for handling standard X key constants and conversion to/from keycodes."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The xcb-util-keysyms package contains a library for handling standa
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
+wget -nc https://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.1.tar.xz
 
 
 if [ ! -z $URL ]

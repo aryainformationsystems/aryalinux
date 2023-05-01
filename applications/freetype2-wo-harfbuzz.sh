@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=freetype2-wo-harfbuzz
-VERSION=2.11.1
-URL=https://downloads.sourceforge.net/freetype/freetype-2.11.1.tar.xz
+VERSION=2.13.0
+URL=https://downloads.sourceforge.net/freetype/freetype-2.13.0.tar.xz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The FreeType2 package contains a library which allows applications to properly render TrueType fonts."
 
@@ -23,8 +23,8 @@ DESCRIPTION="The FreeType2 package contains a library which allows applications 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/freetype/freetype-2.11.1.tar.xz
-wget -nc https://downloads.sourceforge.net/freetype/freetype-doc-2.11.1.tar.xz
+wget -nc https://downloads.sourceforge.net/freetype/freetype-2.13.0.tar.xz
+wget -nc https://downloads.sourceforge.net/freetype/freetype-doc-2.13.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-tar -xf ../freetype-doc-2.11.1.tar.xz --strip-components=2 -C docs
+tar -xf ../freetype-doc-2.13.0.tar.xz --strip-components=2 -C docs
 sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg &&
 
 sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
@@ -65,9 +65,9 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m755 -d /usr/share/doc/freetype-2.11.1 &&
-cp -v -R docs/*     /usr/share/doc/freetype-2.11.1 &&
-rm -v /usr/share/doc/freetype-2.11.1/freetype-config.1
+install -v -m755 -d /usr/share/doc/freetype-2.13.0 &&
+cp -v -R docs/*     /usr/share/doc/freetype-2.13.0 &&
+rm -v /usr/share/doc/freetype-2.13.0/freetype-config.1
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

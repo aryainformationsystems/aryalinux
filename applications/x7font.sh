@@ -45,15 +45,15 @@ echo $USER > /tmp/currentuser
 export XORG_CONFIG="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-static"
 
 cat > font-7.md5 << "EOF"
-3d6adb76fdd072db8c8fae41b40855e8  font-util-1.3.2.tar.bz2
-bbae4f247b88ccde0e85ed6a403da22a  encodings-1.0.5.tar.bz2
-0497de0176a0dfa5fac2b0552a4cf380  font-alias-1.0.4.tar.bz2
-fcf24554c348df3c689b91596d7f9971  font-adobe-utopia-type1-1.0.4.tar.bz2
-e8ca58ea0d3726b94fe9f2c17344be60  font-bh-ttf-1.0.3.tar.bz2
-53ed9a42388b7ebb689bdfc374f96a22  font-bh-type1-1.0.3.tar.bz2
-bfb2593d2102585f45daa960f43cb3c4  font-ibm-type1-1.0.3.tar.bz2
-4ee18ab6c1edf636b8e75b73e6037371  font-misc-ethiopic-1.0.4.tar.bz2
-3eeb3fb44690b477d510bbd8f86cf5aa  font-xfree86-type1-1.0.4.tar.bz2
+ec6cea7a46c96ed6be431dfbbb78f366  font-util-1.4.0.tar.xz
+357d91d87c5d5a1ac3ea4e6a6daf833d  encodings-1.0.7.tar.xz
+79f4c023e27d1db1dfd90d041ce89835  font-alias-1.0.5.tar.xz
+546d17feab30d4e3abcf332b454f58ed  font-adobe-utopia-type1-1.0.5.tar.xz
+063bfa1456c8a68208bf96a33f472bb1  font-bh-ttf-1.0.4.tar.xz
+51a17c981275439b85e15430a3d711ee  font-bh-type1-1.0.4.tar.xz
+00f64a84b6c9886040241e081347a853  font-ibm-type1-1.0.4.tar.xz
+fe972eaf13176fa9aa7e74a12ecc801a  font-misc-ethiopic-1.0.5.tar.xz
+3b47fed2c032af3a32aad9acc1d25150  font-xfree86-type1-1.0.5.tar.xz
 EOF
 mkdir -pv font &&
 cd font &&
@@ -71,7 +71,7 @@ as_root()
 export -f as_root
 for package in $(grep -v '^#' ../font-7.md5 | awk '{print $2}')
 do
-  packagedir=${package%.tar.bz2}
+  packagedir=${package%.tar.?z*}
   tar -xf $package
   pushd $packagedir
     ./configure $XORG_CONFIG

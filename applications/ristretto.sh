@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=ristretto
-VERSION=0.12.2
-URL=https://archive.xfce.org/src/apps/ristretto/0.12/ristretto-0.12.2.tar.bz2
+VERSION=0.13.0
+URL=https://archive.xfce.org/src/apps/ristretto/0.13/ristretto-0.13.0.tar.bz2
 SECTION="Xfce Applications"
 DESCRIPTION="Ristretto is a fast and lightweight image viewer for the Xfce desktop."
 
@@ -23,7 +23,7 @@ DESCRIPTION="Ristretto is a fast and lightweight image viewer for the Xfce deskt
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/apps/ristretto/0.12/ristretto-0.12.2.tar.bz2
+wget -nc https://archive.xfce.org/src/apps/ristretto/0.13/ristretto-0.13.0.tar.bz2
 
 
 if [ ! -z $URL ]

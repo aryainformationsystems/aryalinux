@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xine-ui
-VERSION=0.99.13
-URL=https://downloads.sourceforge.net/xine/xine-ui-0.99.13.tar.xz
+VERSION=0.99.14
+URL=https://downloads.sourceforge.net/xine/xine-ui-0.99.14.tar.xz
 SECTION="Video Utilities"
 DESCRIPTION="The xine User Interface package contains a multimedia player. It plays back CDs, DVDs and VCDs. It also decodes multimedia files like AVI, MOV, WMV, MPEG and MP3 from local disk drives, and displays multimedia streamed over the Internet."
 
@@ -23,7 +23,7 @@ DESCRIPTION="The xine User Interface package contains a multimedia player. It pl
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/xine/xine-ui-0.99.13.tar.xz
+wget -nc https://downloads.sourceforge.net/xine/xine-ui-0.99.14.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ echo $USER > /tmp/currentuser
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make docsdir=/usr/share/doc/xine-ui-0.99.13 install
+make docsdir=/usr/share/doc/xine-ui-0.99.14 install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

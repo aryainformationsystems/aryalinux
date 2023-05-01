@@ -15,7 +15,7 @@ cd $SOURCE_DIR
 
 NAME=xindy
 VERSION=2.5.1
-URL=http://tug.ctan.org/support/xindy/base/xindy-2.5.1.tar.gz
+URL=https://tug.ctan.org/support/xindy/base/xindy-2.5.1.tar.gz
 SECTION="Typesetting"
 DESCRIPTION="Xindy is an index processor that can be used to generate book-like indexes for arbitrary document-preparation systems. This includes systems such as TeX and LaTeX, the roff-family, and SGML/XML-based systems (e.g., HTML) that process some kind of text and generate indexing information."
 
@@ -23,8 +23,8 @@ DESCRIPTION="Xindy is an index processor that can be used to generate book-like 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://tug.ctan.org/support/xindy/base/xindy-2.5.1.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/xindy-2.5.1-upstream_fixes-2.patch
+wget -nc https://tug.ctan.org/support/xindy/base/xindy-2.5.1.tar.gz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/xindy-2.5.1-upstream_fixes-2.patch
 
 
 if [ ! -z $URL ]
@@ -54,12 +54,12 @@ sed -i 's%\(indexentry\)%\1\\%' make-rules/inputenc/make-inp-rules.pl &&
 
 patch -Np1 -i ../xindy-2.5.1-upstream_fixes-2.patch &&
 
-./configure --prefix=/opt/texlive/2021              \
-            --bindir=/opt/texlive/2021/bin/$TEXARCH \
-            --datarootdir=/opt/texlive/2021         \
-            --includedir=/usr/include               \
-            --libdir=/opt/texlive/2021/texmf-dist   \
-            --mandir=/opt/texlive/2021/texmf-dist/doc/man &&
+./configure --prefix=$TEXLIVE_PREFIX              \
+            --bindir=$TEXLIVE_PREFIX/bin/$TEXARCH \
+            --datarootdir=$TEXLIVE_PREFIX         \
+            --includedir=/usr/include             \
+            --libdir=$TEXLIVE_PREFIX/texmf-dist   \
+            --mandir=$TEXLIVE_PREFIX/texmf-dist/doc/man &&
 
 make LC_ALL=POSIX
 sudo rm -rf /tmp/rootscript.sh

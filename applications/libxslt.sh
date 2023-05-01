@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libxslt
-VERSION=1.1.35
-URL=https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.35.tar.xz
+VERSION=1.1.37
+URL=https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.37.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The libxslt package contains XSLT libraries used for extending libxml2 libraries to support XSLT files."
 
@@ -24,7 +24,7 @@ DESCRIPTION="The libxslt package contains XSLT libraries used for extending libx
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.35.tar.xz
+wget -nc https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.37.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,11 +46,11 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i s/3000/5000/ libxslt/transform.c doc/xsltproc.{1,xml} &&
-
-./configure --prefix=/usr --disable-static --without-python  &&
+./configure --prefix=/usr                          \
+            --disable-static                       \
+            --docdir=/usr/share/doc/libxslt-1.1.37 \
+            PYTHON=/usr/bin/python3 &&
 make
-sed -e 's@\$Date\$@16 February 2022@' -i doc/xsltproc.1
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install

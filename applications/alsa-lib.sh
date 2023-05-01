@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=alsa-lib
-VERSION=1.2.6.1
-URL=https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.6.1.tar.bz2
+VERSION=1.2.8
+URL=https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.8.tar.bz2
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="The ALSA Library package contains the ALSA library used by programs (including ALSA Utilities) requiring access to the ALSA sound interface."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The ALSA Library package contains the ALSA library used by programs
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.6.1.tar.bz2
-wget -nc ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.2.6.1.tar.bz2
+wget -nc https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.8.tar.bz2
+wget -nc ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.2.8.tar.bz2
 
 
 if [ ! -z $URL ]

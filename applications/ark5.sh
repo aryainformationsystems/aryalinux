@@ -19,8 +19,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=ark5
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/ark-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/ark-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
 DESCRIPTION="The Ark package is a KF5 archive tool. It is a graphical front end to tar and similar tools."
 
@@ -28,7 +28,7 @@ DESCRIPTION="The Ark package is a KF5 archive tool. It is a graphical front end 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/ark-21.12.2.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/ark-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]

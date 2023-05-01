@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=thunar-volman
-VERSION=4.16.0
-URL=https://archive.xfce.org/src/xfce/thunar-volman/4.16/thunar-volman-4.16.0.tar.bz2
+VERSION=4.18.0
+URL=https://archive.xfce.org/src/xfce/thunar-volman/4.18/thunar-volman-4.18.0.tar.bz2
 SECTION="Xfce Desktop"
 DESCRIPTION="The Thunar Volume Manager is an extension for the Thunar file manager, which enables automatic management of removable drives and media."
 
@@ -25,7 +25,7 @@ DESCRIPTION="The Thunar Volume Manager is an extension for the Thunar file manag
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/xfce/thunar-volman/4.16/thunar-volman-4.16.0.tar.bz2
+wget -nc https://archive.xfce.org/src/xfce/thunar-volman/4.18/thunar-volman-4.18.0.tar.bz2
 
 
 if [ ! -z $URL ]

@@ -12,15 +12,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-business-issn
-VERSION=1.004
-URL=https://www.cpan.org/authors/id/B/BD/BDFOY/Business-ISSN-1.004.tar.gz
+VERSION=1.005
+URL=https://www.cpan.org/authors/id/B/BD/BDFOY/Business-ISSN-1.005.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/B/BD/BDFOY/Business-ISSN-1.004.tar.gz
+wget -nc https://www.cpan.org/authors/id/B/BD/BDFOY/Business-ISSN-1.005.tar.gz
 
 
 if [ ! -z $URL ]

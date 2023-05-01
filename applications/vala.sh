@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=vala
-VERSION=0.54.7
-URL=https://download.gnome.org/sources/vala/0.54/vala-0.54.7.tar.xz
+VERSION=0.56.7
+URL=https://download.gnome.org/sources/vala/0.56/vala-0.56.7.tar.xz
 SECTION="Programming"
 DESCRIPTION="Vala is a new programming language that aims to bring modern programming language features to GNOME developers without imposing any additional runtime requirements and without using a different ABI compared to applications and libraries written in C."
 
@@ -23,8 +23,8 @@ DESCRIPTION="Vala is a new programming language that aims to bring modern progra
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/vala/0.54/vala-0.54.7.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/vala/0.54/vala-0.54.7.tar.xz
+wget -nc https://download.gnome.org/sources/vala/0.56/vala-0.56.7.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/vala/0.56/vala-0.56.7.tar.xz
 
 
 if [ ! -z $URL ]

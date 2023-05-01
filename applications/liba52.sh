@@ -13,7 +13,7 @@ cd $SOURCE_DIR
 
 NAME=liba52
 VERSION=0.7.4
-URL=http://liba52.sourceforge.net/files/a52dec-0.7.4.tar.gz
+URL=https://liba52.sourceforge.net/files/a52dec-0.7.4.tar.gz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="liba52 is a free library for decoding ATSC A/52 (also known as AC-3) streams. The A/52 standard is used in a variety of applications, including digital television and DVD."
 
@@ -21,7 +21,7 @@ DESCRIPTION="liba52 is a free library for decoding ATSC A/52 (also known as AC-3
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://liba52.sourceforge.net/files/a52dec-0.7.4.tar.gz
+wget -nc https://liba52.sourceforge.net/files/a52dec-0.7.4.tar.gz
 
 
 if [ ! -z $URL ]

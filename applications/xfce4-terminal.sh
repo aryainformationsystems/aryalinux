@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xfce4-terminal
-VERSION=0.8.10
-URL=https://archive.xfce.org/src/apps/xfce4-terminal/0.8/xfce4-terminal-0.8.10.tar.bz2
+VERSION=1.0.4
+URL=https://archive.xfce.org/src/apps/xfce4-terminal/1.0/xfce4-terminal-1.0.4.tar.bz2
 SECTION="Xfce Applications"
 DESCRIPTION="Xfce4 Terminal is a GTK+3 terminal emulator. This is useful for running commands or programs in the comfort of an Xorg window; you can drag and drop files into the Xfce4 Terminal or copy and paste text with your mouse."
 
@@ -23,7 +23,7 @@ DESCRIPTION="Xfce4 Terminal is a GTK+3 terminal emulator. This is useful for run
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/apps/xfce4-terminal/0.8/xfce4-terminal-0.8.10.tar.bz2
+wget -nc https://archive.xfce.org/src/apps/xfce4-terminal/1.0/xfce4-terminal-1.0.4.tar.bz2
 
 
 if [ ! -z $URL ]

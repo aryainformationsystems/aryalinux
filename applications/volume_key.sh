@@ -9,6 +9,7 @@ set +h
 
 #REQ:cryptsetup
 #REQ:glib2
+#REQ:gnupg
 #REQ:gpgme
 #REQ:nss
 #REQ:swig
@@ -48,6 +49,8 @@ fi
 echo $USER > /tmp/currentuser
 
 
+sed -e '/AM_PATH_GPGME/iAM_PATH_GPG_ERROR' \
+    -e 's/gpg2/gpg/' -i configure.ac
 autoreconf -fiv              &&
 ./configure --prefix=/usr    \
             --without-python &&

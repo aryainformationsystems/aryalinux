@@ -23,7 +23,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/rpcbind/rpcbind-1.2.6.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/rpcbind-1.2.6-vulnerability_fixes-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/rpcbind-1.2.6-vulnerability_fixes-1.patch
 
 
 if [ ! -z $URL ]
@@ -45,24 +45,14 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-groupadd -g 28 rpc &&
-useradd -c "RPC Bind Daemon Owner" -d /dev/null -g rpc \
-        -s /bin/false -u 28 rpc
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
 sed -i "/servname/s:rpcbind:sunrpc:" src/rpcbind.c
 patch -Np1 -i ../rpcbind-1.2.6-vulnerability_fixes-1.patch &&
 
-./configure --prefix=/usr       \
-            --bindir=/usr/sbin  \
-            --enable-warmstarts \
-            --with-rpcuser=rpc  &&
+./configure --prefix=/usr                                  \
+            --bindir=/usr/sbin                             \
+            --with-rpcuser=root                            \
+            --enable-warmstarts                            \
+            --without-systemdsystemunitdir                 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -11,6 +11,7 @@ set +h
 #REQ:libgcrypt
 #REQ:itstool
 #REQ:linux-pam
+#REQ:xorg-server
 #REQ:gobject-introspection
 #REQ:libxklavier
 #REQ:vala
@@ -19,8 +20,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=lightdm
-VERSION=1.30.0
-URL=https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
+VERSION=1.32.0
+URL=https://github.com/CanonicalLtd/lightdm/releases/download/1.32.0/lightdm-1.32.0.tar.xz
 SECTION="Display Managers"
 DESCRIPTION="The lightdm package contains a lightweight display manager based upon GTK."
 
@@ -28,7 +29,7 @@ DESCRIPTION="The lightdm package contains a lightweight display manager based up
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
+wget -nc https://github.com/CanonicalLtd/lightdm/releases/download/1.32.0/lightdm-1.32.0.tar.xz
 wget -nc https://github.com/Xubuntu/lightdm-gtk-greeter/releases/download/lightdm-gtk-greeter-2.0.8/lightdm-gtk-greeter-2.0.8.tar.gz
 
 
@@ -64,17 +65,17 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-./configure                          \
-       --prefix=/usr                 \
-       --libexecdir=/usr/lib/lightdm \
-       --localstatedir=/var          \
-       --sbindir=/usr/bin            \
-       --sysconfdir=/etc             \
-       --disable-static              \
-       --disable-tests               \
-       --with-greeter-user=lightdm   \
-       --with-greeter-session=lightdm-gtk-greeter \
-       --docdir=/usr/share/doc/lightdm-1.30.0 &&
+sed -i s/systemd/elogind/ data/pam/*
+./configure --prefix=/usr                 \
+            --libexecdir=/usr/lib/lightdm \
+            --localstatedir=/var          \
+            --sbindir=/usr/bin            \
+            --sysconfdir=/etc             \
+            --disable-static              \
+            --disable-tests               \
+            --with-greeter-user=lightdm   \
+            --with-greeter-session=lightdm-gtk-greeter \
+            --docdir=/usr/share/doc/lightdm-1.32.0 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
@@ -95,19 +96,17 @@ sudo rm -rf /tmp/rootscript.sh
 tar -xf ../lightdm-gtk-greeter-2.0.8.tar.gz &&
 cd lightdm-gtk-greeter-2.0.8 &&
 
-./configure                      \
-   --prefix=/usr                 \
-   --libexecdir=/usr/lib/lightdm \
-   --sbindir=/usr/bin            \
-   --sysconfdir=/etc             \
-   --with-libxklavier            \
-   --enable-kill-on-sigterm      \
-   --disable-libido              \
-   --disable-libindicator        \
-   --disable-static              \
-   --disable-maintainer-mode     \
-   --docdir=/usr/share/doc/lightdm-gtk-greeter-2.0.8 &&
-
+./configure --prefix=/usr                 \
+            --libexecdir=/usr/lib/lightdm \
+            --sbindir=/usr/bin            \
+            --sysconfdir=/etc             \
+            --with-libxklavier            \
+            --enable-kill-on-sigterm      \
+            --disable-libido              \
+            --disable-libindicator        \
+            --disable-static              \
+            --disable-maintainer-mode     \
+            --docdir=/usr/share/doc/lightdm-gtk-greeter-2.0.8 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
@@ -140,6 +139,7 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+telinit 5
 
 sudo tee -a /etc/lightdm/lightdm-gtk-greeter.conf << EOF
 [greeter]

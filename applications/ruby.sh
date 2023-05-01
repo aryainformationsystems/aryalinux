@@ -7,13 +7,14 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
+#REQ:libyaml
 
 
 cd $SOURCE_DIR
 
 NAME=ruby
-VERSION=3.1.0
-URL=https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.0.tar.xz
+VERSION=3.2.2
+URL=https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.2.tar.xz
 SECTION="Programming"
 DESCRIPTION="The Ruby package contains the Ruby development environment. This is useful for object-oriented scripting."
 
@@ -21,7 +22,7 @@ DESCRIPTION="The Ruby package contains the Ruby development environment. This is
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.0.tar.xz
+wget -nc https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -43,9 +44,12 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr   \
-            --enable-shared \
-            --docdir=/usr/share/doc/ruby-3.1.0 &&
+sed -i '283d' tool/lib/leakchecker.rb
+./configure --prefix=/usr      \
+            --enable-shared    \
+            --without-valgrind \
+            --without-baseruby \
+            --docdir=/usr/share/doc/ruby-3.2.2 &&
 make
 make capi
 sudo rm -rf /tmp/rootscript.sh
@@ -57,6 +61,8 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+cd /path/to/web/app
+bundle update rake
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

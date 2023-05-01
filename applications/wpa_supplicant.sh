@@ -92,15 +92,6 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m644 systemd/*.service /usr/lib/systemd/system/
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 install -v -m644 dbus/fi.w1.wpa_supplicant1.service \
                  /usr/share/dbus-1/system-services/ &&
 install -v -d -m755 /etc/dbus-1/system.d &&
@@ -114,7 +105,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable wpa_supplicant
+update-desktop-database -q
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -123,7 +114,98 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-update-desktop-database -q
+#!/bin/bash
+
+set -e
+set +h
+
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-service-wpa
+popd
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cat > /etc/sysconfig/ifconfig.wifi0 << "EOF"
+ONBOOT="yes"
+IFACE="wlan0"
+SERVICE="wpa"
+
+# Additional arguments to wpa_supplicant
+WPA_ARGS=""
+
+WPA_SERVICE="dhclient"
+DHCP_START=""
+DHCP_STOP=""
+
+# Set PRINTIP="yes" to have the script print
+# the DHCP assigned IP address
+PRINTIP="no"
+
+# Set PRINTALL="yes" to print the DHCP assigned values for
+# IP, SM, DG, and 1st NS. This requires PRINTIP="yes".
+PRINTALL="no"
+EOF
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cat > /etc/sysconfig/ifconfig.wifi0 << "EOF"
+ONBOOT="yes"
+IFACE="wlan0"
+SERVICE="wpa"
+
+# Additional arguments to wpa_supplicant
+WPA_ARGS=""
+
+WPA_SERVICE="dhcpcd"
+DHCP_START="-b -q <insert appropriate start options here>"
+DHCP_STOP="-k <insert additional stop options here>"
+EOF
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cat > /etc/sysconfig/ifconfig.wifi0 << "EOF"
+ONBOOT="yes"
+IFACE="wlan0"
+SERVICE="wpa"
+
+# Additional arguments to wpa_supplicant
+WPA_ARGS=""
+
+WPA_SERVICE="ipv4-static"
+IP="192.168.1.1"
+GATEWAY="192.168.1.2"
+PREFIX="24"
+BROADCAST="192.168.1.255"
+EOF
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+ifup wifi0
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

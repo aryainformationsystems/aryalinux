@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=sbc
-VERSION=1.5
-URL=https://www.kernel.org/pub/linux/bluetooth/sbc-1.5.tar.xz
+VERSION=2.0
+URL=https://www.kernel.org/pub/linux/bluetooth/sbc-2.0.tar.xz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="The SBC is a digital audio encoder and decoder used to transfer data to Bluetooth audio output devices like headphones or loudspeakers."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The SBC is a digital audio encoder and decoder used to transfer dat
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.kernel.org/pub/linux/bluetooth/sbc-1.5.tar.xz
+wget -nc https://www.kernel.org/pub/linux/bluetooth/sbc-2.0.tar.xz
 
 
 if [ ! -z $URL ]

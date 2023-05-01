@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=util-macros
-VERSION=1.19.3
-URL=https://www.x.org/pub/individual/util/util-macros-1.19.3.tar.bz2
+VERSION=1.20.0
+URL=https://www.x.org/pub/individual/util/util-macros-1.20.0.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The util-macros package contains the m4 macros used by all of the Xorg packages."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The util-macros package contains the m4 macros used by all of the X
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/util/util-macros-1.19.3.tar.bz2
-wget -nc ftp://ftp.x.org/pub/individual/util/util-macros-1.19.3.tar.bz2
+wget -nc https://www.x.org/pub/individual/util/util-macros-1.20.0.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/util/util-macros-1.20.0.tar.xz
 
 
 if [ ! -z $URL ]

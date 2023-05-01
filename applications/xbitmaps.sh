@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xbitmaps
-VERSION=1.1.2
-URL=https://www.x.org/pub/individual/data/xbitmaps-1.1.2.tar.bz2
+VERSION=1.1.3
+URL=https://www.x.org/pub/individual/data/xbitmaps-1.1.3.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The xbitmaps package contains bitmap images used by multiple applications built in Xorg chapter."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The xbitmaps package contains bitmap images used by multiple applic
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/data/xbitmaps-1.1.2.tar.bz2
-wget -nc ftp://ftp.x.org/pub/individual/data/xbitmaps-1.1.2.tar.bz2
+wget -nc https://www.x.org/pub/individual/data/xbitmaps-1.1.3.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/data/xbitmaps-1.1.3.tar.xz
 
 
 if [ ! -z $URL ]

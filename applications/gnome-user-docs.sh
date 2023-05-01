@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnome-user-docs
-VERSION=41.2
-URL=https://download.gnome.org/sources/gnome-user-docs/41/gnome-user-docs-41.2.tar.xz
+VERSION=43.0
+URL=https://download.gnome.org/sources/gnome-user-docs/43/gnome-user-docs-43.0.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The GNOME User Docs package contains documentation for GNOME."
 
@@ -23,8 +23,8 @@ DESCRIPTION="The GNOME User Docs package contains documentation for GNOME."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-user-docs/41/gnome-user-docs-41.2.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-user-docs/41/gnome-user-docs-41.2.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-user-docs/43/gnome-user-docs-43.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-user-docs/43/gnome-user-docs-43.0.tar.xz
 
 
 if [ ! -z $URL ]

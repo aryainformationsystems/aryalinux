@@ -7,14 +7,16 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:at-spi2-atk
+#REQ:at-spi2-core
 #REQ:gdk-pixbuf
 #REQ:libepoxy
 #REQ:pango
 #REQ:adwaita-icon-theme
+#REQ:docbook-xsl
 #REQ:hicolor-icon-theme
 #REQ:iso-codes
 #REQ:libxkbcommon
+#REQ:libxslt
 #REQ:sassc
 #REQ:wayland
 #REQ:wayland-protocols
@@ -24,8 +26,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gtk3
-VERSION=3.24.31
-URL=https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.31.tar.xz
+VERSION=3.24.37
+URL=https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.37.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="The GTK+ 3 package contains libraries used for creating graphical user interfaces for applications."
 
@@ -33,8 +35,8 @@ DESCRIPTION="The GTK+ 3 package contains libraries used for creating graphical u
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.31.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gtk+/3.24/gtk+-3.24.31.tar.xz
+wget -nc https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.37.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gtk+/3.24/gtk+-3.24.37.tar.xz
 
 
 if [ ! -z $URL ]
@@ -56,15 +58,17 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr              \
-            --sysconfdir=/etc          \
-            --enable-broadway-backend  \
-            --enable-x11-backend       \
-            --enable-wayland-backend   &&
-make
+mkdir build &&
+cd    build &&
+meson setup --prefix=/usr           \
+            --buildtype=release     \
+            -Dman=true              \
+            -Dbroadway_backend=true \
+            ..                      &&
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

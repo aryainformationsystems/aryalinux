@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libxml2
-VERSION=2.9.13
-URL=https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.xz
+VERSION=2.10.4
+URL=https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.4.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The libxml2 package contains libraries and utilities used for parsing XML files."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The libxml2 package contains libraries and utilities used for parsi
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.xz
+wget -nc https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.4.tar.xz
 wget -nc https://www.w3.org/XML/Test/xmlts20130923.tar.gz
 
 
@@ -44,13 +44,15 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr    \
-            --disable-static \
-            --with-history   \
-            --with-python=/usr/bin/python3 \
-            --docdir=/usr/share/doc/libxml2-2.9.13 &&
+./configure --prefix=/usr           \
+            --sysconfdir=/etc       \
+            --disable-static        \
+            --with-history          \
+            PYTHON=/usr/bin/python3 \
+            --docdir=/usr/share/doc/libxml2-2.10.4 &&
 make
 tar xf ../xmlts20130923.tar.gz
+/etc/init.d/httpd stop
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install

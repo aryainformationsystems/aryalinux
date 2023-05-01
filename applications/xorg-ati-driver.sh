@@ -13,17 +13,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xorg-ati-driver
-VERSION=19.1.0
-URL=https://www.x.org/pub/individual/driver/xf86-video-ati-19.1.0.tar.bz2
+VERSION=22.0.0
+URL=https://www.x.org/pub/individual/driver/xf86-video-ati-22.0.0.tar.xz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/driver/xf86-video-ati-19.1.0.tar.bz2
-wget -nc ftp://ftp.x.org/pub/individual/driver/xf86-video-ati-19.1.0.tar.bz2
-wget -nc https://www.linuxfromscratch.org/patches/blfs/11.1/xf86-video-ati-19.1.0-upstream_fixes-1.patch
+wget -nc https://www.x.org/pub/individual/driver/xf86-video-ati-22.0.0.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/driver/xf86-video-ati-22.0.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,7 +45,6 @@ export XORG_CONFIG="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --disab
 
 echo $USER > /tmp/currentuser
 
-patch -Np1 -i ../xf86-video-ati-19.1.0-upstream_fixes-1.patch
 ./configure $XORG_CONFIG &&
 make
 sudo rm -rf /tmp/rootscript.sh

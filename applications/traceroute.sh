@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=traceroute
-VERSION=2.1.0
-URL=https://downloads.sourceforge.net/traceroute/traceroute-2.1.0.tar.gz
+VERSION=2.1.2
+URL=https://downloads.sourceforge.net/traceroute/traceroute-2.1.2.tar.gz
 SECTION="Networking Utilities"
 DESCRIPTION="The Traceroute package contains a program which is used to display the network route that packets take to reach a specified host. This is a standard network troubleshooting tool. If you find yourself unable to connect to another system, traceroute can help pinpoint the problem."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The Traceroute package contains a program which is used to display 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/traceroute/traceroute-2.1.0.tar.gz
+wget -nc https://downloads.sourceforge.net/traceroute/traceroute-2.1.2.tar.gz
 
 
 if [ ! -z $URL ]

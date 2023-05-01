@@ -43,6 +43,11 @@ fi
 echo $USER > /tmp/currentuser
 
 
+sed -e '/DEFAULT_SERVER/s/freedb.org/gnudb.gnudb.org/' \
+    -e '/DEFAULT_PORT/s/888/&0/'                       \
+    -i include/cddb/cddb_ni.h                          &&
+sed '/^Genre:/s/Trip-Hop/Electronic/' -i tests/testdata/920ef00b.txt &&
+sed '/DISCID/i# Revision: 42'         -i tests/testcache/misc/12340000
 ./configure --prefix=/usr --disable-static &&
 make
 sudo rm -rf /tmp/rootscript.sh

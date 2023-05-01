@@ -25,8 +25,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=opencv
-VERSION=4.5.5
-URL=https://github.com/opencv/opencv/archive/4.5.5/opencv-4.5.5.tar.gz
+VERSION=4.7.0
+URL=https://github.com/opencv/opencv/archive/4.7.0/opencv-4.7.0.tar.gz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The opencv package contains graphics libraries mainly aimed at real-time computer vision."
 
@@ -34,8 +34,8 @@ DESCRIPTION="The opencv package contains graphics libraries mainly aimed at real
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/opencv/opencv/archive/4.5.5/opencv-4.5.5.tar.gz
-wget -nc https://github.com/opencv/opencv_contrib/archive/4.5.5/opencv_contrib-4.5.5.tar.gz
+wget -nc https://github.com/opencv/opencv/archive/4.7.0/opencv-4.7.0.tar.gz
+wget -nc https://github.com/opencv/opencv_contrib/archive/4.7.0/opencv_contrib-4.7.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -57,7 +57,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-tar xf ../opencv_contrib-4.5.5.tar.gz
+tar -xf ../opencv_contrib-4.7.0.tar.gz
 mkdir build &&
 cd    build &&
 

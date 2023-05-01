@@ -9,14 +9,15 @@ set +h
 
 #REQ:glib2
 #REQ:alsa-lib
+#REQ:libslirp
 #REQ:sdl2
 
 
 cd $SOURCE_DIR
 
 NAME=qemu
-VERSION=6.2.0
-URL=https://download.qemu-project.org/qemu-6.2.0.tar.xz
+VERSION=8.0.0
+URL=https://download.qemu.org/qemu-8.0.0.tar.xz
 SECTION="Virtualization"
 DESCRIPTION="qemu is a full virtualization solution for Linux on x86 hardware containing virtualization extensions (Intel VT or AMD-V)."
 
@@ -24,7 +25,7 @@ DESCRIPTION="qemu is a full virtualization solution for Linux on x86 hardware co
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.qemu-project.org/qemu-6.2.0.tar.xz
+wget -nc https://download.qemu.org/qemu-8.0.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,7 +47,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+grep -E '^flags.*(vmx|svm)' /proc/cpuinfo
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 usermod -a -G kvm $(cat /tmp/currentuser)
@@ -71,7 +72,8 @@ cd        build &&
              --localstatedir=/var        \
              --target-list=$QEMU_ARCH    \
              --audio-drv-list=alsa       \
-             --docdir=/usr/share/doc/qemu-6.2.0 &&
+             --disable-pa                \
+             --docdir=/usr/share/doc/qemu-8.0.0 &&
 
 unset QEMU_ARCH &&
 
@@ -79,17 +81,6 @@ make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cat > /lib/udev/rules.d/65-kvm.rules << "EOF"
-KERNEL=="kvm", GROUP="kvm", MODE="0660"
-EOF
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -166,26 +157,6 @@ Section         "Screen"
   EndSubSection
 
 EndSection
-EOF
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-sysctl -w net.ipv4.ip_forward=1
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cat >> /etc/sysctl.d/60-net-forward.conf << EOF
-net.ipv4.ip_forward=1
 EOF
 ENDOFROOTSCRIPT
 

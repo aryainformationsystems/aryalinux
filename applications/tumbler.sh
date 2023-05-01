@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=tumbler
-VERSION=4.16.0
-URL=https://archive.xfce.org/src/xfce/tumbler/4.16/tumbler-4.16.0.tar.bz2
+VERSION=4.18.1
+URL=https://archive.xfce.org/src/xfce/tumbler/4.18/tumbler-4.18.1.tar.bz2
 SECTION="Xfce Desktop"
 DESCRIPTION="The Tumbler package contains a D-Bus thumbnailing service based on the thumbnail management D-Bus specification. This is useful for generating thumbnail images of files."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The Tumbler package contains a D-Bus thumbnailing service based on 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/xfce/tumbler/4.16/tumbler-4.16.0.tar.bz2
+wget -nc https://archive.xfce.org/src/xfce/tumbler/4.18/tumbler-4.18.1.tar.bz2
 
 
 if [ ! -z $URL ]

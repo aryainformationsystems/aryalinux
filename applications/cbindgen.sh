@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=cbindgen
-VERSION=0.20.0
-URL=https://github.com/eqrion/cbindgen/archive/v0.20.0/cbindgen-0.20.0.tar.gz
+VERSION=0.24.3
+URL=https://github.com/eqrion/cbindgen/archive/v0.24.3/cbindgen-0.24.3.tar.gz
 SECTION="Programming"
 DESCRIPTION="Cbindgen can be used to generate C bindings for Rust code."
 
@@ -22,7 +22,7 @@ DESCRIPTION="Cbindgen can be used to generate C bindings for Rust code."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/eqrion/cbindgen/archive/v0.20.0/cbindgen-0.20.0.tar.gz
+wget -nc https://github.com/eqrion/cbindgen/archive/v0.24.3/cbindgen-0.24.3.tar.gz
 
 
 if [ ! -z $URL ]

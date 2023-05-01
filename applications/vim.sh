@@ -13,16 +13,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=vim
-VERSION=8.2.4383
-URL=https://anduin.linuxfromscratch.org/BLFS/vim/vim-8.2.4383.tar.gz
-SECTION="Editors"
+VERSION=9.0.1273
+URL=https://anduin.linuxfromscratch.org/BLFS/vim/vim-9.0.1273.tar.xz
+SECTION="Text Editors"
 DESCRIPTION="The Vim package, which is an abbreviation for VI IMproved, contains a vi clone with extra features as compared to the original vi."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://anduin.linuxfromscratch.org/BLFS/vim/vim-8.2.4383.tar.gz
+wget -nc https://anduin.linuxfromscratch.org/BLFS/vim/vim-9.0.1273.tar.xz
 
 
 if [ ! -z $URL ]
@@ -63,7 +63,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ln -snfv ../vim/vim82/doc /usr/share/doc/vim-8.2.4383
+ln -snfv ../vim/vim90/doc /usr/share/doc/vim-9.0.1273
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -75,7 +75,7 @@ rsync -avzcP --exclude="/dos/" --exclude="/spell/" \
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make -C src installruntime &&
-vim -c ":helptags /usr/share/doc/vim-8.2.4383" -c ":q"
+vim -c ":helptags /usr/share/doc/vim-9.0.1273" -c ":q"
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

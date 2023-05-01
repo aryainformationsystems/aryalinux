@@ -11,16 +11,17 @@ set +h
 #REQ:pixman
 #REQ:x7font
 #REQ:xkeyboard-config
+#REQ:elogind
 #REQ:libepoxy
 #REQ:libtirpc
-#REQ:systemd
+#REQ:xorg-libinput-driver
 
 
 cd $SOURCE_DIR
 
 NAME=xorg-server
-VERSION=21.1.3
-URL=https://www.x.org/pub/individual/xserver/xorg-server-21.1.3.tar.xz
+VERSION=21.1.8
+URL=https://www.x.org/pub/individual/xserver/xorg-server-21.1.8.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The Xorg Server is the core of the X Window system."
 
@@ -28,8 +29,8 @@ DESCRIPTION="The Xorg Server is the core of the X Window system."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/xserver/xorg-server-21.1.3.tar.xz
-wget -nc ftp://ftp.x.org/pub/individual/xserver/xorg-server-21.1.3.tar.xz
+wget -nc https://www.x.org/pub/individual/xserver/xorg-server-21.1.8.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/xserver/xorg-server-21.1.8.tar.xz
 
 
 if [ ! -z $URL ]
@@ -55,14 +56,20 @@ export XORG_PREFIX="/usr"
 mkdir build &&
 cd    build &&
 
-meson --prefix=$XORG_PREFIX \
+meson setup ..              \
+      --prefix=$XORG_PREFIX \
+      --localstatedir=/var  \
       -Dsuid_wrapper=true   \
       -Dxkb_output_dir=/var/lib/xkb &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install &&
-mkdir -pv /etc/X11/xorg.conf.d
+mkdir -pv /etc/X11/xorg.conf.d &&
+cat >> /etc/sysconfig/createfiles << "EOF"
+/tmp/.ICE-unix dir 1777 root root
+/tmp/.X11-unix dir 1777 root root
+EOF
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=yelp
-VERSION=41.2
-URL=https://download.gnome.org/sources/yelp/41/yelp-41.2.tar.xz
+VERSION=42.2
+URL=https://download.gnome.org/sources/yelp/42/yelp-42.2.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The Yelp package contains a help browser used for viewing help files."
 
@@ -25,8 +25,8 @@ DESCRIPTION="The Yelp package contains a help browser used for viewing help file
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/yelp/41/yelp-41.2.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/yelp/41/yelp-41.2.tar.xz
+wget -nc https://download.gnome.org/sources/yelp/42/yelp-42.2.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/yelp/42/yelp-42.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -48,7 +48,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr --disable-static --with-webkit2gtk-4-0 &&
+./configure --prefix=/usr --disable-static &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

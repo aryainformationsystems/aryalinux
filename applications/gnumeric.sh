@@ -18,8 +18,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnumeric
-VERSION=1.12.51
-URL=https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.51.tar.xz
+VERSION=1.12.55
+URL=https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.55.tar.xz
 SECTION="Office Programs"
 DESCRIPTION="The Gnumeric package contains a spreadsheet program which is useful for mathematical analysis."
 
@@ -27,8 +27,8 @@ DESCRIPTION="The Gnumeric package contains a spreadsheet program which is useful
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.51.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnumeric/1.12/gnumeric-1.12.51.tar.xz
+wget -nc https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.55.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnumeric/1.12/gnumeric-1.12.55.tar.xz
 
 
 if [ ! -z $URL ]

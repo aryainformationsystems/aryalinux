@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=postgresql
-VERSION=14.2
-URL=https://ftp.postgresql.org/pub/source/v14.2/postgresql-14.2.tar.bz2
+VERSION=15.2
+URL=https://ftp.postgresql.org/pub/source/v15.2/postgresql-15.2.tar.bz2
 SECTION="Databases"
 DESCRIPTION="PostgreSQL is an advanced object-relational database management system (ORDBMS), derived from the Berkeley Postgres database management system."
 
@@ -21,7 +21,7 @@ DESCRIPTION="PostgreSQL is an advanced object-relational database management sys
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.postgresql.org/pub/source/v14.2/postgresql-14.2.tar.bz2
+wget -nc https://ftp.postgresql.org/pub/source/v15.2/postgresql-15.2.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -58,12 +58,12 @@ sed -i '/DEFAULT_PGSOCKET_DIR/s@/tmp@/run/postgresql@' src/include/pg_config_man
 
 ./configure --prefix=/usr          \
             --enable-thread-safety \
-            --docdir=/usr/share/doc/postgresql-14.2 &&
+            --docdir=/usr/share/doc/postgresql-15.2 &&
 make
 make DESTDIR=$(pwd)/DESTDIR install
-install -D -o postgres $(pwd)/DESTDIR/tmp
+install -d -o postgres $(pwd)/DESTDIR/tmp
 pushd $(pwd)/DESTDIR/tmp
-systemctl stop postgresql
+/etc/rc.d/init.d/postgresql stop
 su postgres -c "../usr/bin/initdb -D /srv/pgsql/newdata"
 su postgres -c "../usr/bin/pg_upgrade \
                     -d /srv/pgsql/data    -b /usr/bin \

@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=umockdev
-VERSION=0.17.6
-URL=https://github.com/martinpitt/umockdev/releases/download/0.17.6/umockdev-0.17.6.tar.xz
+VERSION=0.17.17
+URL=https://github.com/martinpitt/umockdev/releases/download/0.17.17/umockdev-0.17.17.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The Umockdev package contains a framework that allows a developer to mock devices for use in unit testing."
 
@@ -24,7 +24,7 @@ DESCRIPTION="The Umockdev package contains a framework that allows a developer t
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/martinpitt/umockdev/releases/download/0.17.6/umockdev-0.17.6.tar.xz
+wget -nc https://github.com/martinpitt/umockdev/releases/download/0.17.17/umockdev-0.17.17.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

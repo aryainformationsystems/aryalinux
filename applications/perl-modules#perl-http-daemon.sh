@@ -13,15 +13,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-http-daemon
-VERSION=6.13
-URL=https://www.cpan.org/authors/id/O/OA/OALDERS/HTTP-Daemon-6.13.tar.gz
+VERSION=6.16
+URL=https://www.cpan.org/authors/id/O/OA/OALDERS/HTTP-Daemon-6.16.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/O/OA/OALDERS/HTTP-Daemon-6.13.tar.gz
+wget -nc https://www.cpan.org/authors/id/O/OA/OALDERS/HTTP-Daemon-6.16.tar.gz
 
 
 if [ ! -z $URL ]

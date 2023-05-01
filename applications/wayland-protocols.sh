@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=wayland-protocols
-VERSION=1.25
-URL=https://wayland.freedesktop.org/releases/wayland-protocols-1.25.tar.xz
+VERSION=1.31
+URL=https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/1.31/downloads/wayland-protocols-1.31.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The Wayland-Protocols package contains additional Wayland protocols that add functionality outside of protocols already in the Wayland core."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The Wayland-Protocols package contains additional Wayland protocols
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://wayland.freedesktop.org/releases/wayland-protocols-1.25.tar.xz
+wget -nc https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/1.31/downloads/wayland-protocols-1.31.tar.xz
 
 
 if [ ! -z $URL ]
@@ -47,7 +47,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release &&
+meson setup --prefix=/usr --buildtype=release &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

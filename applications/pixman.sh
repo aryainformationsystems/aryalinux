@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=pixman
-VERSION=0.40.0
-URL=https://www.cairographics.org/releases/pixman-0.40.0.tar.gz
+VERSION=0.42.2
+URL=https://www.cairographics.org/releases/pixman-0.42.2.tar.gz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The Pixman package contains a library that provides low-level pixel manipulation features such as image compositing and trapezoid rasterization."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The Pixman package contains a library that provides low-level pixel
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cairographics.org/releases/pixman-0.40.0.tar.gz
+wget -nc https://www.cairographics.org/releases/pixman-0.42.2.tar.gz
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release &&
+meson setup --prefix=/usr --buildtype=release &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

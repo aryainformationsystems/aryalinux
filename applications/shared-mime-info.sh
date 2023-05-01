@@ -8,16 +8,14 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:glib2
-#REQ:itstool
 #REQ:libxml2
-#REQ:xmlto
 
 
 cd $SOURCE_DIR
 
 NAME=shared-mime-info
-VERSION=2.1
-URL=https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/2.1/shared-mime-info-2.1.tar.gz
+VERSION=2.2
+URL=https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/2.2/shared-mime-info-2.2.tar.gz
 SECTION="General Utilities"
 DESCRIPTION="The Shared Mime Info package contains a MIME database. This allows central updates of MIME information for all supporting applications."
 
@@ -25,8 +23,7 @@ DESCRIPTION="The Shared Mime Info package contains a MIME database. This allows 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/2.1/shared-mime-info-2.1.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/shared-mime-info-2.1-meson_0.60_fix-1.patch
+wget -nc https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/2.2/shared-mime-info-2.2.tar.gz
 wget -nc https://anduin.linuxfromscratch.org/BLFS/xdgmime/xdgmime.tar.xz
 
 
@@ -51,11 +48,10 @@ echo $USER > /tmp/currentuser
 
 tar -xf ../xdgmime.tar.xz &&
 make -C xdgmime
-patch -p1 -i ../shared-mime-info-2.1-meson_0.60_fix-1.patch
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dupdate-mimedb=true .. &&
+meson setup --prefix=/usr --buildtype=release -Dupdate-mimedb=true .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

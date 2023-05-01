@@ -19,7 +19,7 @@ cd $SOURCE_DIR
 
 NAME=cups
 VERSION=2.4.
-URL=https://github.com/OpenPrinting/cups/releases/download/v2.4.1/cups-2.4.1-source.tar.gz
+URL=https://github.com/OpenPrinting/cups/releases/download/v2.4.2/cups-2.4.2-source.tar.gz
 SECTION="Printing"
 DESCRIPTION="The Common Unix Printing System (CUPS) is a print spooler and associated utilities. It is based on the \"Internet Printing Protocol\" and provides printing services to most PostScript and raster printers."
 
@@ -27,7 +27,7 @@ DESCRIPTION="The Common Unix Printing System (CUPS) is a print spooler and assoc
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/OpenPrinting/cups/releases/download/v2.4.1/cups-2.4.1-source.tar.gz
+wget -nc https://github.com/OpenPrinting/cups/releases/download/v2.4.2/cups-2.4.2-source.tar.gz
 
 
 if [ ! -z $URL ]
@@ -77,17 +77,25 @@ sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
 sed -i 's#@CUPS_HTMLVIEW@#firefox#' desktop/cups.desktop.in
-sed -e "s/format-truncation//" \
-    -i configure \
-       config-scripts/cups-compiler.m4
 ./configure --libdir=/usr/lib            \
+            --disable-systemd            \
+            --with-rcdir=/tmp/cupsinit   \
             --with-system-groups=lpadmin \
-            --with-docdir=/usr/share/cups/doc-2.4.1 &&
+            --with-docdir=/usr/share/cups/doc-2.4.2 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
-ln -svnf ../cups/doc-2.4.1 /usr/share/doc/cups-2.4.1
+ln -svnf ../cups/doc-2.4.2 /usr/share/doc/cups-2.4.2
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+rm -rf /tmp/cupsinit &&
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -122,7 +130,19 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable cups
+#!/bin/bash
+
+set -e
+set +h
+
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-cups
+popd
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

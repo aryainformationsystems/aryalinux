@@ -7,8 +7,8 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:gtk3
 #REQ:gtk2
+#REQ:gtk3
 #REQ:menu-cache
 #REQ:libexif
 #REQ:vala

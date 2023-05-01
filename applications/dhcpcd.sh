@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=dhcpcd
-VERSION=9.4.1
-URL=https://roy.marples.name/downloads/dhcpcd/dhcpcd-9.4.1.tar.xz
+VERSION=10.0.1
+URL=https://github.com/NetworkConfiguration/dhcpcd/releases/download/v10.0.1/dhcpcd-10.0.1.tar.xz
 SECTION="Connecting to a Network"
 DESCRIPTION="dhcpcd is an implementation of the DHCP client specified in RFC2131. A DHCP client is useful for connecting your computer to a network which uses DHCP to assign network addresses. dhcpcd strives to be a fully featured, yet very lightweight DHCP client."
 
@@ -21,7 +21,7 @@ DESCRIPTION="dhcpcd is an implementation of the DHCP client specified in RFC2131
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://roy.marples.name/downloads/dhcpcd/dhcpcd-9.4.1.tar.xz
+wget -nc https://github.com/NetworkConfiguration/dhcpcd/releases/download/v10.0.1/dhcpcd-10.0.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -51,7 +51,7 @@ groupadd -g 52 dhcpcd        &&
 useradd  -c 'dhcpcd PrivSep' \
          -d /var/lib/dhcpcd  \
          -g dhcpcd           \
-         -s /bin/false     \
+         -s /bin/false       \
          -u 52 dhcpcd &&
 chown    -v dhcpcd:dhcpcd /var/lib/dhcpcd
 ENDOFROOTSCRIPT
@@ -60,6 +60,13 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+./configure --prefix=/usr                \
+            --sysconfdir=/etc            \
+            --libexecdir=/usr/lib/dhcpcd \
+            --dbdir=/var/lib/dhcpcd      \
+            --runstatedir=/run           \
+            --disable-privsep         &&
+make
 ./configure --prefix=/usr                \
             --sysconfdir=/etc            \
             --libexecdir=/usr/lib/dhcpcd \
@@ -89,7 +96,7 @@ pushd $SOURCE_DIR
 wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
 tar xf blfs-systemd-units-20180105.tar.bz2
 cd blfs-systemd-units-20180105
-sudo make install-dhcpcd
+sudo make install-service-dhcpcd
 popd
 ENDOFROOTSCRIPT
 
@@ -97,6 +104,33 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cat > /etc/sysconfig/ifconfig.eth0 << "EOF"
+ONBOOT="yes"
+IFACE="eth0"
+SERVICE="dhcpcd"
+DHCP_START="-b -q -h ''<insert appropriate start options here>"
+DHCP_STOP="-k <insert additional stop options here>"
+EOF
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+cat > /etc/sysconfig/ifconfig.eth0 << "EOF"
+ONBOOT="yes"
+IFACE="eth0"
+SERVICE="dhcpcd"
+DHCP_START="-b -q -S ip_address=192.168.0.10/24 -S routers=192.168.0.1"
+DHCP_STOP="-k"
+EOF
+cat > /etc/resolv.conf.head << "EOF"
+# OpenDNS servers
+nameserver 208.67.222.222
+nameserver 208.67.220.220
+EOF
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

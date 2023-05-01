@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=qpdf
-VERSION=10.6.2
-URL=https://github.com/qpdf/qpdf/releases/download/release-qpdf-10.6.2/qpdf-10.6.2.tar.gz
+VERSION=11.3.0
+URL=https://github.com/qpdf/qpdf/releases/download/v11.3.0/qpdf-11.3.0.tar.gz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The Qpdf package contains command-line programs and a library that does structural, content-preserving transformations on PDF files."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The Qpdf package contains command-line programs and a library that 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/qpdf/qpdf/releases/download/release-qpdf-10.6.2/qpdf-10.6.2.tar.gz
+wget -nc https://github.com/qpdf/qpdf/releases/download/v11.3.0/qpdf-11.3.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -44,9 +44,14 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr    \
-            --disable-static \
-            --docdir=/usr/share/doc/qpdf-10.6.2 &&
+mkdir build &&
+cd    build &&
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release  \
+      -DBUILD_STATIC_LIBS=OFF     \
+      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/qpdf-11.3.0 \
+      .. &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

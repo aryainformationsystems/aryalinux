@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libpcap
-VERSION=1.10.1
-URL=https://www.tcpdump.org/release/libpcap-1.10.1.tar.gz
+VERSION=1.10.4
+URL=https://www.tcpdump.org/release/libpcap-1.10.4.tar.gz
 SECTION="Networking Libraries"
 DESCRIPTION="libpcap provides functions for user-level packet capture, used in low-level network monitoring."
 
@@ -21,7 +21,7 @@ DESCRIPTION="libpcap provides functions for user-level packet capture, used in l
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.tcpdump.org/release/libpcap-1.10.1.tar.gz
+wget -nc https://www.tcpdump.org/release/libpcap-1.10.4.tar.gz
 
 
 if [ ! -z $URL ]

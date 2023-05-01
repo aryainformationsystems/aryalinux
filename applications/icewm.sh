@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=icewm
-VERSION=2.9.5
-URL=https://github.com/ice-wm/icewm/archive/2.9.5/icewm-2.9.5.tar.gz
+VERSION=3.3.3
+URL=https://github.com/ice-wm/icewm/archive/3.3.3/icewm-3.3.3.tar.gz
 SECTION="Window Managers"
 DESCRIPTION="IceWM is a window manager with the goals of speed, simplicity, and not getting in the user's way."
 
@@ -23,7 +23,7 @@ DESCRIPTION="IceWM is a window manager with the goals of speed, simplicity, and 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/ice-wm/icewm/archive/2.9.5/icewm-2.9.5.tar.gz
+wget -nc https://github.com/ice-wm/icewm/archive/3.3.3/icewm-3.3.3.tar.gz
 
 
 if [ ! -z $URL ]
@@ -54,12 +54,21 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr \
       -DENABLE_LTO=ON             \
       -DCONFIG_GDK_PIXBUF_XLIB=ON \
       -DCONFIG_IMLIB2=OFF         \
-      -DDOCDIR=/usr/share/doc/icewm-2.9.5  \
+      -DDOCDIR=/usr/share/doc/icewm-3.3.3  \
       .. &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+rm -v /usr/share/xsessions/icewm.desktop
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

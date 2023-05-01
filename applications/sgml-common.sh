@@ -23,7 +23,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://sourceware.org/ftp/docbook-tools/new-trials/SOURCES/sgml-common-0.6.3.tgz
 wget -nc ftp://sourceware.org/pub/docbook-tools/new-trials/SOURCES/sgml-common-0.6.3.tgz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/sgml-common-0.6.3-manpage-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/sgml-common-0.6.3-manpage-1.patch
 
 
 if [ ! -z $URL ]

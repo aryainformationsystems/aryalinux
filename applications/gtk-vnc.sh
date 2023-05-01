@@ -17,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gtk-vnc
-VERSION=1.3.0
-URL=https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.0.tar.xz
+VERSION=1.3.1
+URL=https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="The Gtk VNC package contains a VNC viewer widget for GTK+. It is built using coroutines allowing it to be completely asynchronous while remaining single threaded."
 
@@ -26,8 +26,8 @@ DESCRIPTION="The Gtk VNC package contains a VNC viewer widget for GTK+. It is bu
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gtk-vnc/1.3/gtk-vnc-1.3.0.tar.xz
+wget -nc https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -52,7 +52,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

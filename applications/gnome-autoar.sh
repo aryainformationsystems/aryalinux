@@ -50,7 +50,11 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dvapi=true -Dtests=true &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dvapi=true         \
+            -Dtests=true        \
+            ..                  &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

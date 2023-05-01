@@ -18,8 +18,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnupg
-VERSION=2.2.34
-URL=https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.34.tar.bz2
+VERSION=2.4.0
+URL=https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.0.tar.bz2
 SECTION="Security"
 DESCRIPTION="The GnuPG package is GNU's tool for secure communication and data storage. It can be used to encrypt data and to create digital signatures. It includes an advanced key management facility and is compliant with the proposed OpenPGP Internet standard as described in RFC2440 and the S/MIME standard as described by several RFCs. GnuPG 2 is the stable version of GnuPG integrating support for OpenPGP and S/MIME."
 
@@ -27,8 +27,8 @@ DESCRIPTION="The GnuPG package is GNU's tool for secure communication and data s
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.34.tar.bz2
-wget -nc ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-2.2.34.tar.bz2
+wget -nc https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.0.tar.bz2
+wget -nc ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-2.4.0.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -50,28 +50,29 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -e '/noinst_SCRIPTS = gpg-zip/c sbin_SCRIPTS += gpg-zip' \
-    -i tools/Makefile.in
-./configure --prefix=/usr            \
-            --localstatedir=/var     \
-            --sysconfdir=/etc        \
-            --docdir=/usr/share/doc/gnupg-2.2.34 &&
+mkdir build &&
+cd    build &&
+
+../configure --prefix=/usr           \
+             --localstatedir=/var    \
+             --sysconfdir=/etc       \
+             --docdir=/usr/share/doc/gnupg-2.4.0 &&
 make &&
 
-makeinfo --html --no-split -o doc/gnupg_nochunks.html doc/gnupg.texi &&
-makeinfo --plaintext       -o doc/gnupg.txt           doc/gnupg.texi &&
+makeinfo --html --no-split -I doc -o doc/gnupg_nochunks.html ../doc/gnupg.texi &&
+makeinfo --plaintext       -I doc -o doc/gnupg.txt           ../doc/gnupg.texi &&
 make -C doc html
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
 
-install -v -m755 -d /usr/share/doc/gnupg-2.2.34/html            &&
+install -v -m755 -d /usr/share/doc/gnupg-2.4.0/html            &&
 install -v -m644    doc/gnupg_nochunks.html \
-                    /usr/share/doc/gnupg-2.2.34/html/gnupg.html &&
-install -v -m644    doc/*.texi doc/gnupg.txt \
-                    /usr/share/doc/gnupg-2.2.34 &&
+                    /usr/share/doc/gnupg-2.4.0/html/gnupg.html &&
+install -v -m644    ../doc/*.texi doc/gnupg.txt \
+                    /usr/share/doc/gnupg-2.4.0 &&
 install -v -m644    doc/gnupg.html/* \
-                    /usr/share/doc/gnupg-2.2.34/html
+                    /usr/share/doc/gnupg-2.4.0/html
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

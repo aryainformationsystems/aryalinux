@@ -51,11 +51,11 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr         \
+meson setup ..              \
+      --prefix=/usr         \
       --buildtype=release   \
       -Dwith-lua=false      \
-      -Dwith-python=false   \
-      ..                    &&
+      -Dwith-python=false   &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

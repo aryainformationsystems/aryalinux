@@ -12,15 +12,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=python-modules#pycryptodome
-VERSION=3.14.1
-URL=https://github.com/Legrandin/pycryptodome/archive/v3.14.1/pycryptodome-3.14.1.tar.gz
+VERSION=3.17.0
+URL=https://github.com/Legrandin/pycryptodome/archive/v3.17.0/pycryptodome-3.17.0.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/Legrandin/pycryptodome/archive/v3.14.1/pycryptodome-3.14.1.tar.gz
+wget -nc https://github.com/Legrandin/pycryptodome/archive/v3.17.0/pycryptodome-3.17.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -42,10 +42,10 @@ fi
 
 echo $USER > /tmp/currentuser
 
-python3 setup.py build
+pip3 wheel -w dist --no-build-isolation --no-deps $PWD
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-python3 setup.py install --optimize=1
+pip3 install --no-index --find-links dist --no-cache-dir --no-user pycryptodome
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

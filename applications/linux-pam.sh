@@ -15,7 +15,7 @@ NAME=linux-pam
 VERSION=1.5.2
 URL=https://github.com/linux-pam/linux-pam/releases/download/v1.5.2/Linux-PAM-1.5.2.tar.xz
 SECTION="Security"
-DESCRIPTION="The Linux PAM package contains Pluggable Authentication Modules used to enable the local system administrator to choose how applications authenticate users."
+DESCRIPTION="The Linux PAM package contains Pluggable Authentication Modules used by the local system administrator to control how application programs authenticate users."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
@@ -44,6 +44,9 @@ fi
 echo $USER > /tmp/currentuser
 
 
+sed -e /service_DATA/d \
+    -i modules/pam_namespace/Makefile.am &&
+autoreconf
 tar -xf ../Linux-PAM-1.5.2-docs.tar.xz --strip-components=1
 sed -e 's/dummy elinks/dummy lynx/'                                    \
     -e 's/-no-numbering -no-references/-force-html -nonumbers -stdin/' \
@@ -109,19 +112,22 @@ auth      required    pam_unix.so
 # End /etc/pam.d/system-auth
 EOF
 
-cat > /etc/pam.d/system-session << "EOF"
+cat > /etc/pam.d/system-session << "EOF" &&
 # Begin /etc/pam.d/system-session
 
 session   required    pam_unix.so
 
 # End /etc/pam.d/system-session
 EOF
+
 sudo tee /etc/pam.d/system-password << "EOF"
 # Begin /etc/pam.d/system-password
 
 # use sha512 hash for encryption, use shadow, and try to use any previously
-# defined authentication token (chosen password) set by any prior module
-password  required    pam_unix.so       sha512 shadow try_first_pass
+# defined authentication token (chosen password) set by any prior module.
+# Use the same number of rounds as shadow.
+password  required    pam_unix.so       sha512 shadow try_first_pass \
+                                        rounds=500000
 
 # End /etc/pam.d/system-password
 EOF

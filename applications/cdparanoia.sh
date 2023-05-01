@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-10.2.src.tgz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/cdparanoia-III-10.2-gcc_fixes-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/cdparanoia-III-10.2-gcc_fixes-1.patch
 
 
 if [ ! -z $URL ]
@@ -50,7 +50,8 @@ make -j1
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
-chmod -v 755 /usr/lib/libcdda_*.so.0.10.2
+chmod -v 755 /usr/lib/libcdda_*.so.0.10.2 &&
+rm -fv /usr/lib/libcdda_*.a
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

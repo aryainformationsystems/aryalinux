@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=ldns
-VERSION=1.8.1
-URL=https://www.nlnetlabs.nl/downloads/ldns/ldns-1.8.1.tar.gz
+VERSION=1.8.3
+URL=https://www.nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz
 SECTION="Networking Libraries"
 DESCRIPTION="ldns is a fast DNS library with the goal to simplify DNS programming and to allow developers to easily create software conforming to current RFCs and Internet drafts. This packages also includes the drill tool."
 
@@ -21,7 +21,7 @@ DESCRIPTION="ldns is a fast DNS library with the goal to simplify DNS programmin
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.nlnetlabs.nl/downloads/ldns/ldns-1.8.1.tar.gz
+wget -nc https://www.nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz
 
 
 if [ ! -z $URL ]
@@ -60,8 +60,8 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m755 -d /usr/share/doc/ldns-1.8.1 &&
-install -v -m644 doc/html/* /usr/share/doc/ldns-1.8.1
+install -v -m755 -d /usr/share/doc/ldns-1.8.3 &&
+install -v -m644 doc/html/* /usr/share/doc/ldns-1.8.3
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

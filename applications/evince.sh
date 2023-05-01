@@ -25,8 +25,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=evince
-VERSION=41.3
-URL=https://download.gnome.org/sources/evince/41/evince-41.3.tar.xz
+VERSION=43.1
+URL=https://download.gnome.org/sources/evince/43/evince-43.1.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="Evince is a document viewer for multiple document formats. It supports PDF, Postscript, DjVu, TIFF and DVI. It is useful for viewing documents of various types using one simple application instead of the multiple document viewers that once existed on the GNOME Desktop."
 
@@ -34,8 +34,8 @@ DESCRIPTION="Evince is a document viewer for multiple document formats. It suppo
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/evince/41/evince-41.3.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/evince/41/evince-41.3.tar.xz
+wget -nc https://download.gnome.org/sources/evince/43/evince-43.1.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/evince/43/evince-43.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -57,13 +57,19 @@ fi
 echo $USER > /tmp/currentuser
 
 
-export CPPFLAGS="-I/opt/texlive/2021/include" &&
-export LDFLAGS="$LDFLAGS -L/opt/texlive/2021/lib"
-find . -name meson.build | xargs sed -i '/merge_file/{n;d}'
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dgtk_doc=false .. &&
+CPPFLAGS+=" -I/opt/texlive/2023/include" \
+meson setup --prefix=/usr          \
+            --buildtype=release    \
+            -Dgtk_doc=false        \
+            --wrap-mode=nodownload \
+            -Dsystemduserunitdir=no .. &&
+ninja
+sed "/fatal-warnings/d" -i ../help/reference/*/meson.build    &&
+sed "/docs_dir/s@\$@ / 'evince-43.1'@" -i ../help/meson.build &&
+meson configure -Dgtk_doc=true                                &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

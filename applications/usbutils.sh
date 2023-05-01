@@ -8,14 +8,15 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:libusb
+#REQ:git
 #REQ:wget
 
 
 cd $SOURCE_DIR
 
 NAME=usbutils
-VERSION=014
-URL=https://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-014.tar.xz
+VERSION=015
+URL=https://github.com/gregkh/usbutils/archive/v015/usbutils-015.tar.gz
 SECTION="System Utilities"
 DESCRIPTION="The USB Utils package contains utilities used to display information about USB buses in the system and the devices connected to them."
 
@@ -23,7 +24,7 @@ DESCRIPTION="The USB Utils package contains utilities used to display informatio
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-014.tar.xz
+wget -nc https://github.com/gregkh/usbutils/archive/v015/usbutils-015.tar.gz
 
 
 if [ ! -z $URL ]
@@ -44,6 +45,8 @@ fi
 
 echo $USER > /tmp/currentuser
 
+
+autoreconf -fiv &&
 
 ./configure --prefix=/usr --datadir=/usr/share/hwdata &&
 make
@@ -68,37 +71,18 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cat > /usr/lib/systemd/system/update-usbids.service << "EOF" &&
-[Unit]
-Description=Update usb.ids file
-Documentation=man:lsusb(8)
-DefaultDependencies=no
-After=local-fs.target network-online.target
-Before=shutdown.target
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=/usr/bin/wget http://www.linux-usb.org/usb.ids -O /usr/share/hwdata/usb.ids
-EOF
-cat > /usr/lib/systemd/system/update-usbids.timer << "EOF" &&
-[Unit]
-Description=Update usb.ids file weekly
-
-[Timer]
-OnCalendar=Sun 03:00:00
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-systemctl enable update-usbids.timer
+wget http://www.linux-usb.org/usb.ids -O /usr/share/hwdata/usb.ids
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+cat > /etc/cron.weekly/update-usbids.sh << "EOF" &&
+#!/bin/bash
+/usr/bin/wget http://www.linux-usb.org/usb.ids -O /usr/share/hwdata/usb.ids
+EOF
+chmod 754 /etc/cron.weekly/update-usbids.sh
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

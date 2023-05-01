@@ -9,14 +9,15 @@ set +h
 
 #REQ:curl
 #REQ:libevent
-#REQ:gtk3
+#REQ:libpsl
+#REQ:gtkmm3
 
 
 cd $SOURCE_DIR
 
 NAME=transmission
-VERSION=3.00
-URL=https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-3.00.tar.xz
+VERSION=4.0.3
+URL=https://github.com/transmission/transmission/releases/download/4.0.3/transmission-4.0.3.tar.xz
 SECTION="Other X-based Programs"
 DESCRIPTION="Transmission is a cross-platform, open source BitTorrent client. This is useful for downloading large files (such as Linux ISOs) and reduces the need for the distributors to provide server bandwidth."
 
@@ -24,7 +25,7 @@ DESCRIPTION="Transmission is a cross-platform, open source BitTorrent client. Th
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-3.00.tar.xz
+wget -nc https://github.com/transmission/transmission/releases/download/4.0.3/transmission-4.0.3.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,11 +47,29 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr --enable-cli &&
+mkdir build &&
+cd    build &&
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release  \
+      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/transmission-4.0.3 \
+      .. &&
+
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+rsvg-convert                                               \
+   /usr/share/icons/hicolor/scalable/apps/transmission.svg \
+   -o /usr/share/pixmaps/transmission.png
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

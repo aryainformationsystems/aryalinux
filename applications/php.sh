@@ -19,8 +19,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=php
-VERSION=8.1.3
-URL=https://www.php.net/distributions/php-8.1.3.tar.xz
+VERSION=8.2.5
+URL=https://www.php.net/distributions/php-8.2.5.tar.xz
 SECTION="Programming"
 DESCRIPTION="PHP is the PHP Hypertext Preprocessor. Primarily used in dynamic web sites, it allows for programming code to be directly embedded into the HTML markup. It is also useful as a general purpose scripting language."
 
@@ -28,10 +28,10 @@ DESCRIPTION="PHP is the PHP Hypertext Preprocessor. Primarily used in dynamic we
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.php.net/distributions/php-8.1.3.tar.xz
+wget -nc https://www.php.net/distributions/php-8.2.5.tar.xz
 wget -nc https://www.php.net/distributions/manual/php_manual_en.html.gz
 wget -nc https://www.php.net/distributions/manual/php_manual_en.tar.gz
-wget -nc http://www.php.net/download-docs.php
+wget -nc https://www.php.net/download-docs.php
 
 
 if [ ! -z $URL ]
@@ -111,9 +111,9 @@ cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install                                     &&
 install -v -m644 php.ini-production /etc/php.ini &&
 
-install -v -m755 -d /usr/share/doc/php-8.1.3 &&
+install -v -m755 -d /usr/share/doc/php-8.2.5 &&
 install -v -m644    CODING_STANDARDS* EXTENSIONS NEWS README* UPGRADING* \
-                    /usr/share/doc/php-8.1.3
+                    /usr/share/doc/php-8.2.5
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -132,7 +132,7 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-wget http://pear.php.net/go-pear.phar
+wget https://pear.php.net/go-pear.phar
 php ./go-pear.phar
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
@@ -179,7 +179,7 @@ pushd $SOURCE_DIR
 wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
 tar xf blfs-systemd-units-20180105.tar.bz2
 cd blfs-systemd-units-20180105
-sudo make install-php-fpm
+sudo make install-php
 popd
 ENDOFROOTSCRIPT
 

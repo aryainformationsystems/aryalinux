@@ -8,7 +8,6 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:yasm
-#REQ:ffmpeg
 #REQ:gtk2
 #REQ:libvdpau-va-gl
 
@@ -16,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=mplayer
-VERSION=202
-URL=https://anduin.linuxfromscratch.org/BLFS/mplayer/mplayer-export-2021-07-29.tar.bz2
+VERSION=1.5
+URL=https://mplayerhq.hu/MPlayer/releases/MPlayer-1.5.tar.xz
 SECTION="Video Utilities"
 DESCRIPTION="MPlayer is a powerful audio/video player controlled via the command line or a graphical interface that is able to play almost every popular audio and video file format. With supported video hardware and additional drivers, MPlayer can play video files without an X Window System installed."
 
@@ -25,10 +24,11 @@ DESCRIPTION="MPlayer is a powerful audio/video player controlled via the command
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://anduin.linuxfromscratch.org/BLFS/mplayer/mplayer-export-2021-07-29.tar.bz2
-wget -nc http://www.mplayerhq.hu/MPlayer/skins/Clearlooks-2.0.tar.bz2
+wget -nc https://mplayerhq.hu/MPlayer/releases/MPlayer-1.5.tar.xz
+wget -nc ftp://ftp.mplayerhq.hu/MPlayer/releases/MPlayer-1.5.tar.xz
+wget -nc https://mplayerhq.hu/MPlayer/skins/Clearlooks-2.0.tar.bz2
 wget -nc ftp://ftp.mplayerhq.hu/MPlayer/skins/Clearlooks-2.0.tar.bz2
-wget -nc https://www.mplayerhq.hu/MPlayer/skins/
+wget -nc https://mplayerhq.hu/MPlayer/skins/
 
 
 if [ ! -z $URL ]
@@ -54,7 +54,6 @@ echo $USER > /tmp/currentuser
             --confdir=/etc/mplayer        \
             --enable-dynamic-plugins      \
             --disable-libmpeg2-internal   \
-            --disable-ffmpeg_a            \
             --enable-menu                 \
             --enable-runtime-cpudetection \
             --enable-gui                  &&
@@ -73,9 +72,9 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m755 -d /usr/share/doc/mplayer-export-2021-07-29 &&
+install -v -m755 -d /usr/share/doc/mplayer-1.5 &&
 install -v -m644    DOCS/HTML/en/* \
-                    /usr/share/doc/mplayer-export-2021-07-29
+                    /usr/share/doc/mplayer-1.5
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

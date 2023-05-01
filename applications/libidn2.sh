@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libidn2
-VERSION=2.3.2
-URL=https://ftp.gnu.org/gnu/libidn/libidn2-2.3.2.tar.gz
+VERSION=2.3.4
+URL=https://ftp.gnu.org/gnu/libidn/libidn2-2.3.4.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="libidn2 is a package designed for internationalized string handling based on standards from the Internet Engineering Task Force (IETF)'s IDN working group, designed for internationalized domain names."
 
@@ -22,8 +22,8 @@ DESCRIPTION="libidn2 is a package designed for internationalized string handling
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/libidn/libidn2-2.3.2.tar.gz
-wget -nc ftp://ftp.gnu.org/gnu/libidn/libidn2-2.3.2.tar.gz
+wget -nc https://ftp.gnu.org/gnu/libidn/libidn2-2.3.4.tar.gz
+wget -nc ftp://ftp.gnu.org/gnu/libidn/libidn2-2.3.4.tar.gz
 
 
 if [ ! -z $URL ]

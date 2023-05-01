@@ -13,7 +13,7 @@ cd $SOURCE_DIR
 
 NAME=libdaemon
 VERSION=0.14
-URL=http://0pointer.de/lennart/projects/libdaemon/libdaemon-0.14.tar.gz
+URL=https://0pointer.de/lennart/projects/libdaemon/libdaemon-0.14.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="The libdaemon package is a lightweight C library that eases the writing of UNIX daemons."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The libdaemon package is a lightweight C library that eases the wri
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://0pointer.de/lennart/projects/libdaemon/libdaemon-0.14.tar.gz
+wget -nc https://0pointer.de/lennart/projects/libdaemon/libdaemon-0.14.tar.gz
 
 
 if [ ! -z $URL ]

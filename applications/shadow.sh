@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=shadow
-VERSION=4.11.1
-URL=https://github.com/shadow-maint/shadow/releases/download/v4.11.1/shadow-4.11.1.tar.xz
+VERSION=4.13
+URL=https://github.com/shadow-maint/shadow/releases/download/4.13/shadow-4.13.tar.xz
 SECTION="Security"
 DESCRIPTION="Shadow was indeed installed in LFS and there is no reason to reinstall it unless you installed CrackLib or Linux-PAM after your LFS system was completed. If you have installed CrackLib after LFS, then reinstalling Shadow will enable strong password support. If you have installed Linux-PAM, reinstalling Shadow will allow programs such as login and su to utilize PAM."
 
@@ -23,8 +23,8 @@ DESCRIPTION="Shadow was indeed installed in LFS and there is no reason to reinst
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/shadow-maint/shadow/releases/download/v4.11.1/shadow-4.11.1.tar.xz
-wget -nc http://www.deer-run.com/~hal/linux_passwords_pam.html
+wget -nc https://github.com/shadow-maint/shadow/releases/download/4.13/shadow-4.13.tar.xz
+wget -nc https://deer-run.com/users/hal/linux_passwords_pam.html
 
 
 if [ ! -z $URL ]
@@ -54,6 +54,7 @@ find man -name Makefile.in -exec sed -i 's/getspnam\.3 / /' {} \; &&
 find man -name Makefile.in -exec sed -i 's/passwd\.5 / /'   {} \; &&
 
 sed -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
+    -e 's@#\(SHA_CRYPT_..._ROUNDS 5000\)@\100@'       \
     -e 's@/var/spool/mail@/var/mail@'                 \
     -e '/PATH=/{s@/sbin:@@;s@/bin:@@}'                \
     -i etc/login.defs                                 &&
@@ -194,7 +195,8 @@ auth      sufficient  pam_rootok.so
 auth      include     system-auth
 
 # limit su to users in the wheel group
-auth      required    pam_wheel.so use_uid
+# disabled by default
+#auth      required    pam_wheel.so use_uid
 
 # include system account settings
 account   include     system-account
@@ -272,7 +274,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-[ -f /etc/login.access ] && mv -v /etc/login.access{,.NOUSE}
+if [ -f /etc/login.access ]; then mv -v /etc/login.access{,.NOUSE}; fi
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -281,7 +283,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-[ -f /etc/limits ] && mv -v /etc/limits{,.NOUSE}
+if [ -f /etc/limits ]; then mv -v /etc/limits{,.NOUSE}; fi
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

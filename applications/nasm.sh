@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=nasm
-VERSION=2.15.05
-URL=https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.xz
+VERSION=2.16.01
+URL=https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/nasm-2.16.01.tar.xz
 SECTION="Programming"
 DESCRIPTION="NASM (Netwide Assembler) is an 80x86 assembler designed for portability and modularity. It includes a disassembler as well."
 
@@ -21,8 +21,8 @@ DESCRIPTION="NASM (Netwide Assembler) is an 80x86 assembler designed for portabi
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.xz
-wget -nc https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05-xdoc.tar.xz
+wget -nc https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/nasm-2.16.01.tar.xz
+wget -nc https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/nasm-2.16.01-xdoc.tar.xz
 
 
 if [ ! -z $URL ]
@@ -44,7 +44,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-tar -xf ../nasm-2.15.05-xdoc.tar.xz --strip-components=1
+tar -xf ../nasm-2.16.01-xdoc.tar.xz --strip-components=1
 ./configure --prefix=/usr &&
 make
 sudo rm -rf /tmp/rootscript.sh
@@ -58,9 +58,9 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -m755 -d         /usr/share/doc/nasm-2.15.05/html  &&
-cp -v doc/html/*.html    /usr/share/doc/nasm-2.15.05/html  &&
-cp -v doc/*.{txt,ps,pdf} /usr/share/doc/nasm-2.15.05
+install -m755 -d         /usr/share/doc/nasm-2.16.01/html  &&
+cp -v doc/html/*.html    /usr/share/doc/nasm-2.16.01/html  &&
+cp -v doc/*.{txt,ps,pdf} /usr/share/doc/nasm-2.16.01
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

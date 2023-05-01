@@ -7,7 +7,7 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:perl-deps#perl-libwww-perl
+#REQ:perl-modules#perl-libwww-perl
 
 
 cd $SOURCE_DIR

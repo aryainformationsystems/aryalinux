@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xcb-util-renderutil
-VERSION=0.3.9
-URL=https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.9.tar.bz2
+VERSION=0.3.10
+URL=https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.10.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The xcb-util-renderutil package provides additional extensions to the XCB library."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The xcb-util-renderutil package provides additional extensions to t
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.9.tar.bz2
+wget -nc https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.10.tar.xz
 
 
 if [ ! -z $URL ]

@@ -10,7 +10,7 @@ set +h
 #REQ:alsa-lib
 #REQ:colord
 #REQ:fontconfig
-#REQ:gcr
+#REQ:gcr4
 #REQ:geoclue2
 #REQ:geocode-glib
 #REQ:gnome-desktop
@@ -20,20 +20,20 @@ set +h
 #REQ:libnotify
 #REQ:libwacom
 #REQ:pulseaudio
-#REQ:systemd
 #REQ:upower
 #REQ:alsa
 #REQ:cups
 #REQ:networkmanager
 #REQ:nss
 #REQ:wayland
+#REQ:blocaled
 
 
 cd $SOURCE_DIR
 
 NAME=gnome-settings-daemon
-VERSION=41.0
-URL=https://download.gnome.org/sources/gnome-settings-daemon/41/gnome-settings-daemon-41.0.tar.xz
+VERSION=43.0
+URL=https://download.gnome.org/sources/gnome-settings-daemon/43/gnome-settings-daemon-43.0.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The GNOME Settings Daemon is responsible for setting various parameters of a GNOME Session and the applications that run under it."
 
@@ -41,8 +41,8 @@ DESCRIPTION="The GNOME Settings Daemon is responsible for setting various parame
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-settings-daemon/41/gnome-settings-daemon-41.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-settings-daemon/41/gnome-settings-daemon-41.0.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-settings-daemon/43/gnome-settings-daemon-43.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-settings-daemon/43/gnome-settings-daemon-43.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -64,11 +64,17 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed "/  policy,/d" -i plugins/{power,wacom}/meson.build
+sed -e 's/libsystemd/libelogind/' \
+    -i plugins/power/test.py
+sed -e 's/(backlight->logind_proxy)/(0)/' \
+    -i plugins/power/gsd-backlight.c
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dsystemd=false     \
+            ..                  &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

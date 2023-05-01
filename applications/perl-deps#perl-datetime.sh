@@ -12,20 +12,21 @@ set +h
 #REQ:perl-deps#perl-cpan-meta-check
 #REQ:perl-deps#perl-test-fatal
 #REQ:perl-deps#perl-test-warnings
+#REQ:perl-deps#perl-test-without-module
 
 
 cd $SOURCE_DIR
 
 NAME=perl-deps#perl-datetime
-VERSION=1.55
-URL=https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/DateTime-1.55.tar.gz
+VERSION=1.59
+URL=https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/DateTime-1.59.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/DateTime-1.55.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/DateTime-1.59.tar.gz
 
 
 if [ ! -z $URL ]

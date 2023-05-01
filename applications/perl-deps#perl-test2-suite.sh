@@ -16,15 +16,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-deps#perl-test2-suite
-VERSION=0.000144
-URL=https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test2-Suite-0.000144.tar.gz
+VERSION=0.000145
+URL=https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test2-Suite-0.000145.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test2-Suite-0.000144.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test2-Suite-0.000145.tar.gz
 
 
 if [ ! -z $URL ]

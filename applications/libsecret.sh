@@ -52,7 +52,14 @@ echo $USER > /tmp/currentuser
 mkdir bld &&
 cd bld &&
 
-meson --prefix=/usr --buildtype=release -Dgtk_doc=false .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dgtk_doc=false     \
+            ..                  &&
+ninja
+sed "s/api_version_major/'0.20.5'/"            \
+    -i ../docs/reference/libsecret/meson.build &&
+meson configure -Dgtk_doc=true                 &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
@@ -63,6 +70,7 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+mv -v /usr/share/doc/libsecret-{1,0.20.5}
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

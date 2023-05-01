@@ -7,8 +7,8 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:gdk-pixbuf
 #REQ:cairo
+#REQ:gdk-pixbuf
 #REQ:pango
 #REQ:rust
 #REQ:gobject-introspection
@@ -18,8 +18,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=librsvg
-VERSION=2.52.6
-URL=https://download.gnome.org/sources/librsvg/2.52/librsvg-2.52.6.tar.xz
+VERSION=2.56.0
+URL=https://download.gnome.org/sources/librsvg/2.56/librsvg-2.56.0.tar.xz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The librsvg package contains a library and tools used to manipulate, convert and view Scalable Vector Graphic (SVG) images."
 
@@ -27,8 +27,8 @@ DESCRIPTION="The librsvg package contains a library and tools used to manipulate
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/librsvg/2.52/librsvg-2.52.6.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/librsvg/2.52/librsvg-2.52.6.tar.xz
+wget -nc https://download.gnome.org/sources/librsvg/2.56/librsvg-2.56.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/librsvg/2.56/librsvg-2.56.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -61,11 +61,10 @@ export PATH=/opt/rustc/bin:$PATH
 ./configure --prefix=/usr    \
             --enable-vala    \
             --disable-static \
-            --docdir=/usr/share/doc/librsvg-2.52.6 &&
+            --docdir=/usr/share/doc/librsvg-2.56.0 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-export PATH=/opt/rustc/bin:$PATH
 make install
 ENDOFROOTSCRIPT
 

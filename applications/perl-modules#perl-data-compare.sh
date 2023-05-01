@@ -14,15 +14,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-data-compare
-VERSION=1.27
-URL=https://www.cpan.org/authors/id/D/DC/DCANTRELL/Data-Compare-1.27.tar.gz
+VERSION=1.29
+URL=https://www.cpan.org/authors/id/D/DC/DCANTRELL/Data-Compare-1.29.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/D/DC/DCANTRELL/Data-Compare-1.27.tar.gz
+wget -nc https://www.cpan.org/authors/id/D/DC/DCANTRELL/Data-Compare-1.29.tar.gz
 
 
 if [ ! -z $URL ]

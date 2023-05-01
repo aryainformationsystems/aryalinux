@@ -12,10 +12,10 @@ set +h
 #REQ:lcms2
 #REQ:polkit
 #REQ:sqlite
+#REQ:elogind
 #REQ:gobject-introspection
 #REQ:libgudev
 #REQ:libgusb
-#REQ:systemd
 #REQ:vala
 
 
@@ -64,21 +64,21 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-mv po/fur.po po/ur.po &&
-sed -i 's/fur/ur/' po/LINGUAS
+sed '/cmsUnregisterPluginsTHR/d' -i lib/colord/cd-context-lcms.c
 mkdir build &&
-cd build &&
+cd    build &&
 
-meson --prefix=/usr            \
+meson setup ..                 \
+      --prefix=/usr            \
       --buildtype=release      \
       -Ddaemon_user=colord     \
       -Dvapi=true              \
-      -Dsystemd=true           \
+      -Dsystemd=false          \
       -Dlibcolordcompat=true   \
       -Dargyllcms_sensor=false \
       -Dbash_completion=false  \
       -Ddocs=false             \
-      -Dman=false ..           &&
+      -Dman=false              &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

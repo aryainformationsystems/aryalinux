@@ -7,20 +7,20 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:gtk3
-#REQ:gtksourceview4
+#REQ:gtksourceview5
 #REQ:itstool
+#REQ:libadwaita
 #REQ:libgee
 #REQ:libhandy1
-#REQ:libsoup
+#REQ:libsoup3
 #REQ:vala
 
 
 cd $SOURCE_DIR
 
 NAME=gnome-calculator
-VERSION=41.1
-URL=https://download.gnome.org/sources/gnome-calculator/41/gnome-calculator-41.1.tar.xz
+VERSION=43.0.1
+URL=https://download.gnome.org/sources/gnome-calculator/43/gnome-calculator-43.0.1.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="GNOME Calculator is a powerful graphical calculator with financial, logical and scientific modes. It uses a multiple precision package to do its arithmetic to give a high degree of accuracy."
 
@@ -28,8 +28,8 @@ DESCRIPTION="GNOME Calculator is a powerful graphical calculator with financial,
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-calculator/41/gnome-calculator-41.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-calculator/41/gnome-calculator-41.1.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-calculator/43/gnome-calculator-43.0.1.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-calculator/43/gnome-calculator-43.0.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -54,7 +54,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

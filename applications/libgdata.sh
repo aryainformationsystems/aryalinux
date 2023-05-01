@@ -13,7 +13,6 @@ set +h
 #REQ:json-glib
 #REQ:vala
 #REQ:gcr
-#REQ:git
 #REQ:gobject-introspection
 
 
@@ -55,10 +54,11 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr                 \
-      --buildtype=release           \
-      -Dgtk_doc=false               \
-      -Dalways_build_tests=false .. &&
+meson setup --prefix=/usr              \
+            --buildtype=release        \
+            -Dgtk_doc=false            \
+            -Dalways_build_tests=false \
+            ..                         &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

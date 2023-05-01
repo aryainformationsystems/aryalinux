@@ -24,7 +24,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/clucene/clucene-core-2.3.3.4.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/clucene-2.3.3.4-contribs_lib-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/clucene-2.3.3.4-contribs_lib-1.patch
 
 
 if [ ! -z $URL ]
@@ -47,6 +47,8 @@ echo $USER > /tmp/currentuser
 
 
 patch -Np1 -i ../clucene-2.3.3.4-contribs_lib-1.patch &&
+
+sed -i '/Misc.h/a #include <ctime>' src/core/CLucene/document/DateTools.cpp &&
 
 mkdir build &&
 cd    build &&

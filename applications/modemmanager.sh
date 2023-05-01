@@ -8,6 +8,7 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:libgudev
+#REQ:elogind
 #REQ:gobject-introspection
 #REQ:libmbim
 #REQ:libqmi
@@ -18,8 +19,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=modemmanager
-VERSION=1.18.6
-URL=https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.6.tar.xz
+VERSION=1.18.12
+URL=https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.12.tar.xz
 SECTION="System Utilities"
 DESCRIPTION="ModemManager provides a unified high level API for communicating with mobile broadband modems, regardless of the protocol used to communicate with the actual device."
 
@@ -27,7 +28,7 @@ DESCRIPTION="ModemManager provides a unified high level API for communicating wi
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.6.tar.xz
+wget -nc https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.12.tar.xz
 
 
 if [ ! -z $URL ]
@@ -54,21 +55,12 @@ echo $USER > /tmp/currentuser
             --localstatedir=/var          \
             --disable-static              \
             --disable-maintainer-mode     \
-            --with-systemd-journal        \
+            --with-systemd-journal=no     \
             --with-systemd-suspend-resume &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable ModemManager
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xapian
-VERSION=1.4.19
-URL=https://oligarchy.co.uk/xapian/1.4.19/xapian-core-1.4.19.tar.xz
+VERSION=1.4.22
+URL=https://oligarchy.co.uk/xapian/1.4.22/xapian-core-1.4.22.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="Xapian is an open source search engine library."
 
@@ -21,7 +21,7 @@ DESCRIPTION="Xapian is an open source search engine library."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://oligarchy.co.uk/xapian/1.4.19/xapian-core-1.4.19.tar.xz
+wget -nc https://oligarchy.co.uk/xapian/1.4.22/xapian-core-1.4.22.tar.xz
 
 
 if [ ! -z $URL ]
@@ -45,7 +45,7 @@ echo $USER > /tmp/currentuser
 
 ./configure --prefix=/usr    \
             --disable-static \
-            --docdir=/usr/share/doc/xapian-core-1.4.19 &&
+            --docdir=/usr/share/doc/xapian-core-1.4.22 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

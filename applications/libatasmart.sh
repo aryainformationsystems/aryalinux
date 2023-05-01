@@ -13,7 +13,7 @@ cd $SOURCE_DIR
 
 NAME=libatasmart
 VERSION=0.19
-URL=http://0pointer.de/public/libatasmart-0.19.tar.xz
+URL=https://0pointer.de/public/libatasmart-0.19.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The libatasmart package is a disk reporting library. It only supports a subset of the ATA S.M.A.R.T. functionality."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The libatasmart package is a disk reporting library. It only suppor
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://0pointer.de/public/libatasmart-0.19.tar.xz
+wget -nc https://0pointer.de/public/libatasmart-0.19.tar.xz
 
 
 if [ ! -z $URL ]

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=pcre2
-VERSION=10.39
-URL=https://github.com/PhilipHazel/pcre2/releases/download/pcre2-10.39/pcre2-10.39.tar.bz2
+VERSION=10.42
+URL=https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.42/pcre2-10.42.tar.bz2
 SECTION="General Libraries"
 DESCRIPTION="The PCRE2 package contains a new generation of the Perl Compatible Regular Expression libraries. These are useful for implementing regular expression pattern matching using the same syntax and semantics as Perl."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The PCRE2 package contains a new generation of the Perl Compatible 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/PhilipHazel/pcre2/releases/download/pcre2-10.39/pcre2-10.39.tar.bz2
+wget -nc https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.42/pcre2-10.42.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -44,7 +44,7 @@ echo $USER > /tmp/currentuser
 
 
 ./configure --prefix=/usr                       \
-            --docdir=/usr/share/doc/pcre2-10.39 \
+            --docdir=/usr/share/doc/pcre2-10.42 \
             --enable-unicode                    \
             --enable-jit                        \
             --enable-pcre2-16                   \

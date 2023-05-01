@@ -48,37 +48,37 @@ export XORG_CONFIG="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --disab
 
 cat > lib-7.md5 << "EOF"
 ce2fb8100c6647ee81451ebe388b17ad  xtrans-1.4.0.tar.bz2
-28021759f3cf9ef64eb1465c3b6effc5  libX11-1.7.3.1.tar.xz
-f5b48bb76ba327cd2a8dc7a383532a95  libXext-1.3.4.tar.bz2
-4e1196275aa743d6ebd3d3d5ec1dff9c  libFS-1.0.8.tar.bz2
-76d77499ee7120a56566891ca2c0dbcf  libICE-1.0.10.tar.bz2
-87c7fad1c1813517979184c8ccd76628  libSM-1.2.3.tar.bz2
-eeea9d5af3e6c143d0ea1721d27a5e49  libXScrnSaver-1.2.3.tar.bz2
-b122ff9a7ec70c94dbbfd814899fffa5  libXt-1.2.1.tar.bz2
-ac774cff8b493f566088a255dbf91201  libXmu-1.1.3.tar.bz2
-6f0ecf8d103d528cfc803aa475137afa  libXpm-3.5.13.tar.bz2
-c1ce21c296bbf3da3e30cf651649563e  libXaw-1.0.14.tar.bz2
-86f182f487f4f54684ef6b142096bb0f  libXfixes-6.0.0.tar.bz2
-3fa0841ea89024719b20cd702a9b54e0  libXcomposite-0.4.5.tar.bz2
-802179a76bded0b658f4e9ec5e1830a4  libXrender-0.9.10.tar.bz2
-9b9be0e289130fb820aedf67705fc549  libXcursor-1.2.0.tar.bz2
-e3f554267a7a04b042dc1f6352bd6d99  libXdamage-1.1.5.tar.bz2
-6447db6a689fb530c218f0f8328c3abc  libfontenc-1.1.4.tar.bz2
-bdf528f1d337603c7431043824408668  libXfont2-2.0.5.tar.bz2
-5004d8e21cdddfe53266b7293c1dfb1b  libXft-2.3.4.tar.bz2
+e932752126240f0846b35eef6b1f2c3d  libX11-1.8.4.tar.xz
+964942427fcc5a9fa0539661421857c8  libXext-1.3.5.tar.xz
+742863a552ecd53cdb957b7b276213cc  libFS-1.0.9.tar.xz
+b444a0e4c2163d1bbc7b046c3653eb8d  libICE-1.1.1.tar.xz
+ffa434ed96ccae45533b3d653300730e  libSM-1.2.4.tar.xz
+e613751d38e13aa0d0fd8e0149cec057  libXScrnSaver-1.2.4.tar.xz
+4ea21d3b5a36d93a2177d9abed2e54d4  libXt-1.3.0.tar.xz
+ed52d396115fbc4d05300762aab79685  libXmu-1.1.4.tar.xz
+5073cf59174a2cadde220187759b2e7c  libXpm-3.5.16.tar.xz
+3f1e1052dbf3a2b8582ec24137e1fbd1  libXaw-1.0.15.tar.xz
+65b9ba1e9ff3d16c4fa72915d4bb585a  libXfixes-6.0.1.tar.xz
+af0a5f0abb5b55f8411cd738cf0e5259  libXcomposite-0.4.6.tar.xz
+ebf7fb3241ec03e8a3b2af72f03b4631  libXrender-0.9.11.tar.xz
+4cdd1886fe5cce6f68554296edb46db8  libXcursor-1.2.1.tar.xz
+ca55d29fa0a8b5c4a89f609a7952ebf8  libXdamage-1.1.6.tar.xz
+6d3f1b15bb5b0bb71ae9f0a5103c1fc4  libfontenc-1.1.7.tar.xz
+c179daa707f5f432f1bc13977e5bb329  libXfont2-2.0.6.tar.xz
+cea0a3304e47a841c90fbeeeb55329ee  libXft-2.3.8.tar.xz
 74055672a111a98ce2841d2ec4057b05  libXi-1.8.tar.bz2
-0d5f826a197dae74da67af4a9ef35885  libXinerama-1.1.4.tar.bz2
-18f3b20d522f45e4dadd34afb5bea048  libXrandr-1.5.2.tar.bz2
-e142ef0ed0366ae89c771c27cfc2ccd1  libXres-1.2.1.tar.bz2
-ef8c2c1d16a00bd95b9fdcef63b8a2ca  libXtst-1.2.3.tar.bz2
-210b6ef30dda2256d54763136faa37b9  libXv-1.0.11.tar.bz2
-3569ff7f3e26864d986d6a21147eaa58  libXvMC-1.0.12.tar.bz2
-0ddeafc13b33086357cfa96fae41ee8e  libXxf86dga-1.1.5.tar.bz2
-298b8fff82df17304dfdb5fe4066fe3a  libXxf86vm-1.1.4.tar.bz2
+228c877558c265d2f63c56a03f7d3f21  libXinerama-1.1.5.tar.xz
+850cbc7c921c9d5d0135734b114ff6ac  libXrandr-1.5.3.tar.xz
+66c9e9e01b0b53052bb1d02ebf8d7040  libXres-1.2.2.tar.xz
+02f128fbf809aa9c50d6e54c8e57cb2e  libXtst-1.2.4.tar.xz
+70bfdd14ca1a563c218794413f0c1f42  libXv-1.0.12.tar.xz
+11a358e7229fa28dc9801c1e64fe2e18  libXvMC-1.0.13.tar.xz
+74d1acf93b83abeb0954824da0ec400b  libXxf86dga-1.1.6.tar.xz
+5b913dac587f2de17a02e17f9a44a75f  libXxf86vm-1.1.5.tar.xz
 d2f1f0ec68ac3932dd7f1d9aa0a7a11c  libdmx-1.1.4.tar.bz2
-b34e2cbdd6aa8f9cc3fa613fd401a6d6  libpciaccess-0.16.tar.bz2
-dd7e1e946def674e78c0efbc5c7d5b3b  libxkbfile-1.1.0.tar.bz2
-42dda8016943dc12aff2c03a036e0937  libxshmfence-1.3.tar.bz2
+1466cf950c914ad2db1dbb76c9a724db  libpciaccess-0.17.tar.xz
+8af2275955d40166bb647b14e4896ab1  libxkbfile-1.1.2.tar.xz
+faa74f7483074ce7d4349e6bdc237497  libxshmfence-1.3.2.tar.xz
 EOF
 mkdir -pv lib &&
 cd lib &&
@@ -101,10 +101,6 @@ do
   pushd $packagedir
   docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
   case $packagedir in
-    libICE* )
-      ./configure $XORG_CONFIG $docdir ICE_LIBS=-lpthread
-    ;;
-
     libXfont2-[0-9]* )
       ./configure $XORG_CONFIG $docdir --disable-devel-docs
     ;;
@@ -114,10 +110,15 @@ do
                   --with-appdefaultdir=/etc/X11/app-defaults
     ;;
 
+    libXpm-[0-9]* )
+      ./configure $XORG_CONFIG $docdir --disable-open-zfile
+    ;;
+    
     * )
       ./configure $XORG_CONFIG $docdir
     ;;
   esac
+
   make
   
   as_root make install

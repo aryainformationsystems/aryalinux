@@ -17,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=cairo
-VERSION=1.17.4
-URL=https://www.cairographics.org/snapshots/cairo-1.17.4.tar.xz
+VERSION=1.17.6
+URL=https://download.gnome.org/sources/cairo/1.17/cairo-1.17.6.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="Cairo is a 2D graphics library with support for multiple output devices. Currently supported output targets include the X Window System, win32, image buffers, PostScript, PDF and SVG. Experimental backends include OpenGL, Quartz and XCB file output. Cairo is designed to produce consistent output on all output media while taking advantage of display hardware acceleration when available (e.g., through the X Render Extension). The Cairo API provides operations similar to the drawing operators of PostScript and PDF. Operations in Cairo include stroking and filling cubic Bézier splines, transforming and compositing translucent images, and antialiased text rendering. All drawing operations can be transformed by any affine transformation (scale, rotation, shear, etc.)."
 
@@ -26,7 +26,7 @@ DESCRIPTION="Cairo is a 2D graphics library with support for multiple output dev
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cairographics.org/snapshots/cairo-1.17.4.tar.xz
+wget -nc https://download.gnome.org/sources/cairo/1.17/cairo-1.17.6.tar.xz
 
 
 if [ ! -z $URL ]
@@ -48,6 +48,9 @@ fi
 echo $USER > /tmp/currentuser
 
 
+sed 's/PTR/void */' -i util/cairo-trace/lookup-symbol.c
+sed -e "/@prefix@/a exec_prefix=@exec_prefix@" \
+    -i util/cairo-script/cairo-script-interpreter.pc.in
 ./configure --prefix=/usr    \
             --disable-static \
             --enable-tee &&

@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=taglib
-VERSION=1.12
-URL=https://taglib.github.io/releases/taglib-1.12.tar.gz
+VERSION=1.13
+URL=https://taglib.org/releases/taglib-1.13.tar.gz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="Taglib is a library used for reading, writing and manipulating audio file tags and is used by applications such as Amarok and VLC."
 
@@ -22,7 +22,7 @@ DESCRIPTION="Taglib is a library used for reading, writing and manipulating audi
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://taglib.github.io/releases/taglib-1.12.tar.gz
+wget -nc https://taglib.org/releases/taglib-1.13.tar.gz
 
 
 if [ ! -z $URL ]

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=talloc
-VERSION=2.3.3
-URL=https://www.samba.org/ftp/talloc/talloc-2.3.3.tar.gz
+VERSION=2.4.0
+URL=https://www.samba.org/ftp/talloc/talloc-2.4.0.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="Talloc provides a hierarchical, reference counted memory pool system with destructors. It is the core memory allocator used in Samba."
 
@@ -21,7 +21,7 @@ DESCRIPTION="Talloc provides a hierarchical, reference counted memory pool syste
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.samba.org/ftp/talloc/talloc-2.3.3.tar.gz
+wget -nc https://www.samba.org/ftp/talloc/talloc-2.4.0.tar.gz
 
 
 if [ ! -z $URL ]

@@ -11,6 +11,7 @@ set +h
 #REQ:exempi
 #REQ:gnome-desktop
 #REQ:itstool
+#REQ:libhandy1
 #REQ:libjpeg
 #REQ:libpeas
 #REQ:shared-mime-info
@@ -23,8 +24,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=eog
-VERSION=41.1
-URL=https://download.gnome.org/sources/eog/41/eog-41.1.tar.xz
+VERSION=43.2
+URL=https://download.gnome.org/sources/eog/43/eog-43.2.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="EOG is an application used for viewing and cataloging image files on the GNOME Desktop. It also has basic editing capabilities."
 
@@ -32,8 +33,8 @@ DESCRIPTION="EOG is an application used for viewing and cataloging image files o
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/eog/41/eog-41.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/eog/41/eog-41.1.tar.xz
+wget -nc https://download.gnome.org/sources/eog/43/eog-43.2.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/eog/43/eog-43.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -55,12 +56,13 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed "/dependency/s@'libportal'@'libportal-gtk3'@" -i meson.build
-sed "/portal-gtk3/s@portal/@portal-gtk3/@" -i src/eog-util.c
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dlibportal=false .. &&
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dlibportal=false   \
+            ..                  &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

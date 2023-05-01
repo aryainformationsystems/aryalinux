@@ -24,7 +24,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://ftp.gnu.org/gnu/aspell/aspell-0.60.8.tar.gz
 wget -nc ftp://ftp.gnu.org/gnu/aspell/aspell-0.60.8.tar.gz
-wget -nc https://ftp.gnu.org/gnu/aspell/dict
+wget -nc https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-2020.12.07-0.tar.bz2
 wget -nc https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-2019.10.06-0.tar.bz2
 
 
@@ -91,6 +91,9 @@ DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
 cd $DIRECTORY
+tar xf ../aspell6-en-2020.12.07-0.tar.bz2 &&
+cd aspell6-en-2020.12.07-0                &&
+
 ./configure &&
 make
 sudo rm -rf /tmp/rootscript.sh

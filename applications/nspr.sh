@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=nspr
-VERSION=4.33
-URL=https://archive.mozilla.org/pub/nspr/releases/v4.33/src/nspr-4.33.tar.gz
+VERSION=4.35
+URL=https://archive.mozilla.org/pub/nspr/releases/v4.35/src/nspr-4.35.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="Netscape Portable Runtime (NSPR) provides a platform-neutral API for system level and libc like functions."
 
@@ -21,7 +21,7 @@ DESCRIPTION="Netscape Portable Runtime (NSPR) provides a platform-neutral API fo
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.mozilla.org/pub/nspr/releases/v4.33/src/nspr-4.33.tar.gz
+wget -nc https://archive.mozilla.org/pub/nspr/releases/v4.35/src/nspr-4.35.tar.gz
 
 
 if [ ! -z $URL ]

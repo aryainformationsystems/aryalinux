@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libuv
-VERSION=1.43.0
-URL=https://dist.libuv.org/dist/v1.43.0/libuv-v1.43.0.tar.gz
+VERSION=1.44.2
+URL=https://dist.libuv.org/dist/v1.44.2/libuv-v1.44.2.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="The libuv package is a multi-platform support library with a focus on asynchronous I/O."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The libuv package is a multi-platform support library with a focus 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://dist.libuv.org/dist/v1.43.0/libuv-v1.43.0.tar.gz
+wget -nc https://dist.libuv.org/dist/v1.44.2/libuv-v1.44.2.tar.gz
 
 
 if [ ! -z $URL ]

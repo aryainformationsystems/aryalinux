@@ -19,8 +19,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xfce4-settings
-VERSION=4.16.2
-URL=https://archive.xfce.org/src/xfce/xfce4-settings/4.16/xfce4-settings-4.16.2.tar.bz2
+VERSION=4.18.2
+URL=https://archive.xfce.org/src/xfce/xfce4-settings/4.18/xfce4-settings-4.18.2.tar.bz2
 SECTION="Xfce Desktop"
 DESCRIPTION="The Xfce4 Settings package contains a collection of programs that are useful for adjusting your Xfce preferences."
 
@@ -28,7 +28,7 @@ DESCRIPTION="The Xfce4 Settings package contains a collection of programs that a
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/xfce/xfce4-settings/4.16/xfce4-settings-4.16.2.tar.bz2
+wget -nc https://archive.xfce.org/src/xfce/xfce4-settings/4.18/xfce4-settings-4.18.2.tar.bz2
 
 
 if [ ! -z $URL ]

@@ -23,7 +23,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/openjade/openjade-1.3.2.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/openjade-1.3.2-upstream-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/openjade-1.3.2-upstream-1.patch
 
 
 if [ ! -z $URL ]

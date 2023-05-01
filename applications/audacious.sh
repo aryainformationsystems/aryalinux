@@ -8,16 +8,17 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:gtk2
-#REQ:libxml2
+#REQ:gtk3
 #REQ:mpg123
+#REQ:ffmpeg
 #REQ:neon
 
 
 cd $SOURCE_DIR
 
 NAME=audacious
-VERSION=4.1
-URL=https://distfiles.audacious-media-player.org/audacious-4.1.tar.bz2
+VERSION=4.3
+URL=https://distfiles.audacious-media-player.org/audacious-4.3.tar.bz2
 SECTION="Audio Utilities"
 DESCRIPTION="Audacious is an audio player."
 
@@ -25,8 +26,8 @@ DESCRIPTION="Audacious is an audio player."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://distfiles.audacious-media-player.org/audacious-4.1.tar.bz2
-wget -nc https://distfiles.audacious-media-player.org/audacious-plugins-4.1.tar.bz2
+wget -nc https://distfiles.audacious-media-player.org/audacious-4.3.tar.bz2
+wget -nc https://distfiles.audacious-media-player.org/audacious-plugins-4.3.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -48,38 +49,42 @@ fi
 echo $USER > /tmp/currentuser
 
 
-TPUT=/bin/true ./configure --prefix=/usr \
-                           --with-buildstamp="BLFS" &&
-make
+mkdir build &&
+cd    build &&
+
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dgtk3=true         \
+            -Dbuildstamp=BLFS   \
+            -Dlibarchive=true   \
+            ..                  &&
+
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-tar -xf ../audacious-plugins-4.1.tar.bz2                &&
-cd audacious-plugins-4.1                                &&
-TPUT=/bin/true ./configure --prefix=/usr --disable-wavpack &&
-make
+tar -xf ../audacious-plugins-4.3.tar.bz2 &&
+cd audacious-plugins-4.3                 &&
+
+mkdir build &&
+cd    build &&
+
+meson setup           \
+  --prefix=/usr       \
+  --buildtype=release \
+  -Dgtk3=true         \
+  ..                  &&
+
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cp -v /usr/share/applications/audacious{,-qt}.desktop &&
-
-sed -e '/^Name/ s/$/ Qt/' \
-    -e '/Exec=/ s/audacious/& --qt/' \
-    -i /usr/share/applications/audacious-qt.desktop
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

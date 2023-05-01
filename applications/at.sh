@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=at
-VERSION=3.2.4
-URL=http://software.calhariz.com/at/at_3.2.4.orig.tar.gz
+VERSION=3.2.5
+URL=https://anduin.linuxfromscratch.org/BLFS/at/at_3.2.5.orig.tar.gz
 SECTION="System Utilities"
 DESCRIPTION="The at package provide delayed job execution and batch processing. It is required for Linux Standards Base (LSB) conformance."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The at package provide delayed job execution and batch processing. 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://software.calhariz.com/at/at_3.2.4.orig.tar.gz
+wget -nc https://anduin.linuxfromscratch.org/BLFS/at/at_3.2.5.orig.tar.gz
 
 
 if [ ! -z $URL ]
@@ -56,15 +56,14 @@ sudo rm -rf /tmp/rootscript.sh
 
 ./configure --with-daemon_username=atd        \
             --with-daemon_groupname=atd       \
-            SENDMAIL=/usr/sbin/sendmail       \
             --with-jobdir=/var/spool/atjobs   \
             --with-atspool=/var/spool/atspool \
-            --with-systemdsystemunitdir=/lib/systemd/system &&
+            SENDMAIL=/usr/sbin/sendmail       &&
 make -j1
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install docdir=/usr/share/doc/at-3.2.4 \
-             atdocdir=/usr/share/doc/at-3.2.4
+make install docdir=/usr/share/doc/at-3.2.5 \
+             atdocdir=/usr/share/doc/at-3.2.5
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -91,7 +90,19 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable atd
+#!/bin/bash
+
+set -e
+set +h
+
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-atd
+popd
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

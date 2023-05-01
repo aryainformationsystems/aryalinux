@@ -11,20 +11,23 @@ set +h
 #REQ:tracker3
 #REQ:exempi
 #REQ:gexiv2
-#REQ:ffmpeg
 #REQ:giflib
+#REQ:gst10-plugins-base
+#REQ:gst10-plugins-good
+#REQ:gst10-libav
 #REQ:icu
 #REQ:libexif
 #REQ:libgrss
 #REQ:libgxps
+#REQ:libseccomp
 #REQ:poppler
 
 
 cd $SOURCE_DIR
 
 NAME=tracker3-miners
-VERSION=3.2.1
-URL=https://download.gnome.org/sources/tracker-miners/3.2/tracker-miners-3.2.1.tar.xz
+VERSION=3.4.3
+URL=https://download.gnome.org/sources/tracker-miners/3.4/tracker-miners-3.4.3.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The Tracker-miners package contains a set of data extractors for Tracker."
 
@@ -32,8 +35,8 @@ DESCRIPTION="The Tracker-miners package contains a set of data extractors for Tr
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/tracker-miners/3.2/tracker-miners-3.2.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/tracker-miners/3.2/tracker-miners-3.2.1.tar.xz
+wget -nc https://download.gnome.org/sources/tracker-miners/3.4/tracker-miners-3.4.3.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/tracker-miners/3.4/tracker-miners-3.4.3.tar.xz
 
 
 if [ ! -z $URL ]
@@ -55,11 +58,18 @@ fi
 echo $USER > /tmp/currentuser
 
 
+sed -i s/120/200/ tests/functional-tests/meson.build
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dman=false .. &&
+meson setup --prefix=/usr                 \
+            --buildtype=release           \
+            -Dsystemd_user_services=false \
+            -Dman=false                   \
+            ..                            &&
 ninja
+dbus-run-session env TRACKER_TESTS_AWAIT_TIMEOUT=20 ninja test &&
+rm -rf ~/tracker-tests
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install

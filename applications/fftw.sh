@@ -13,7 +13,7 @@ cd $SOURCE_DIR
 
 NAME=fftw
 VERSION=3.3.10
-URL=http://www.fftw.org/fftw-3.3.10.tar.gz
+URL=https://www.fftw.org/fftw-3.3.10.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="FFTW is a C subroutine library for computing the discrete Fourier transform (DFT) in one or more dimensions, of arbitrary input size, and of both real and complex data (as well as of even/odd data, i.e. the discrete cosine/sine transforms or DCT/DST)."
 
@@ -21,7 +21,7 @@ DESCRIPTION="FFTW is a C subroutine library for computing the discrete Fourier t
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://www.fftw.org/fftw-3.3.10.tar.gz
+wget -nc https://www.fftw.org/fftw-3.3.10.tar.gz
 wget -nc ftp://ftp.fftw.org/pub/fftw/fftw-3.3.10.tar.gz
 
 
@@ -49,7 +49,8 @@ echo $USER > /tmp/currentuser
             --disable-static \
             --enable-threads \
             --enable-sse2    \
-            --enable-avx     &&
+            --enable-avx     \
+            --enable-avx2    &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
@@ -68,6 +69,7 @@ make clean &&
             --enable-threads \
             --enable-sse2    \
             --enable-avx     \
+            --enable-avx2    \
             --enable-float   &&
 make
 sudo rm -rf /tmp/rootscript.sh

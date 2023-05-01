@@ -8,16 +8,17 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:autoconf213
-#REQ:gtk2
+#REQ:cbindgen
 #REQ:gtk3
+#REQ:nodejs
 #REQ:python2
-#REQ:rust
 #REQ:unzip
 #REQ:yasm
 #REQ:zip
 #REQ:icu
 #REQ:libevent
 #REQ:libwebp
+#REQ:llvm
 #REQ:nasm
 #REQ:nspr
 #REQ:nss
@@ -27,16 +28,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=seamonkey
-VERSION=2.53.10.2
-URL=https://archive.mozilla.org/pub/seamonkey/releases/2.53.10.2/source/seamonkey-2.53.10.2.source.tar.xz
+VERSION=2.53.16
+URL=https://archive.mozilla.org/pub/seamonkey/releases/2.53.16/source/seamonkey-2.53.16.source.tar.xz
 SECTION="Graphical Web Browsers"
-DESCRIPTION="SeaMonkey is a browser suite, the Open Source sibling of Netscape. It includes the browser, composer, mail and news clients, and an IRC client. It is the follow-on to the Mozilla browser suite."
+DESCRIPTION="SeaMonkey is a browser suite, a descendant of Netscape. It includes the browser, composer, mail and news clients, and an IRC client."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.mozilla.org/pub/seamonkey/releases/2.53.10.2/source/seamonkey-2.53.10.2.source.tar.xz
+wget -nc https://archive.mozilla.org/pub/seamonkey/releases/2.53.16/source/seamonkey-2.53.16.source.tar.xz
 
 
 if [ ! -z $URL ]
@@ -57,14 +58,6 @@ fi
 
 echo $USER > /tmp/currentuser
 
-
-if ! grep -ri "/opt/rustc/lib" /etc/ld.so.conf &> /dev/null; then
-	echo "/opt/rustc/lib" | sudo tee -a /etc/ld.so.conf
-	sudo ldconfig
-fi
-
-sudo ldconfig
-export PATH=/opt/rustc/bin:$PATH
 
 cat > mozconfig << "EOF"
 # If you have a multicore machine, all cores will be used
@@ -96,6 +89,11 @@ ac_add_options --with-system-libevent
 ac_add_options --with-system-nspr
 ac_add_options --with-system-nss
 ac_add_options --with-system-webp
+
+# Disabling debug symbols makes the build much smaller and a little
+# faster. Comment this if you need to run a debugger. Note: This is
+# required for compilation on i686.
+ac_add_options --disable-debug-symbols
 
 # The elf-hack is reported to cause failed installs (after successful builds)
 # on some machines. It is supposed to improve startup time and it shrinks
@@ -137,8 +135,11 @@ ac_add_options --with-system-png
 ac_add_options --with-system-zlib
 EOF
 mountpoint -q /dev/shm || mount -t tmpfs devshm /dev/shm
-export CC=gcc CXX=g++ &&
-./mach configure      &&
+grep -rl \'rU\' | xargs sed -i "s/'rU'/'r'/"
+sed -i "/if sys.executable !=/i\    open(join(bin_dir, 'pyvenv.cfg'), 'w').close()" \
+    third_party/python/virtualenv/virtualenv.py
+export CC=clang CXX=clang++          &&
+./mach configure || ./mach configure &&
 ./mach build
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

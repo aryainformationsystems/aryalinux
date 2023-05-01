@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnome-power-manager
-VERSION=3.32.0
-URL=https://download.gnome.org/sources/gnome-power-manager/3.32/gnome-power-manager-3.32.0.tar.xz
+VERSION=43.0
+URL=https://download.gnome.org/sources/gnome-power-manager/43/gnome-power-manager-43.0.tar.xz
 SECTION="GNOME Applications"
 DESCRIPTION="The GNOME Power Manager package contains a tool used to report on power management on the system."
 
@@ -23,8 +23,8 @@ DESCRIPTION="The GNOME Power Manager package contains a tool used to report on p
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-power-manager/3.32/gnome-power-manager-3.32.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-power-manager/3.32/gnome-power-manager-3.32.0.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-power-manager/43/gnome-power-manager-43.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-power-manager/43/gnome-power-manager-43.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr  --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

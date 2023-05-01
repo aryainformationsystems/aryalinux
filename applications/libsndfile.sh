@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libsndfile
-VERSION=1.0.31
-URL=https://github.com/libsndfile/libsndfile/releases/download/1.0.31/libsndfile-1.0.31.tar.bz2
+VERSION=1.2.0
+URL=https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="Libsndfile is a library of C routines for reading and writing files containing sampled audio data."
 
@@ -24,7 +24,7 @@ DESCRIPTION="Libsndfile is a library of C routines for reading and writing files
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/libsndfile/libsndfile/releases/download/1.0.31/libsndfile-1.0.31.tar.bz2
+wget -nc https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -47,8 +47,7 @@ echo $USER > /tmp/currentuser
 
 
 ./configure --prefix=/usr    \
-            --disable-static \
-            --docdir=/usr/share/doc/libsndfile-1.0.31 &&
+            --docdir=/usr/share/doc/libsndfile-1.2.0 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

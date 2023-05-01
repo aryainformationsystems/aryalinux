@@ -17,7 +17,7 @@ NAME=gutenprint
 VERSION=5.3.4
 URL=https://downloads.sourceforge.net/gimp-print/gutenprint-5.3.4.tar.xz
 SECTION="Printing"
-DESCRIPTION="The Gutenprint (formerly Gimp-Print) package contains high quality drivers for many brands and models of printers for use with Cups-2.4.1 and the GIMP-2.0. See a list of supported printers at http://gutenprint.sourceforge.net/p_Supported_Printers.php."
+DESCRIPTION="The Gutenprint (formerly Gimp-Print) package contains high quality drivers for many brands and models of printers for use with Cups-2.4.2 and the GIMP-2.0. See a list of supported printers at https://gutenprint.sourceforge.net/p_Supported_Printers.php."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
@@ -66,7 +66,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl restart cups
+/etc/rc.d/init.d/cups restart
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

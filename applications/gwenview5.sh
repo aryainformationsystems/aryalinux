@@ -8,6 +8,7 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:exiv2
+#REQ:kimageannotator
 #REQ:frameworks5
 #REQ:lcms2
 #REQ:libkdcraw
@@ -16,8 +17,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gwenview5
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/gwenview-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/gwenview-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
 DESCRIPTION="Gwenview is a fast and easy-to-use image viewer for KDE."
 
@@ -25,7 +26,7 @@ DESCRIPTION="Gwenview is a fast and easy-to-use image viewer for KDE."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/gwenview-21.12.2.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/gwenview-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]

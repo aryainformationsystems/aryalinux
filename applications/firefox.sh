@@ -11,7 +11,6 @@ set +h
 #REQ:cbindgen
 #REQ:dbus-glib
 #REQ:gtk3
-#REQ:gtk2
 #REQ:libnotify
 #REQ:llvm
 #REQ:nodejs
@@ -34,8 +33,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=firefox
-VERSION=91.6.
-URL=https://archive.mozilla.org/pub/firefox/releases/91.6.0esr/source/firefox-91.6.0esr.source.tar.xz
+VERSION=102.10.
+URL=https://archive.mozilla.org/pub/firefox/releases/102.10.0esr/source/firefox-102.10.0esr.source.tar.xz
 SECTION="Graphical Web Browsers"
 DESCRIPTION="Firefox is a stand-alone browser based on the Mozilla codebase."
 
@@ -43,8 +42,9 @@ DESCRIPTION="Firefox is a stand-alone browser based on the Mozilla codebase."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.mozilla.org/pub/firefox/releases/91.6.0esr/source/firefox-91.6.0esr.source.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/firefox-91.6.0esr-disable_rust_test-1.patch
+wget -nc https://archive.mozilla.org/pub/firefox/releases/102.10.0esr/source/firefox-102.10.0esr.source.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/firefox-102.10.0-upstream_fixes-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/firefox-102.10.0-ffmpeg_6-1.patch
 
 
 if [ ! -z $URL ]
@@ -77,16 +77,15 @@ ac_add_options --disable-necko-wifi
 # Uncomment the following line if you wish to use Mozilla Location Service
 #ac_add_options --with-mozilla-api-keyfile=$PWD/mozilla-key
 
-# Uncomment the following line if you wish to use Google's geolocaton API
+# Uncomment the following line if you wish to use Google's geolocation API
 # (needed for use with saved maps with Google Maps)
 #ac_add_options --with-google-location-service-api-keyfile=$PWD/google-key
 
 # startup-notification is required since firefox-78
 
-# Uncomment the following option if you have not installed PulseAudio
-#ac_add_options --disable-pulseaudio
-# or uncomment this if you installed alsa-lib instead of PulseAudio
-#ac_add_options --enable-alsa
+# Uncomment the following option if you have not installed PulseAudio and
+# want to use alsa instead
+#ac_add_options --enable-audio-backends=alsa
 
 # Comment out following options if you have not installed
 # recommended dependencies:
@@ -97,11 +96,13 @@ ac_add_options --with-system-nspr
 ac_add_options --with-system-nss
 ac_add_options --with-system-webp
 
-# Do not specify the gold linker which is not the default. It will take
-# longer and use more disk space when debug symbols are disabled.
+# Unlike with thunderbird, although using the gold linker can
+# save four megabytes in the installed file it does not make
+# the build faster.
 
 # libdavid (av1 decoder) requires nasm. Uncomment this if nasm
-# has not been installed.
+# has not been installed. Do not uncomment this if you have
+# ffmpeg installed.
 #ac_add_options --disable-av1
 
 # You cannot distribute the binary if you do this
@@ -141,6 +142,11 @@ ac_add_options --with-system-jpeg
 ac_add_options --with-system-png
 ac_add_options --with-system-zlib
 
+# Using sandboxed wasm libraries has been moved to all builds instead
+# of only mozilla automation builds. It requires extra llvm packages
+# and was reported to seriously slow the build. Disable it.
+ac_add_options --without-wasm-sandboxed-libraries
+
 # The following option unsets Telemetry Reporting. With the Addons Fiasco,
 # Mozilla was found to be collecting user's data, including saved passwords and
 # web form data, without users consent. Mozilla was also found shipping updates
@@ -151,37 +157,33 @@ unset MOZ_TELEMETRY_REPORTING
 
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
 EOF
-patch -Np1 -i ../firefox-91.6.0esr-disable_rust_test-1.patch
-case "$(uname -m)" in
-    i?86) sed -e '/typedef[ ]*double/s/double/long double/' \
-              -i modules/fdlibm/src/math_private.h ;;
-esac
 echo "AIzaSyDxKL42zsPjbke5O8_rPVpVrLrJ8aeE9rQ" > google-key
 echo "613364a7-9418-4c86-bcee-57e32fd70c23" > mozilla-key
 mountpoint -q /dev/shm || mount -t tmpfs devshm /dev/shm
-export CC=gcc CXX=g++ &&
-export MACH_USE_SYSTEM_PYTHON=1            &&
-export MOZBUILD_STATE_PATH=${PWD}/mozbuild &&
-./mach configure                           &&
+patch -Np1 -i ../firefox-102.10.0-upstream_fixes-1.patch
+patch -Np1 -i ../firefox-102.10.0-ffmpeg_6-1.patch
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none &&
+export MOZBUILD_STATE_PATH=${PWD}/mozbuild          &&
+./mach configure                                    &&
 ./mach build
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-MACH_USE_SYSTEM_PYTHON=1 ./mach install
+MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none ./mach install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-unset CC CXX MACH_USE_SYSTEM_PYTHON MOZBUILD_STATE_PATH
+unset MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE MOZBUILD_STATE_PATH
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 mkdir -pv /usr/share/applications &&
 mkdir -pv /usr/share/pixmaps      &&
 
-MIMETYPE="text/xml;text/mml;text/html"                                     &&
-MIMETYPE="$MIMETYPE;application/xhtml+xml;application/vnd.mozilla.xul+xml" &&
-MIMETYPE="$MIMETYPE;x-scheme-handler/http;x-scheme-handler/https"          &&
+MIMETYPE="text/xml;text/mml;text/html;"                            &&
+MIMETYPE+="application/xhtml+xml;application/vnd.mozilla.xul+xml;" &&
+MIMETYPE+="x-scheme-handler/http;x-scheme-handler/https"           &&
 
 cat > /usr/share/applications/firefox.desktop << EOF &&
 [Desktop Entry]

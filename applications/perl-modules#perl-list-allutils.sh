@@ -9,7 +9,6 @@ set +h
 
 #REQ:perl-deps#perl-list-someutils
 #REQ:perl-deps#perl-list-utilsby
-#REQ:perl-deps#perl-scalar-list-utils
 
 
 cd $SOURCE_DIR

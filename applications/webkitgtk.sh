@@ -12,24 +12,26 @@ set +h
 #REQ:gst10-plugins-base
 #REQ:gst10-plugins-bad
 #REQ:gtk3
+#REQ:gtk4
 #REQ:icu
 #REQ:lcms2
 #REQ:libgudev
 #REQ:libsecret
-#REQ:libsoup
+#REQ:libsoup3
 #REQ:libtasn1
 #REQ:libwebp
 #REQ:mesa
 #REQ:openjpeg2
 #REQ:ruby
 #REQ:sqlite
+#REQ:unifdef
 #REQ:which
 #REQ:wpebackend-fdo
 #REQ:enchant
 #REQ:geoclue2
 #REQ:gobject-introspection
 #REQ:hicolor-icon-theme
-#REQ:libnotify
+#REQ:libavif
 #REQ:hyphen
 #REQ:libmanette
 #REQ:libwpe
@@ -45,16 +47,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=webkitgtk
-VERSION=2.34.6
-URL=https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz
+VERSION=2.40.1
+URL=https://webkitgtk.org/releases/webkitgtk-2.40.1.tar.xz
 SECTION="Graphical Environment Libraries"
-DESCRIPTION="The WebKitGTK package is a port of the portable web rendering engine WebKit to the GTK+ 3 and GTK+ 2 platforms."
+DESCRIPTION="The WebKitGTK package is a port of the portable web rendering engine WebKit to the GTK+ 3 and GTK 4 platforms."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz
+wget -nc https://webkitgtk.org/releases/webkitgtk-2.40.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -94,13 +96,47 @@ ninja
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ninja install &&
+ninja install
+ENDOFROOTSCRIPT
 
-install -vdm755 /usr/share/gtk-doc/html/webkit{2,dom}gtk-4.0 &&
-install -vm644  ../Documentation/webkit2gtk-4.0/html/*   \
-                /usr/share/gtk-doc/html/webkit2gtk-4.0       &&
-install -vm644  ../Documentation/webkitdomgtk-4.0/html/* \
-                /usr/share/gtk-doc/html/webkitdomgtk-4.0
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+install -vdm755 /usr/share/gtk-doc/html/{jsc-glib,webkit2gtk{,-web-extension}}-4.1 &&
+install -vm644  ../Documentation/jsc-glib-4.1/*              \
+                /usr/share/gtk-doc/html/jsc-glib-4.1         &&
+install -vm644  ../Documentation/webkit2gtk-4.1/*            \
+                /usr/share/gtk-doc/html/webkit2gtk-4.1       &&
+install -vm644  ../Documentation/webkit2gtk-web-extension-4.1/* \
+                /usr/share/gtk-doc/html/webkit2gtk-web-extension-4.1
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+
+mkdir -vp build &&
+cd        build &&
+
+cmake -DCMAKE_BUILD_TYPE=Release  \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_SKIP_RPATH=ON       \
+      -DPORT=GTK                  \
+      -DLIB_INSTALL_DIR=/usr/lib  \
+      -DENABLE_MINIBROWSER=ON     \
+	  -DENABLE_GLES2=ON           \
+	  -DENABLE_QUARTZ_TARGET=ON   \
+	  -DUSE_GTK4=OFF              \
+      -Wno-dev -G Ninja ..        &&
+ninja
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

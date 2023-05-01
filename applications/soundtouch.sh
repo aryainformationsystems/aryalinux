@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=soundtouch
-VERSION=2.3.1
-URL=https://www.surina.net/soundtouch/soundtouch-2.3.1.tar.gz
+VERSION=2.3.2
+URL=https://www.surina.net/soundtouch/soundtouch-2.3.2.tar.gz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="The SoundTouch package contains an open-source audio processing library that allows changing the sound tempo, pitch and playback rate parameters independently from each other."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The SoundTouch package contains an open-source audio processing lib
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.surina.net/soundtouch/soundtouch-2.3.1.tar.gz
+wget -nc https://www.surina.net/soundtouch/soundtouch-2.3.2.tar.gz
 
 
 if [ ! -z $URL ]
@@ -45,7 +45,7 @@ echo $USER > /tmp/currentuser
 
 ./bootstrap &&
 ./configure --prefix=/usr \
-            --docdir=/usr/share/doc/soundtouch-2.3.1 &&
+            --docdir=/usr/share/doc/soundtouch-2.3.2 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

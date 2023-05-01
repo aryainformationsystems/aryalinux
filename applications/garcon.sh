@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=garcon
-VERSION=4.16.1
-URL=https://archive.xfce.org/src/xfce/garcon/4.16/garcon-4.16.1.tar.bz2
+VERSION=4.18.1
+URL=https://archive.xfce.org/src/xfce/garcon/4.18/garcon-4.18.1.tar.bz2
 SECTION="Xfce Desktop"
 DESCRIPTION="The Garcon package contains a freedesktop.org compliant menu implementation based on GLib and GIO."
 
@@ -23,7 +23,7 @@ DESCRIPTION="The Garcon package contains a freedesktop.org compliant menu implem
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/xfce/garcon/4.16/garcon-4.16.1.tar.bz2
+wget -nc https://archive.xfce.org/src/xfce/garcon/4.18/garcon-4.18.1.tar.bz2
 
 
 if [ ! -z $URL ]

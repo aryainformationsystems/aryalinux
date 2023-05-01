@@ -14,14 +14,14 @@ cd $SOURCE_DIR
 
 NAME=perl-modules#perl-perlio-utf8_strict
 VERSION=
-URL=https://www.cpan.org/authors/id/L/LE/LEONT/PerlIO-utf8_strict-0.009.tar.gz
+URL=https://www.cpan.org/authors/id/L/LE/LEONT/PerlIO-utf8_strict-0.010.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/L/LE/LEONT/PerlIO-utf8_strict-0.009.tar.gz
+wget -nc https://www.cpan.org/authors/id/L/LE/LEONT/PerlIO-utf8_strict-0.010.tar.gz
 
 
 if [ ! -z $URL ]

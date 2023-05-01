@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libgpg-error
-VERSION=1.44
-URL=https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.44.tar.bz2
+VERSION=1.47
+URL=https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.47.tar.bz2
 SECTION="General Libraries"
 DESCRIPTION="The libgpg-error package contains a library that defines common error values for all GnuPG components."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The libgpg-error package contains a library that defines common err
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.44.tar.bz2
-wget -nc ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.44.tar.bz2
+wget -nc https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.47.tar.bz2
+wget -nc ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.47.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
-install -v -m644 -D README /usr/share/doc/libgpg-error-1.44/README
+install -v -m644 -D README /usr/share/doc/libgpg-error-1.47/README
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

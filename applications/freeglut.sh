@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=freeglut
-VERSION=3.2.2
-URL=https://downloads.sourceforge.net/freeglut/freeglut-3.2.2.tar.gz
+VERSION=3.4.0
+URL=https://downloads.sourceforge.net/freeglut/freeglut-3.4.0.tar.gz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="Freeglut is intended to be a 100% compatible, completely opensourced clone of the GLUT library. GLUT is a window system independent toolkit for writing OpenGL programs, implementing a simple windowing API, which makes learning about and exploring OpenGL programming very easy."
 
@@ -24,7 +24,7 @@ DESCRIPTION="Freeglut is intended to be a 100% compatible, completely opensource
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/freeglut/freeglut-3.2.2.tar.gz
+wget -nc https://downloads.sourceforge.net/freeglut/freeglut-3.4.0.tar.gz
 
 
 if [ ! -z $URL ]

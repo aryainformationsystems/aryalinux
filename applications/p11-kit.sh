@@ -56,7 +56,8 @@ EOF
 mkdir p11-build &&
 cd    p11-build &&
 
-meson --prefix=/usr       \
+meson setup ..            \
+      --prefix=/usr       \
       --buildtype=release \
       -Dtrust_paths=/etc/pki/anchors &&
 ninja

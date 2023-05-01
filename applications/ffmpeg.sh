@@ -7,6 +7,7 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
+#REQ:libaom
 #REQ:libass
 #REQ:fdk-aac
 #REQ:freetype2
@@ -28,8 +29,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=ffmpeg
-VERSION=4.4.1
-URL=https://ffmpeg.org/releases/ffmpeg-4.4.1.tar.xz
+VERSION=6.0
+URL=https://ffmpeg.org/releases/ffmpeg-6.0.tar.xz
 SECTION="Video Utilities"
 DESCRIPTION="FFmpeg is a solution to record, convert and stream audio and video. It is a very fast video and audio converter and it can also acquire from a live audio/video source. Designed to be intuitive, the command-line interface (ffmpeg) tries to figure out all the parameters, when possible. FFmpeg can also convert from any sample rate to any other, and resize video on the fly with a high quality polyphase filter. FFmpeg can use a Video4Linux compatible video source and any Open Sound System audio source."
 
@@ -37,7 +38,8 @@ DESCRIPTION="FFmpeg is a solution to record, convert and stream audio and video.
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ffmpeg.org/releases/ffmpeg-4.4.1.tar.xz
+wget -nc https://ffmpeg.org/releases/ffmpeg-6.0.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/ffmpeg-6.0-chromium_method-1.patch
 
 
 if [ ! -z $URL ]
@@ -59,8 +61,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i 's/-lflite"/-lflite -lasound"/' configure &&
-
+patch -Np1 -i ../ffmpeg-6.0-chromium_method-1.patch
 ./configure --prefix=/usr        \
             --enable-gpl         \
             --enable-version3    \
@@ -68,7 +69,7 @@ sed -i 's/-lflite"/-lflite -lasound"/' configure &&
             --disable-static     \
             --enable-shared      \
             --disable-debug      \
-            --enable-avresample  \
+            --enable-libaom      \
             --enable-libass      \
             --enable-libfdk-aac  \
             --enable-libfreetype \
@@ -80,7 +81,7 @@ sed -i 's/-lflite"/-lflite -lasound"/' configure &&
             --enable-libx264     \
             --enable-libx265     \
             --enable-openssl     \
-            --docdir=/usr/share/doc/ffmpeg-4.4.1 &&
+            --docdir=/usr/share/doc/ffmpeg-6.0 &&
 
 make &&
 
@@ -90,8 +91,8 @@ cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install &&
 
 install -v -m755    tools/qt-faststart /usr/bin &&
-install -v -m755 -d           /usr/share/doc/ffmpeg-4.4.1 &&
-install -v -m644    doc/*.txt /usr/share/doc/ffmpeg-4.4.1
+install -v -m755 -d           /usr/share/doc/ffmpeg-6.0 &&
+install -v -m644    doc/*.txt /usr/share/doc/ffmpeg-6.0
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

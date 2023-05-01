@@ -7,7 +7,7 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:gtk2
+#REQ:gtk3
 #REQ:sudo
 #REQ:x7lib
 
@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=ssh-askpass
-VERSION=8.
-URL=https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.8p1.tar.gz
+VERSION=9.
+URL=https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p1.tar.gz
 SECTION="Security"
 DESCRIPTION="The ssh-askpass is a generic executable name for many packages, with similar names, that provide a interactive X service to grab password for packages requiring administrative privileges to be run. It prompts the user with a window box where the necessary password can be inserted. Here, we choose Damien Miller's package distributed in the OpenSSH tarball."
 
@@ -24,8 +24,8 @@ DESCRIPTION="The ssh-askpass is a generic executable name for many packages, wit
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.8p1.tar.gz
-wget -nc ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.8p1.tar.gz
+wget -nc https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p1.tar.gz
+wget -nc ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p1.tar.gz
 
 
 if [ ! -z $URL ]
@@ -48,12 +48,12 @@ echo $USER > /tmp/currentuser
 
 
 cd contrib &&
-make gnome-ssh-askpass2
+make gnome-ssh-askpass3
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 install -v -d -m755                    /usr/libexec/openssh/contrib  &&
-install -v -m755    gnome-ssh-askpass2 /usr/libexec/openssh/contrib  &&
-ln -sv -f contrib/gnome-ssh-askpass2   /usr/libexec/openssh/ssh-askpass
+install -v -m755    gnome-ssh-askpass3 /usr/libexec/openssh/contrib  &&
+ln -sv -f contrib/gnome-ssh-askpass3   /usr/libexec/openssh/ssh-askpass
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

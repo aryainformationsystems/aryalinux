@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=kio-extras
-VERSION=21.12.2
-URL=https://download.kde.org/stable/release-service/21.12.2/src/kio-extras-21.12.2.tar.xz
+VERSION=22.12.2
+URL=https://download.kde.org/stable/release-service/22.12.2/src/kio-extras-22.12.2.tar.xz
 SECTION="KDE Frameworks 5 Based Applications"
 DESCRIPTION="The kio-extras package contains additional components to increase the functionality of the KDE resource and network access abstractions."
 
@@ -23,7 +23,7 @@ DESCRIPTION="The kio-extras package contains additional components to increase t
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/release-service/21.12.2/src/kio-extras-21.12.2.tar.xz
+wget -nc https://download.kde.org/stable/release-service/22.12.2/src/kio-extras-22.12.2.tar.xz
 
 
 if [ ! -z $URL ]

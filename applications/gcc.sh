@@ -12,17 +12,18 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gcc
-VERSION=11.2.0
-URL=https://ftp.gnu.org/gnu/gcc/gcc-11.2.0/gcc-11.2.0.tar.xz
+VERSION=12.2.0
+URL=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 SECTION="Programming"
-DESCRIPTION="The GCC package contains the GNU Compiler Collection. This page describes the installation of compilers for the following languages: C, C++, D, Fortran, Objective C, Objective C++, and Go."
+DESCRIPTION="The GCC package contains the GNU Compiler Collection. This page describes the installation of compilers for the following languages: C, C++, Fortran, Objective C, Objective C++, and Go. Since C and C++ are installed in LFS, this page is either for upgrading C and C++, or for installing additional compilers."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/gcc/gcc-11.2.0/gcc-11.2.0.tar.xz
-wget -nc ftp://ftp.gnu.org/gnu/gcc/gcc-11.2.0/gcc-11.2.0.tar.xz
+wget -nc https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
+wget -nc ftp://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/gcc-12.2.0-fix_go_version-1.patch
 
 
 if [ ! -z $URL ]
@@ -44,9 +45,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -e '/static.*SIGSTKSZ/d' \
-    -e 's/return kAltStackSize/return SIGSTKSZ * 4/' \
-    -i libsanitizer/sanitizer_common/sanitizer_posix_libcdep.cpp
+patch -Np1 -i ../gcc-12.2.0-fix_go_version-1.patch
 case $(uname -m) in
   x86_64)
     sed -i.orig '/m64=/s/lib64/lib/' gcc/config/i386/t-linux64
@@ -60,7 +59,9 @@ cd    build                                            &&
     --prefix=/usr                                      \
     --disable-multilib                                 \
     --with-system-zlib                                 \
-    --enable-languages=c,c++,d,fortran,go,objc,obj-c++ &&
+    --enable-default-pie                               \
+    --enable-default-ssp                               \
+    --enable-languages=c,c++,fortran,go,objc,obj-c++ &&
 make
 ulimit -s 32768 &&
 make -k check
@@ -73,9 +74,7 @@ mkdir -pv /usr/share/gdb/auto-load/usr/lib              &&
 mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib &&
 
 chown -v -R root:root \
-    /usr/lib/gcc/*linux-gnu/11.2.0/include{,-fixed}
-
-rm -rf /usr/lib/gcc/$(gcc -dumpmachine)/11.2.0/include-fixed/bits/
+    /usr/lib/gcc/*linux-gnu/12.2.0/include{,-fixed}
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -87,7 +86,7 @@ cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ln -v -sf ../usr/bin/cpp /lib          &&
 ln -v -sf gcc /usr/bin/cc              &&
 install -v -dm755 /usr/lib/bfd-plugins &&
-ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/11.2.0/liblto_plugin.so /usr/lib/bfd-plugins/
+ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/12.2.0/liblto_plugin.so /usr/lib/bfd-plugins/
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

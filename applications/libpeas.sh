@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libpeas
-VERSION=1.30.0
-URL=https://download.gnome.org/sources/libpeas/1.30/libpeas-1.30.0.tar.xz
+VERSION=1.34.0
+URL=https://download.gnome.org/sources/libpeas/1.34/libpeas-1.34.0.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="libpeas is a GObject based plugins engine, and is targeted at giving every application the chance to assume its own extensibility."
 
@@ -25,8 +25,8 @@ DESCRIPTION="libpeas is a GObject based plugins engine, and is targeted at givin
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/libpeas/1.30/libpeas-1.30.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libpeas/1.30/libpeas-1.30.0.tar.xz
+wget -nc https://download.gnome.org/sources/libpeas/1.34/libpeas-1.34.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libpeas/1.34/libpeas-1.34.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -51,7 +51,14 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr          \
+            --buildtype=release    \
+            --wrap-mode=nofallback \
+            ..                     &&
+ninja
+sed "/docs_dir =/s@\$@/ 'libpeas-1.34.0'@" \
+    -i ../docs/reference/meson.build       &&
+meson configure -Dgtk_doc=true             &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

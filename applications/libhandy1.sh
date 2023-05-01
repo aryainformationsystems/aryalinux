@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libhandy1
-VERSION=1.4.0
-URL=https://download.gnome.org/sources/libhandy/1.4/libhandy-1.4.0.tar.xz
+VERSION=1.8.2
+URL=https://download.gnome.org/sources/libhandy/1.8/libhandy-1.8.2.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="The libhandy package provides additional GTK UI widgets for use in developing user interfaces."
 
@@ -23,8 +23,8 @@ DESCRIPTION="The libhandy package provides additional GTK UI widgets for use in 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/libhandy/1.4/libhandy-1.4.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libhandy/1.4/libhandy-1.4.0.tar.xz
+wget -nc https://download.gnome.org/sources/libhandy/1.8/libhandy-1.8.2.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libhandy/1.8/libhandy-1.8.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

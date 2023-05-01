@@ -7,6 +7,7 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
+#REQ:efibootmgr
 #REQ:freetype2
 
 
@@ -23,8 +24,9 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://ftp.gnu.org/gnu/grub/grub-2.06.tar.xz
-wget -nc https://unifoundry.com/pub/unifont/unifont-14.0.01/font-builds/unifont-14.0.01.pcf.gz
-wget -nc https://ftp.gnu.org/gnu/gcc/gcc-11.2.0/gcc-11.2.0.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/grub-2.06-upstream_fixes-1.patch
+wget -nc https://unifoundry.com/pub/unifont/unifont-15.0.01/font-builds/unifont-15.0.01.pcf.gz
+wget -nc https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,7 +51,7 @@ echo $USER > /tmp/currentuser
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 mkdir -pv /usr/share/fonts/unifont &&
-gunzip -c ../unifont-14.0.01.pcf.gz > /usr/share/fonts/unifont/unifont.pcf
+gunzip -c ../unifont-15.0.01.pcf.gz > /usr/share/fonts/unifont/unifont.pcf
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -57,10 +59,11 @@ sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
 unset {C,CPP,CXX,LD}FLAGS
+patch -Np1 -i ../grub-2.06-upstream_fixes-1.patch
 case $(uname -m) in i?86 )
-    tar xf ../gcc-11.2.0.tar.xz
-    mkdir gcc-11.2.0/build
-    pushd gcc-11.2.0/build
+    tar xf ../gcc-12.2.0.tar.xz
+    mkdir gcc-12.2.0/build
+    pushd gcc-12.2.0/build
         ../configure --prefix=$PWD/../../x86_64-gcc \
                      --target=x86_64-linux-gnu      \
                      --with-system-zlib             \

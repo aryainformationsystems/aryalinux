@@ -13,15 +13,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=python-modules#pycairo
-VERSION=1.20.1
-URL=https://github.com/pygobject/pycairo/releases/download/v1.20.1/pycairo-1.20.1.tar.gz
+VERSION=1.23.0
+URL=https://github.com/pygobject/pycairo/releases/download/v1.23.0/pycairo-1.23.0.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/pygobject/pycairo/releases/download/v1.20.1/pycairo-1.20.1.tar.gz
+wget -nc https://github.com/pygobject/pycairo/releases/download/v1.23.0/pycairo-1.23.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -43,12 +43,14 @@ fi
 
 echo $USER > /tmp/currentuser
 
-python3 setup.py build
+mkdir build &&
+cd    build &&
+
+meson setup --prefix=/usr --buildtype=release .. &&
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-python3 setup.py install --optimize=1   &&
-python3 setup.py install_pycairo_header &&
-python3 setup.py install_pkgconfig
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

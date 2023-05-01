@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=cups-pk-helper
-VERSION=0.2.6
-URL=https://www.freedesktop.org/software/cups-pk-helper/releases/cups-pk-helper-0.2.6.tar.xz
+VERSION=0.2.7
+URL=https://www.freedesktop.org/software/cups-pk-helper/releases/cups-pk-helper-0.2.7.tar.xz
 SECTION="System Utilities"
 DESCRIPTION="The cups-pk-helper package contains a PolicyKit helper used to configure Cups with fine-grained privileges."
 
@@ -23,8 +23,7 @@ DESCRIPTION="The cups-pk-helper package contains a PolicyKit helper used to conf
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.freedesktop.org/software/cups-pk-helper/releases/cups-pk-helper-0.2.6.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/cups-pk-helper-0.2.6-consolidated_fixes-1.patch
+wget -nc https://www.freedesktop.org/software/cups-pk-helper/releases/cups-pk-helper-0.2.7.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,12 +45,14 @@ fi
 echo $USER > /tmp/currentuser
 
 
-patch -Np1 -i ../cups-pk-helper-0.2.6-consolidated_fixes-1.patch
-./configure --prefix=/usr --sysconfdir=/etc &&
-make
+mkdir build &&
+cd    build &&
+
+meson setup --prefix=/usr .. &&
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

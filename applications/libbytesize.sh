@@ -9,13 +9,14 @@ set +h
 
 #REQ:pcre2
 #REQ:python-modules#pygments
+#REQ:python-modules#six
 
 
 cd $SOURCE_DIR
 
 NAME=libbytesize
-VERSION=2.6
-URL=https://github.com/storaged-project/libbytesize/releases/download/2.6/libbytesize-2.6.tar.gz
+VERSION=2.8
+URL=https://github.com/storaged-project/libbytesize/releases/download/2.8/libbytesize-2.8.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="The libbytesize package is a library which facilitates the common operations with sizes in bytes."
 
@@ -23,7 +24,7 @@ DESCRIPTION="The libbytesize package is a library which facilitates the common o
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/storaged-project/libbytesize/releases/download/2.6/libbytesize-2.6.tar.gz
+wget -nc https://github.com/storaged-project/libbytesize/releases/download/2.8/libbytesize-2.8.tar.gz
 
 
 if [ ! -z $URL ]

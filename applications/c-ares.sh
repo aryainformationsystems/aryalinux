@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=c-ares
-VERSION=1.18.1
-URL=https://c-ares.haxx.se/download/c-ares-1.18.1.tar.gz
+VERSION=1.19.0
+URL=https://c-ares.haxx.se/download/c-ares-1.19.0.tar.gz
 SECTION="Networking Libraries"
 DESCRIPTION="c-ares is a C library for asynchronous DNS requests."
 
@@ -22,7 +22,7 @@ DESCRIPTION="c-ares is a C library for asynchronous DNS requests."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://c-ares.haxx.se/download/c-ares-1.18.1.tar.gz
+wget -nc https://c-ares.haxx.se/download/c-ares-1.19.0.tar.gz
 
 
 if [ ! -z $URL ]

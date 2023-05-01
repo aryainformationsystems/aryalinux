@@ -7,15 +7,14 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:glib2
 #REQ:gobject-introspection
 
 
 cd $SOURCE_DIR
 
 NAME=gsettings-desktop-schemas
-VERSION=41.0
-URL=https://download.gnome.org/sources/gsettings-desktop-schemas/41/gsettings-desktop-schemas-41.0.tar.xz
+VERSION=44.0
+URL=https://download.gnome.org/sources/gsettings-desktop-schemas/44/gsettings-desktop-schemas-44.0.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The GSettings Desktop Schemas package contains a collection of GSettings schemas for settings shared by various components of a GNOME Desktop."
 
@@ -23,8 +22,8 @@ DESCRIPTION="The GSettings Desktop Schemas package contains a collection of GSet
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gsettings-desktop-schemas/41/gsettings-desktop-schemas-41.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gsettings-desktop-schemas/41/gsettings-desktop-schemas-41.0.tar.xz
+wget -nc https://download.gnome.org/sources/gsettings-desktop-schemas/44/gsettings-desktop-schemas-44.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gsettings-desktop-schemas/44/gsettings-desktop-schemas-44.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -51,7 +50,7 @@ sed -i -r 's:"(/system):"/org/gnome\1:g' schemas/*.in &&
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

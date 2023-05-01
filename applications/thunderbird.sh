@@ -11,7 +11,6 @@ set +h
 #REQ:cbindgen
 #REQ:dbus-glib
 #REQ:gtk3
-#REQ:gtk2
 #REQ:llvm
 #REQ:nodejs
 #REQ:pulseaudio
@@ -20,9 +19,9 @@ set +h
 #REQ:startup-notification
 #REQ:zip
 #REQ:unzip
-#REQ:yasm
 #REQ:icu
 #REQ:libevent
+#REQ:libvpx
 #REQ:nasm
 #REQ:nspr
 #REQ:nss
@@ -31,8 +30,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=thunderbird
-VERSION=91.6.1
-URL=https://archive.mozilla.org/pub/thunderbird/releases/91.6.1/source/thunderbird-91.6.1.source.tar.xz
+VERSION=102.10.1
+URL=https://archive.mozilla.org/pub/thunderbird/releases/102.10.1/source/thunderbird-102.10.1.source.tar.xz
 SECTION="Other X-based Programs"
 DESCRIPTION="Thunderbird is a stand-alone mail/news client based on the Mozilla codebase. It uses the Gecko rendering engine to enable it to display and compose HTML emails."
 
@@ -40,7 +39,8 @@ DESCRIPTION="Thunderbird is a stand-alone mail/news client based on the Mozilla 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.mozilla.org/pub/thunderbird/releases/91.6.1/source/thunderbird-91.6.1.source.tar.xz
+wget -nc https://archive.mozilla.org/pub/thunderbird/releases/102.10.1/source/thunderbird-102.10.1.source.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/thunderbird-102.10.1-upstream_fixes-1.patch
 
 
 if [ ! -z $URL ]
@@ -69,13 +69,12 @@ cat > mozconfig << "EOF"
 ac_add_options --disable-necko-wifi
 
 # Uncomment the following option if you have not installed PulseAudio
-#ac_add_options --disable-pulseaudio
-# and uncomment this if you installed alsa-lib instead of PulseAudio
-#ac_add_options --enable-alsa
+#ac_add_options --enable-audio-backends=alsa
 
 # Comment out following options if you have not installed
 # recommended dependencies:
 ac_add_options --with-system-libevent
+ac_add_options --with-system-libvpx
 ac_add_options --with-system-nspr
 ac_add_options --with-system-nss
 ac_add_options --with-system-icu
@@ -108,27 +107,28 @@ ac_add_options --enable-system-pixman
 ac_add_options --with-system-jpeg
 ac_add_options --with-system-png
 ac_add_options --with-system-zlib
+
+# Using sandboxed wasm libraries has been moved to all builds instead
+# of only mozilla automation builds. It requires extra llvm packages
+# and was reported to seriously slow the build. Disable it.
+ac_add_options --without-wasm-sandboxed-libraries
 EOF
-case "$(uname -m)" in
-    i?86) sed -e '/typedef[ ]*double/s/double/long double/' \
-              -i modules/fdlibm/src/math_private.h ;;
-esac
+patch -Np1 -i ../thunderbird-102.10.1-upstream_fixes-1.patch
 mountpoint -q /dev/shm || mount -t tmpfs devshm /dev/shm
-export CC=gcc CXX=g++ &&
-export MACH_USE_SYSTEM_PYTHON=1 &&
-./mach create-mach-environment &&
-./mach configure      &&
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none &&
+export MOZBUILD_STATE_PATH=./mozbuild               &&
+./mach configure                                    &&
 ./mach build
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-MACH_USE_SYSTEM_PYTHON=1 ./mach install
+MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none ./mach install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-unset CC CXX MACH_USE_SYSTEM_PYTHON
+unset MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE MOZBUILD_STATE_PATH
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 mkdir -pv /usr/share/{applications,pixmaps} &&

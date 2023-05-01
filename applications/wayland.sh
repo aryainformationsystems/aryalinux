@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=wayland
-VERSION=1.20.0
-URL=https://wayland.freedesktop.org/releases/wayland-1.20.0.tar.xz
+VERSION=1.22.0
+URL=https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.22.0/downloads/wayland-1.22.0.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="Wayland is a project to define a protocol for a compositor to talk to its clients as well as a library implementation of the protocol."
 
@@ -22,7 +22,7 @@ DESCRIPTION="Wayland is a project to define a protocol for a compositor to talk 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://wayland.freedesktop.org/releases/wayland-1.20.0.tar.xz
+wget -nc https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.22.0/downloads/wayland-1.22.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -47,7 +47,8 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr       \
+meson setup ..            \
+      --prefix=/usr       \
       --buildtype=release \
       -Ddocumentation=false &&
 ninja

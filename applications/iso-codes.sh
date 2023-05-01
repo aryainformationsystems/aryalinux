@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=iso-codes
-VERSION=4.9.0
-URL=http://ftp.debian.org/debian/pool/main/i/iso-codes/iso-codes_4.9.0.orig.tar.xz
+VERSION=4.13.0
+URL=https://ftp.debian.org/debian/pool/main/i/iso-codes/iso-codes_4.13.0.orig.tar.xz
 SECTION="General Utilities"
 DESCRIPTION="The ISO Codes package contains a list of country, language and currency names and it is used as a central database for accessing this data."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The ISO Codes package contains a list of country, language and curr
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://ftp.debian.org/debian/pool/main/i/iso-codes/iso-codes_4.9.0.orig.tar.xz
+wget -nc https://ftp.debian.org/debian/pool/main/i/iso-codes/iso-codes_4.13.0.orig.tar.xz
 
 
 if [ ! -z $URL ]

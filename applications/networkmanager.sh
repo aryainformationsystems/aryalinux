@@ -16,7 +16,7 @@ set +h
 #REQ:nss
 #REQ:polkit
 #REQ:python-modules#pygobject3
-#REQ:systemd
+#REQ:elogind
 #REQ:upower
 #REQ:vala
 #REQ:wpa_supplicant
@@ -25,8 +25,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=networkmanager
-VERSION=1.34.0
-URL=https://download.gnome.org/sources/NetworkManager/1.34/NetworkManager-1.34.0.tar.xz
+VERSION=1.42.6
+URL=https://download.gnome.org/sources/NetworkManager/1.42/NetworkManager-1.42.6.tar.xz
 SECTION="Networking Utilities"
 DESCRIPTION="NetworkManager is a set of co-operative tools that make networking simple and straightforward. Whether you use WiFi, wired, 3G, or Bluetooth, NetworkManager allows you to quickly move from one network to another: Once a network has been configured and joined once, it can be detected and re-joined automatically the next time it's available."
 
@@ -34,8 +34,8 @@ DESCRIPTION="NetworkManager is a set of co-operative tools that make networking 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/NetworkManager/1.34/NetworkManager-1.34.0.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/NetworkManager/1.34/NetworkManager-1.34.0.tar.xz
+wget -nc https://download.gnome.org/sources/NetworkManager/1.42/NetworkManager-1.42.6.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/NetworkManager/1.42/NetworkManager-1.42.6.tar.xz
 
 
 if [ ! -z $URL ]
@@ -65,10 +65,11 @@ sed -e 's/Qt/&5/'                  \
     -i meson.build
 grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
 mkdir build &&
-cd    build    &&
+cd    build &&
 
 CXXFLAGS+="-O2 -fPIC"            \
-meson --prefix=/usr              \
+meson setup ..                   \
+      --prefix=/usr              \
       --buildtype=release        \
       -Dlibaudit=no              \
       -Dlibpsl=false             \
@@ -76,15 +77,38 @@ meson --prefix=/usr              \
       -Dovs=false                \
       -Dppp=false                \
       -Dselinux=false            \
-      -Dqt=false                 \
-      -Dsession_tracking=systemd \
+      -Dsession_tracking=elogind \
       -Dmodem_manager=false      \
-      .. &&
+      -Dsystemdsystemunitdir=no  \
+      -Dsystemd_journal=false    \
+      -Dqt=false                 &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install &&
-mv -v /usr/share/doc/NetworkManager{,-1.34.0}
+mv -v /usr/share/doc/NetworkManager{,-1.42.6}
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+for file in $(echo ../man/*.[1578]); do
+    section=${file##*.} &&
+    install -vdm 755 /usr/share/man/man$section
+    install -vm 644 $file /usr/share/man/man$section/
+done
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+cp -Rv ../docs/{api,libnm} /usr/share/doc/NetworkManager-1.42.6
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -135,16 +159,19 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable NetworkManager
-ENDOFROOTSCRIPT
+#!/bin/bash
 
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
+set -e
+set +h
 
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl disable NetworkManager-wait-online
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-networkmanager
+popd
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

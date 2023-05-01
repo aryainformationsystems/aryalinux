@@ -13,14 +13,14 @@ cd $SOURCE_DIR
 
 NAME=perl-modules#perl-log-log4perl
 VERSION=
-URL=https://www.cpan.org/authors/id/E/ET/ETJ/Log-Log4perl-1.54.tar.gz
+URL=https://www.cpan.org/authors/id/E/ET/ETJ/Log-Log4perl-1.57.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/E/ET/ETJ/Log-Log4perl-1.54.tar.gz
+wget -nc https://www.cpan.org/authors/id/E/ET/ETJ/Log-Log4perl-1.57.tar.gz
 
 
 if [ ! -z $URL ]

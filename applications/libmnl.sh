@@ -12,16 +12,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libmnl
-VERSION=1.0.4
-URL=https://netfilter.org/projects/libmnl/files/libmnl-1.0.4.tar.bz2
+VERSION=1.0.5
+URL=https://netfilter.org/projects/libmnl/files/libmnl-1.0.5.tar.bz2
 SECTION="Networking Libraries"
-DESCRIPTION="The libmnl library provides a minimalistic user-space library oriented to Netlink developers. There are a lot of common tasks in parsing, validating, constructing of both the Netlink header and TLVs that are repetitive and easy to get wrong. This library aims to provide simple helpers that allows you to re-use code and to avoid re-inventing the wheel."
+DESCRIPTION="The libmnl library provides a minimalistic userspace library oriented to Netlink developers. There are a lot of common tasks in the parsing, validating, and constructing of both the Netlink header and TLVs that are repetitive and easy to get wrong. This library aims to provide simple helpers that allow you to re-use code and to avoid re-inventing the wheel."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://netfilter.org/projects/libmnl/files/libmnl-1.0.4.tar.bz2
+wget -nc https://netfilter.org/projects/libmnl/files/libmnl-1.0.5.tar.bz2
 
 
 if [ ! -z $URL ]

@@ -8,14 +8,14 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:libnsl
-#REQ:pcre
+#REQ:pcre2
 
 
 cd $SOURCE_DIR
 
 NAME=exim
-VERSION=4.95
-URL=https://ftp.exim.org/pub/exim/exim4/exim-4.95.tar.xz
+VERSION=4.96
+URL=https://ftp.exim.org/pub/exim/exim4/exim-4.96.tar.xz
 SECTION="Mail Server Software"
 DESCRIPTION="The Exim package contains a Mail Transport Agent written by the University of Cambridge, released under the GNU Public License."
 
@@ -23,11 +23,9 @@ DESCRIPTION="The Exim package contains a Mail Transport Agent written by the Uni
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.exim.org/pub/exim/exim4/exim-4.95.tar.xz
-wget -nc ftp://ftp.exim.org/pub/exim/exim4/exim-4.95.tar.xz
-wget -nc http://exim.org/docs.html
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/exim-4.95-call_pam-1.patch
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/exim-4.95-openssl3_fix-1.patch
+wget -nc https://ftp.exim.org/pub/exim/exim4/exim-4.96.tar.xz
+wget -nc ftp://ftp.exim.org/pub/exim/exim4/exim-4.96.tar.xz
+wget -nc https://exim.org/docs.html
 
 
 if [ ! -z $URL ]
@@ -59,8 +57,6 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-patch -Np2 -i ../exim-4.95-call_pam-1.patch
-patch -Np2 -i ../exim-4.95-openssl3_fix-1.patch
 sed -e 's,^BIN_DIR.*$,BIN_DIRECTORY=/usr/sbin,'    \
     -e 's,^CONF.*$,CONFIGURE_FILE=/etc/exim.conf,' \
     -e 's,^EXIM_USER.*$,EXIM_USER=exim,'           \
@@ -68,7 +64,7 @@ sed -e 's,^BIN_DIR.*$,BIN_DIRECTORY=/usr/sbin,'    \
     -e '/# USE_OPENSSL/s,^#,,'                       \
     -e 's,^EXIM_MONITOR,#EXIM_MONITOR,' src/EDITME > Local/Makefile &&
 
-printf "USE_GDBM = yes\nDBMLIB = -lgdbm\n" >> Local/Makefile &&
+printf "USE_GDBM = yes\nDBMLIB = -lgdbm\n" >> Local/Makefile
 sed -i '/# SUPPORT_PAM=yes/s,^#,,' Local/Makefile
 echo "EXTRALIBS=-lpam" >> Local/Makefile
 make
@@ -77,8 +73,8 @@ cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install                                    &&
 install -v -m644 doc/exim.8 /usr/share/man/man8 &&
 
-install -v -d -m755    /usr/share/doc/exim-4.95 &&
-install -v -m644 doc/* /usr/share/doc/exim-4.95 &&
+install -v -d -m755    /usr/share/doc/exim-4.96 &&
+install -v -m644 doc/* /usr/share/doc/exim-4.96 &&
 
 ln -sfv exim /usr/sbin/sendmail                 &&
 install -v -d -m750 -o exim -g exim /var/spool/exim

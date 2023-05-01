@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=highlight
-VERSION=4.1
-URL=http://www.andre-simon.de/zip/highlight-4.1.tar.bz2
+VERSION=4.5
+URL=http://www.andre-simon.de/zip/highlight-4.5.tar.bz2
 SECTION="General Utilities"
 DESCRIPTION="Highlight is an utility that converts source code to formatted text with syntax highlighting."
 
@@ -23,7 +23,7 @@ DESCRIPTION="Highlight is an utility that converts source code to formatted text
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://www.andre-simon.de/zip/highlight-4.1.tar.bz2
+wget -nc http://www.andre-simon.de/zip/highlight-4.5.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -47,10 +47,10 @@ echo $USER > /tmp/currentuser
 
 sed -i '/GZIP/s/^/#/' makefile
 make
-make doc_dir=/usr/share/doc/highlight-4.1/ gui
+make doc_dir=/usr/share/doc/highlight-4.5/ gui
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make doc_dir=/usr/share/doc/highlight-4.1/ install
+make doc_dir=/usr/share/doc/highlight-4.5/ install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

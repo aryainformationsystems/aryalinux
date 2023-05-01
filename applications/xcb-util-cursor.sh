@@ -7,14 +7,15 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:xcb-util
+#REQ:xcb-util-image
+#REQ:xcb-util-renderutil
 
 
 cd $SOURCE_DIR
 
 NAME=xcb-util-cursor
-VERSION=0.1.3
-URL=https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.3.tar.bz2
+VERSION=0.1.4
+URL=https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.4.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The xcb-util-cursor package provides a module that implements the XCB cursor library. It is the XCB replacement for libXcursor."
 
@@ -22,7 +23,7 @@ DESCRIPTION="The xcb-util-cursor package provides a module that implements the X
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.3.tar.bz2
+wget -nc https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.4.tar.xz
 
 
 if [ ! -z $URL ]

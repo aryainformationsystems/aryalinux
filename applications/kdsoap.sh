@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=kdsoap
-VERSION=2.0.0
-URL=https://github.com/KDAB/KDSoap/releases/download/kdsoap-2.0.0/kdsoap-2.0.0.tar.gz
+VERSION=2.1.1
+URL=https://github.com/KDAB/KDSoap/releases/download/kdsoap-2.1.1/kdsoap-2.1.1.tar.gz
 SECTION="Networking Libraries"
 DESCRIPTION="The kdsoap is Qt-based client-side and server-side SOAP component. It can be used to create client applications for web services and also provides the means to create web services without the need for any further component such as a dedicated web server."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The kdsoap is Qt-based client-side and server-side SOAP component. 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/KDAB/KDSoap/releases/download/kdsoap-2.0.0/kdsoap-2.0.0.tar.gz
+wget -nc https://github.com/KDAB/KDSoap/releases/download/kdsoap-2.1.1/kdsoap-2.1.1.tar.gz
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ cd    build &&
 
 cmake -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release  \
-      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/kdsoap-2.0.0 \
+      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/kdsoap-2.1.1 \
       .. &&
 make
 sudo rm -rf /tmp/rootscript.sh

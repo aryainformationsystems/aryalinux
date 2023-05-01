@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=cracklib
-VERSION=2.9.7
-URL=https://github.com/cracklib/cracklib/releases/download/v2.9.7/cracklib-2.9.7.tar.bz2
+VERSION=2.9.11
+URL=https://github.com/cracklib/cracklib/releases/download/v2.9.11/cracklib-2.9.11.tar.xz
 SECTION="Security"
 DESCRIPTION="The CrackLib package contains a library used to enforce strong passwords by comparing user selected passwords to words in chosen word lists."
 
@@ -21,8 +21,8 @@ DESCRIPTION="The CrackLib package contains a library used to enforce strong pass
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/cracklib/cracklib/releases/download/v2.9.7/cracklib-2.9.7.tar.bz2
-wget -nc https://github.com/cracklib/cracklib/releases/download/v2.9.7/cracklib-words-2.9.7.bz2
+wget -nc https://github.com/cracklib/cracklib/releases/download/v2.9.11/cracklib-2.9.11.tar.xz
+wget -nc https://github.com/cracklib/cracklib/releases/download/v2.9.11/cracklib-words-2.9.11.xz
 wget -nc https://github.com/cracklib/cracklib/releases/download/v2.9.7/cracklib-words-2.9.7.bz2
 
 
@@ -45,11 +45,9 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i '/skipping/d' util/packer.c &&
+autoreconf -fiv &&
 
-sed -i '15209 s/.*/am_cv_python_version=3.10/' configure &&
-
-PYTHON=python3 CPPFLAGS=-I/usr/include/python3.10 \
+PYTHON=python3               \
 ./configure --prefix=/usr    \
             --disable-static \
             --with-default-dict=/usr/lib/cracklib/pw_dict &&
@@ -65,13 +63,13 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -m644 -D    ../cracklib-words-2.9.7.bz2 \
-                         /usr/share/dict/cracklib-words.bz2    &&
+install -v -m644 -D    ../cracklib-words-2.9.11.xz \
+                         /usr/share/dict/cracklib-words.xz    &&
 
-bunzip2 -v               /usr/share/dict/cracklib-words.bz2    &&
-ln -v -sf cracklib-words /usr/share/dict/words                 &&
-echo $(hostname) >>      /usr/share/dict/cracklib-extra-words  &&
-install -v -m755 -d      /usr/lib/cracklib                     &&
+unxz -v                  /usr/share/dict/cracklib-words.xz    &&
+ln -v -sf cracklib-words /usr/share/dict/words                &&
+echo $(hostname) >>      /usr/share/dict/cracklib-extra-words &&
+install -v -m755 -d      /usr/lib/cracklib                    &&
 
 create-cracklib-dict     /usr/share/dict/cracklib-words \
                          /usr/share/dict/cracklib-extra-words

@@ -7,15 +7,15 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:atk
+#REQ:at-spi2-core
 #REQ:glibmm
 
 
 cd $SOURCE_DIR
 
 NAME=atkmm
-VERSION=2.28.2
-URL=https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.2.tar.xz
+VERSION=2.28.3
+URL=https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.3.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="Atkmm is the official C++ interface for the ATK accessibility toolkit library."
 
@@ -23,8 +23,8 @@ DESCRIPTION="Atkmm is the official C++ interface for the ATK accessibility toolk
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.2.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/atkmm/2.28/atkmm-2.28.2.tar.xz
+wget -nc https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.3.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/atkmm/2.28/atkmm-2.28.3.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

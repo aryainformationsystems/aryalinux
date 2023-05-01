@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=wget
-VERSION=1.21.2
-URL=https://ftp.gnu.org/gnu/wget/wget-1.21.2.tar.gz
+VERSION=1.21.3
+URL=https://ftp.gnu.org/gnu/wget/wget-1.21.3.tar.gz
 SECTION="Networking Programs"
 DESCRIPTION="The Wget package contains a utility useful for non-interactive downloading of files from the Web."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The Wget package contains a utility useful for non-interactive down
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/wget/wget-1.21.2.tar.gz
-wget -nc ftp://ftp.gnu.org/gnu/wget/wget-1.21.2.tar.gz
+wget -nc https://ftp.gnu.org/gnu/wget/wget-1.21.3.tar.gz
+wget -nc ftp://ftp.gnu.org/gnu/wget/wget-1.21.3.tar.gz
 
 
 if [ ! -z $URL ]

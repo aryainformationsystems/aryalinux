@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=dvisvgm
-VERSION=2.13.1
-URL=https://github.com/mgieseki/dvisvgm/releases/download/2.13.1/dvisvgm-2.13.1.tar.gz
+VERSION=3.0.4
+URL=https://github.com/mgieseki/dvisvgm/releases/download/3.0.4/dvisvgm-3.0.4.tar.gz
 SECTION="Typesetting"
 DESCRIPTION="The dvisvgm package converts DVI, EPS and PDF files to SVG format."
 
@@ -25,7 +25,7 @@ DESCRIPTION="The dvisvgm package converts DVI, EPS and PDF files to SVG format."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/mgieseki/dvisvgm/releases/download/2.13.1/dvisvgm-2.13.1.tar.gz
+wget -nc https://github.com/mgieseki/dvisvgm/releases/download/3.0.4/dvisvgm-3.0.4.tar.gz
 
 
 if [ ! -z $URL ]
@@ -47,20 +47,11 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ln -svf /opt/texlive/2021/lib/libkpathsea.so /usr/lib
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sed -i 's/python/&3/' tests/Makefile.in       &&
-./configure                                    \
- --bindir=/opt/texlive/2021/bin/${TEXARCH}     \
- --mandir=/opt/texlive/2021/texmf-dist/doc/man \
- --with-kpathsea=/opt/texlive/2021            &&
+sed -i 's/python/&3/' tests/Makefile.in         &&
+./configure                                     \
+    --bindir=$TEXLIVE_PREFIX/bin/${TEXARCH}     \
+    --mandir=$TEXLIVE_PREFIX/texmf-dist/doc/man \
+    --with-kpathsea=$TEXLIVE_PREFIX             &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

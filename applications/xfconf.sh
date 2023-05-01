@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xfconf
-VERSION=4.16.0
-URL=https://archive.xfce.org/src/xfce/xfconf/4.16/xfconf-4.16.0.tar.bz2
+VERSION=4.18.1
+URL=https://archive.xfce.org/src/xfce/xfconf/4.18/xfconf-4.18.1.tar.bz2
 SECTION="Xfce Desktop"
 DESCRIPTION="Xfconf is the configuration storage system for Xfce."
 
@@ -22,7 +22,7 @@ DESCRIPTION="Xfconf is the configuration storage system for Xfce."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/xfce/xfconf/4.16/xfconf-4.16.0.tar.bz2
+wget -nc https://archive.xfce.org/src/xfce/xfconf/4.18/xfconf-4.18.1.tar.bz2
 
 
 if [ ! -z $URL ]

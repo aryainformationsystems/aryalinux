@@ -12,15 +12,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-net-dns
-VERSION=1.33
-URL=https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.33.tar.gz
+VERSION=1.37
+URL=https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.37.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.33.tar.gz
+wget -nc https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.37.tar.gz
 
 
 if [ ! -z $URL ]

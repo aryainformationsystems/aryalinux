@@ -15,17 +15,17 @@ set +h
 cd $SOURCE_DIR
 
 NAME=bind-utils
-VERSION=9.18.0
-URL=https://ftp.isc.org/isc/bind9/9.18.0/bind-9.18.0.tar.xz
+VERSION=9.18.14
+URL=https://ftp.isc.org/isc/bind9/9.18.14/bind-9.18.14.tar.xz
 SECTION="Networking Utilities"
-DESCRIPTION="BIND Utilities is not a separate package, it is a collection of the client side programs that are included with BIND-9.18.0. The BIND package includes the client side programs nslookup, dig and host. If you install BIND server, these programs will be installed automatically. This section is for those users who don't need the complete BIND server, but need these client side applications."
+DESCRIPTION="BIND Utilities is not a separate package, it is a collection of the client side programs that are included with BIND-9.18.14. The BIND package includes the client side programs nslookup, dig and host. If you install BIND server, these programs will be installed automatically. This section is for those users who don't need the complete BIND server, but need these client side applications."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.isc.org/isc/bind9/9.18.0/bind-9.18.0.tar.xz
-wget -nc ftp://ftp.isc.org/isc/bind9/9.18.0/bind-9.18.0.tar.xz
+wget -nc https://ftp.isc.org/isc/bind9/9.18.14/bind-9.18.14.tar.xz
+wget -nc ftp://ftp.isc.org/isc/bind9/9.18.14/bind-9.18.14.tar.xz
 
 
 if [ ! -z $URL ]

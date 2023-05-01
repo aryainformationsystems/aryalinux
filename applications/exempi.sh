@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=exempi
-VERSION=2.6.1
-URL=https://libopenraw.freedesktop.org/download/exempi-2.6.1.tar.bz2
+VERSION=2.6.3
+URL=https://libopenraw.freedesktop.org/download/exempi-2.6.3.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="Exempi is an implementation of XMP (Adobe's Extensible Metadata Platform)."
 
@@ -23,7 +23,7 @@ DESCRIPTION="Exempi is an implementation of XMP (Adobe's Extensible Metadata Pla
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://libopenraw.freedesktop.org/download/exempi-2.6.1.tar.bz2
+wget -nc https://libopenraw.freedesktop.org/download/exempi-2.6.3.tar.xz
 
 
 if [ ! -z $URL ]

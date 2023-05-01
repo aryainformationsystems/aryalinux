@@ -12,15 +12,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-deps#perl-exporter-tiny
-VERSION=1.002002
-URL=https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Exporter-Tiny-1.002002.tar.gz
+VERSION=1.006000
+URL=https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Exporter-Tiny-1.006000.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Exporter-Tiny-1.002002.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Exporter-Tiny-1.006000.tar.gz
 
 
 if [ ! -z $URL ]

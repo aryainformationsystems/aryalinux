@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gparted
-VERSION=1.3.1
-URL=https://downloads.sourceforge.net/gparted/gparted-1.3.1.tar.gz
+VERSION=1.5.0
+URL=https://downloads.sourceforge.net/gparted/gparted-1.5.0.tar.gz
 SECTION="Other X-based Programs"
 DESCRIPTION="Gparted is the Gnome Partition Editor, a Gtk 3 GUI for other command line tools that can create, reorganise or delete disk partitions."
 
@@ -23,7 +23,7 @@ DESCRIPTION="Gparted is the Gnome Partition Editor, a Gtk 3 GUI for other comman
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/gparted/gparted-1.3.1.tar.gz
+wget -nc https://downloads.sourceforge.net/gparted/gparted-1.5.0.tar.gz
 
 
 if [ ! -z $URL ]

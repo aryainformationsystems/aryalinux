@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libarchive
-VERSION=3.6.0
-URL=https://github.com/libarchive/libarchive/releases/download/v3.6.0/libarchive-3.6.0.tar.xz
+VERSION=3.6.2
+URL=https://github.com/libarchive/libarchive/releases/download/v3.6.2/libarchive-3.6.2.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="The libarchive library provides a single interface for reading/writing various compression formats."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The libarchive library provides a single interface for reading/writ
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/libarchive/libarchive/releases/download/v3.6.0/libarchive-3.6.0.tar.xz
+wget -nc https://github.com/libarchive/libarchive/releases/download/v3.6.2/libarchive-3.6.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -43,13 +43,20 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i '436a if ((OSSL_PROVIDER_load(NULL, "legacy")) == NULL) \
-      return (ARCHIVE_FAILED);' libarchive/archive_digest.c
 ./configure --prefix=/usr --disable-static &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
+ENDOFROOTSCRIPT
+
+chmod a+x /tmp/rootscript.sh
+sudo /tmp/rootscript.sh
+sudo rm -rf /tmp/rootscript.sh
+
+sudo rm -rf /tmp/rootscript.sh
+cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
+sed -i "s/iconv //" /usr/lib/pkgconfig/libarchive.pc
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

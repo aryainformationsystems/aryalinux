@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=unrar
-VERSION=6.1.4
-URL=https://www.rarlab.com/rar/unrarsrc-6.1.4.tar.gz
+VERSION=6.2.6
+URL=https://www.rarlab.com/rar/unrarsrc-6.2.6.tar.gz
 SECTION="System Utilities"
 DESCRIPTION="The UnRar package contains a RAR extraction utility used for extracting files from RAR archives. RAR archives are usually created with WinRAR, primarily in a Windows environment."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The UnRar package contains a RAR extraction utility used for extrac
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.rarlab.com/rar/unrarsrc-6.1.4.tar.gz
+wget -nc https://www.rarlab.com/rar/unrarsrc-6.2.6.tar.gz
 
 
 if [ ! -z $URL ]

@@ -7,7 +7,7 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:perl-deps#perl-alien-build
+#REQ:perl-deps#perl-alien-build-plugin-download-gitlab
 #REQ:libxml2
 #REQ:perl-deps#perl-path-tiny
 #REQ:perl-deps#perl-test2-suite
@@ -16,15 +16,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-deps#perl-alien-libxml2
-VERSION=0.17
-URL=https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Libxml2-0.17.tar.gz
+VERSION=0.19
+URL=https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Libxml2-0.19.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Libxml2-0.17.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Libxml2-0.19.tar.gz
 
 
 if [ ! -z $URL ]

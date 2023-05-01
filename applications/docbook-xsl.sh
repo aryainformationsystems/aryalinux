@@ -23,7 +23,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-nons-1.79.2.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/docbook-xsl-nons-1.79.2-stack_fix-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/docbook-xsl-nons-1.79.2-stack_fix-1.patch
 wget -nc https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-doc-1.79.2.tar.bz2
 
 

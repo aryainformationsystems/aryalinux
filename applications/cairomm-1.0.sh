@@ -49,11 +49,11 @@ echo $USER > /tmp/currentuser
 mkdir bld &&
 cd    bld &&
 
-meson --prefix=/usr       \
+meson setup ..            \
+      --prefix=/usr       \
       --buildtype=release \
       -Dbuild-tests=true  \
-      -Dboost-shared=true \
-      ..                  &&
+      -Dboost-shared=true &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

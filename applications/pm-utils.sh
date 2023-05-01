@@ -22,6 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://pm-utils.freedesktop.org/releases/pm-utils-1.4.1.tar.gz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/pm-utils-1.4.1-bugfixes-1.patch
 
 
 if [ ! -z $URL ]
@@ -43,6 +44,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
+patch -Np1 -i ../pm-utils-1.4.1-bugfixes-1.patch
 ./configure --prefix=/usr     \
             --sysconfdir=/etc \
             --docdir=/usr/share/doc/pm-utils-1.4.1 &&

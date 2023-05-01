@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=frei0r
-VERSION=1.7.0
-URL=https://files.dyne.org/frei0r/releases/frei0r-plugins-1.7.0.tar.gz
+VERSION=1.8.0
+URL=https://files.dyne.org/frei0r/releases/frei0r-plugins-1.8.0.tar.gz
 SECTION="Multimedia Libraries and Drivers"
 DESCRIPTION="Frei0r is a minimalistic plugin API for video effects. Note that the 0 in the name is a zero, not a capital letter o."
 
@@ -21,7 +21,7 @@ DESCRIPTION="Frei0r is a minimalistic plugin API for video effects. Note that th
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://files.dyne.org/frei0r/releases/frei0r-plugins-1.7.0.tar.gz
+wget -nc https://files.dyne.org/frei0r/releases/frei0r-plugins-1.8.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -48,7 +48,6 @@ cd        build &&
 
 cmake -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release  \
-      -DWITHOUT_OPENCV=TRUE       \
       -Wno-dev ..                 &&
 
 make

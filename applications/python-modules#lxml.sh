@@ -13,15 +13,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=python-modules#lxml
-VERSION=4.7.1
-URL=https://files.pythonhosted.org/packages/source/l/lxml/lxml-4.7.1.tar.gz
+VERSION=4.9.2
+URL=https://files.pythonhosted.org/packages/source/l/lxml/lxml-4.9.2.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://files.pythonhosted.org/packages/source/l/lxml/lxml-4.7.1.tar.gz
+wget -nc https://files.pythonhosted.org/packages/source/l/lxml/lxml-4.9.2.tar.gz
 
 
 if [ ! -z $URL ]
@@ -43,10 +43,10 @@ fi
 
 echo $USER > /tmp/currentuser
 
-python3 setup.py build
+pip3 wheel -w dist --no-build-isolation --no-deps $PWD
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-python3 setup.py install --optimize=1
+pip3 install --no-index --find-links dist --no-cache-dir --no-user lxml
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

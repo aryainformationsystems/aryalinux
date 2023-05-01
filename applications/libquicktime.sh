@@ -22,7 +22,6 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/libquicktime/libquicktime-1.2.4.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/libquicktime-1.2.4-ffmpeg4-1.patch
 
 
 if [ ! -z $URL ]
@@ -44,11 +43,10 @@ fi
 echo $USER > /tmp/currentuser
 
 
-patch -Np1 -i ../libquicktime-1.2.4-ffmpeg4-1.patch &&
-
 ./configure --prefix=/usr     \
             --enable-gpl      \
             --without-doxygen \
+            --without-ffmpeg  \
             --docdir=/usr/share/doc/libquicktime-1.2.4
 make
 sudo rm -rf /tmp/rootscript.sh

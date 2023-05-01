@@ -14,7 +14,7 @@ cd $SOURCE_DIR
 
 NAME=itstool
 VERSION=2.0.7
-URL=http://files.itstool.org/itstool/itstool-2.0.7.tar.bz2
+URL=https://files.itstool.org/itstool/itstool-2.0.7.tar.bz2
 SECTION="Extensible Markup Language (XML)"
 DESCRIPTION="Itstool extracts messages from XML files and outputs PO template files, then merges translations from MO files to create translated XML files. It determines what to translate and how to chunk it into messages using the W3C Internationalization Tag Set (ITS)."
 
@@ -22,7 +22,7 @@ DESCRIPTION="Itstool extracts messages from XML files and outputs PO template fi
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://files.itstool.org/itstool/itstool-2.0.7.tar.bz2
+wget -nc https://files.itstool.org/itstool/itstool-2.0.7.tar.bz2
 
 
 if [ ! -z $URL ]

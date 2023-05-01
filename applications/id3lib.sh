@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/id3lib/id3lib-3.8.3.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/id3lib-3.8.3-consolidated_patches-1.patch
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/id3lib-3.8.3-consolidated_patches-1.patch
 
 
 if [ ! -z $URL ]

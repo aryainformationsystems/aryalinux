@@ -13,17 +13,17 @@ set +h
 cd $SOURCE_DIR
 
 NAME=ed
-VERSION=1.18
-URL=https://ftp.gnu.org/gnu/ed/ed-1.18.tar.lz
-SECTION="Editors"
+VERSION=1.19
+URL=https://ftp.gnu.org/gnu/ed/ed-1.19.tar.lz
+SECTION="Text Editors"
 DESCRIPTION="Ed is a line-oriented text editor. It is used to create, display, modify and otherwise manipulate text files, both interactively and via shell scripts. Ed isn't something which many people use. It's described here because it can be used by the patch program if you encounter an ed-based patch file. This happens rarely because diff-based patches are preferred these days."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/ed/ed-1.18.tar.lz
-wget -nc ftp://ftp.gnu.org/gnu/ed/ed-1.18.tar.lz
+wget -nc https://ftp.gnu.org/gnu/ed/ed-1.19.tar.lz
+wget -nc ftp://ftp.gnu.org/gnu/ed/ed-1.19.tar.lz
 
 
 if [ ! -z $URL ]

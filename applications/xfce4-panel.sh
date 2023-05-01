@@ -16,8 +16,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xfce4-panel
-VERSION=4.16.3
-URL=https://archive.xfce.org/src/xfce/xfce4-panel/4.16/xfce4-panel-4.16.3.tar.bz2
+VERSION=4.18.3
+URL=https://archive.xfce.org/src/xfce/xfce4-panel/4.18/xfce4-panel-4.18.3.tar.bz2
 SECTION="Xfce Desktop"
 DESCRIPTION="The Xfce4 Panel package contains the Xfce4 Panel."
 
@@ -25,7 +25,7 @@ DESCRIPTION="The Xfce4 Panel package contains the Xfce4 Panel."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.xfce.org/src/xfce/xfce4-panel/4.16/xfce4-panel-4.16.3.tar.bz2
+wget -nc https://archive.xfce.org/src/xfce/xfce4-panel/4.18/xfce4-panel-4.18.3.tar.bz2
 
 
 if [ ! -z $URL ]

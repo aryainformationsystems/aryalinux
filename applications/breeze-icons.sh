@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=breeze-icons
-VERSION=5.91.0
-URL=https://download.kde.org/stable/frameworks/5.91/breeze-icons-5.91.0.tar.xz
+VERSION=5.103.0
+URL=https://download.kde.org/stable/frameworks/5.103/breeze-icons-5.103.0.tar.xz
 SECTION="Icons"
 DESCRIPTION="The Breeze Icons package contains the default icons for KDE Plasma 5 applications, but it can be used for other window environments."
 
@@ -23,7 +23,7 @@ DESCRIPTION="The Breeze Icons package contains the default icons for KDE Plasma 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.kde.org/stable/frameworks/5.91/breeze-icons-5.91.0.tar.xz
+wget -nc https://download.kde.org/stable/frameworks/5.103/breeze-icons-5.103.0.tar.xz
 
 
 if [ ! -z $URL ]

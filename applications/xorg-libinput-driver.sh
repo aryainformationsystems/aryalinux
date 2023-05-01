@@ -14,16 +14,16 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xorg-libinput-driver
-VERSION=1.2.1
-URL=https://www.x.org/pub/individual/driver/xf86-input-libinput-1.2.1.tar.xz
+VERSION=1.3.0
+URL=https://www.x.org/pub/individual/driver/xf86-input-libinput-1.3.0.tar.xz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/driver/xf86-input-libinput-1.2.1.tar.xz
-wget -nc ftp://ftp.x.org/pub/individual/driver/xf86-input-libinput-1.2.1.tar.xz
+wget -nc https://www.x.org/pub/individual/driver/xf86-input-libinput-1.3.0.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/driver/xf86-input-libinput-1.3.0.tar.xz
 
 
 if [ ! -z $URL ]

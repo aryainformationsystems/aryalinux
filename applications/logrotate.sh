@@ -8,13 +8,14 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:popt
+#REQ:fcron
 
 
 cd $SOURCE_DIR
 
 NAME=logrotate
-VERSION=3.19.0
-URL=https://github.com/logrotate/logrotate/releases/download/3.19.0/logrotate-3.19.0.tar.xz
+VERSION=3.21.0
+URL=https://github.com/logrotate/logrotate/releases/download/3.21.0/logrotate-3.21.0.tar.xz
 SECTION="System Utilities"
 DESCRIPTION="The logrotate package allows automatic rotation, compression, removal, and mailing of log files."
 
@@ -22,7 +23,7 @@ DESCRIPTION="The logrotate package allows automatic rotation, compression, remov
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/logrotate/logrotate/releases/download/3.19.0/logrotate-3.19.0.tar.xz
+wget -nc https://github.com/logrotate/logrotate/releases/download/3.21.0/logrotate-3.21.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -143,31 +144,11 @@ EOF
 chmod -v 0644 /etc/logrotate.d/example.log
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cat > /usr/lib/systemd/system/logrotate.service << "EOF" &&
-[Unit]
-Description=Runs the logrotate command
-Documentation=man:logrotate(8)
-DefaultDependencies=no
-After=local-fs.target
-Before=shutdown.target
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=/usr/sbin/logrotate /etc/logrotate.conf
+cat > /etc/cron.daily/logrotate.sh << "EOF" &&
+#!/bin/bash
+/usr/sbin/logrotate /etc/logrotate.conf
 EOF
-cat > /usr/lib/systemd/system/logrotate.timer << "EOF" &&
-[Unit]
-Description=Runs the logrotate command daily at 3:00 AM
-
-[Timer]
-OnCalendar=*-*-* 3:00:00
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-systemctl enable logrotate.timer
+chmod 754 /etc/cron.daily/logrotate.sh
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

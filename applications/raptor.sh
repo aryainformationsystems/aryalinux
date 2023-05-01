@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=raptor
-VERSION=2.0.15
-URL=https://download.librdf.org/source/raptor2-2.0.15.tar.gz
+VERSION=2.0.16
+URL=https://download.librdf.org/source/raptor2-2.0.16.tar.gz
 SECTION="System Utilities"
 DESCRIPTION="Raptor is a C library that provides a set of parsers and serializers that generate Resource Description Framework (RDF) triples."
 
@@ -23,8 +23,7 @@ DESCRIPTION="Raptor is a C library that provides a set of parsers and serializer
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.librdf.org/source/raptor2-2.0.15.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/raptor-2.0.15-security_fixes-1.patch
+wget -nc https://download.librdf.org/source/raptor2-2.0.16.tar.gz
 
 
 if [ ! -z $URL ]
@@ -46,7 +45,6 @@ fi
 echo $USER > /tmp/currentuser
 
 
-patch -Np1 -i ../raptor-2.0.15-security_fixes-1.patch
 ./configure --prefix=/usr --disable-static &&
 make
 sudo rm -rf /tmp/rootscript.sh

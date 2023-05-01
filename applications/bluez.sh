@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=bluez
-VERSION=5.63
-URL=https://www.kernel.org/pub/linux/bluetooth/bluez-5.63.tar.xz
+VERSION=5.66
+URL=https://www.kernel.org/pub/linux/bluetooth/bluez-5.66.tar.xz
 SECTION="System Utilities"
 DESCRIPTION="The BlueZ package contains the Bluetooth protocol stack for Linux."
 
@@ -24,7 +24,8 @@ DESCRIPTION="The BlueZ package contains the Bluetooth protocol stack for Linux."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.kernel.org/pub/linux/bluetooth/bluez-5.63.tar.xz
+wget -nc https://www.kernel.org/pub/linux/bluetooth/bluez-5.66.tar.xz
+wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/bluez-5.66-obexd_without_systemd-1.patch
 
 
 if [ ! -z $URL ]
@@ -46,11 +47,13 @@ fi
 echo $USER > /tmp/currentuser
 
 
+patch -Np1 -i ../bluez-5.66-obexd_without_systemd-1.patch
 ./configure --prefix=/usr         \
             --sysconfdir=/etc     \
             --localstatedir=/var  \
+            --enable-library      \
             --disable-manpages    \
-            --enable-library      &&
+            --disable-systemd     &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
@@ -74,8 +77,8 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -v -dm755 /usr/share/doc/bluez-5.63 &&
-install -v -m644 doc/*.txt /usr/share/doc/bluez-5.63
+install -v -dm755 /usr/share/doc/bluez-5.66 &&
+install -v -m644 doc/*.txt /usr/share/doc/bluez-5.66
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
@@ -102,16 +105,19 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable bluetooth
-ENDOFROOTSCRIPT
+#!/bin/bash
 
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
+set -e
+set +h
 
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-systemctl enable --global obex
+. /etc/alps/alps.conf
+
+pushd $SOURCE_DIR
+wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+tar xf blfs-systemd-units-20180105.tar.bz2
+cd blfs-systemd-units-20180105
+sudo make install-bluetooth
+popd
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

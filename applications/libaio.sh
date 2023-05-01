@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libaio
-VERSION=0.3.112
-URL=https://ftp.debian.org/debian/pool/main/liba/libaio/libaio_0.3.112.orig.tar.xz
+VERSION=0.3.113
+URL=https://pagure.io/libaio/archive/libaio-0.3.113/libaio-0.3.113.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="The libaio package is an asynchronous I/O facility (\"async I/O\", or \"aio\") that has a richer API and capability set than the simple POSIX async I/O facility. This library, libaio, provides the Linux-native API for async I/O. The POSIX async I/O facility requires this library in order to provide kernel-accelerated async I/O capabilities, as do applications which require the Linux-native async I/O API."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The libaio package is an asynchronous I/O facility (\"async I/O\", 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.debian.org/debian/pool/main/liba/libaio/libaio_0.3.112.orig.tar.xz
+wget -nc https://pagure.io/libaio/archive/libaio-0.3.113/libaio-0.3.113.tar.gz
 
 
 if [ ! -z $URL ]

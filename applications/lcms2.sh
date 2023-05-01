@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=lcms2
-VERSION=2.13.1
-URL=https://github.com/mm2/Little-CMS/releases/download/lcms2.13.1/lcms2-2.13.1.tar.gz
+VERSION=2.14
+URL=https://github.com/mm2/Little-CMS/releases/download/lcms2.14/lcms2-2.14.tar.gz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The Little Color Management System is a small-footprint color management engine, with special focus on accuracy and performance. It uses the International Color Consortium standard (ICC), which is the modern standard for color management."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The Little Color Management System is a small-footprint color manag
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/mm2/Little-CMS/releases/download/lcms2.13.1/lcms2-2.13.1.tar.gz
+wget -nc https://github.com/mm2/Little-CMS/releases/download/lcms2.14/lcms2-2.14.tar.gz
 
 
 if [ ! -z $URL ]
@@ -43,6 +43,8 @@ fi
 echo $USER > /tmp/currentuser
 
 
+sed '/BufferSize < TagSize/,+1 s/goto Error/TagSize = BufferSize/' \
+    -i src/cmsio0.c
 ./configure --prefix=/usr --disable-static &&
 make
 sudo rm -rf /tmp/rootscript.sh

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libidn
-VERSION=1.38
-URL=https://ftp.gnu.org/gnu/libidn/libidn-1.38.tar.gz
+VERSION=1.41
+URL=https://ftp.gnu.org/gnu/libidn/libidn-1.41.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="libidn is a package designed for internationalized string handling based on the Stringprep, Punycode and IDNA specifications defined by the Internet Engineering Task Force (IETF) Internationalized Domain Names (IDN) working group, used for internationalized domain names. This is useful for converting data from the system's native representation into UTF-8, transforming Unicode strings into ASCII strings, allowing applications to use certain ASCII name labels (beginning with a special prefix) to represent non-ASCII name labels, and converting entire domain names to and from the ASCII Compatible Encoding (ACE) form."
 
@@ -21,8 +21,8 @@ DESCRIPTION="libidn is a package designed for internationalized string handling 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/libidn/libidn-1.38.tar.gz
-wget -nc ftp://ftp.gnu.org/gnu/libidn/libidn-1.38.tar.gz
+wget -nc https://ftp.gnu.org/gnu/libidn/libidn-1.41.tar.gz
+wget -nc ftp://ftp.gnu.org/gnu/libidn/libidn-1.41.tar.gz
 
 
 if [ ! -z $URL ]
@@ -55,8 +55,8 @@ make install &&
 
 find doc -name "Makefile*" -delete            &&
 rm -rf -v doc/{gdoc,idn.1,stamp-vti,man,texi} &&
-mkdir -v       /usr/share/doc/libidn-1.38     &&
-cp -r -v doc/* /usr/share/doc/libidn-1.38
+mkdir -v       /usr/share/doc/libidn-1.41     &&
+cp -r -v doc/* /usr/share/doc/libidn-1.41
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

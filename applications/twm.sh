@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=twm
-VERSION=1.0.11
-URL=https://www.x.org/pub/individual/app/twm-1.0.11.tar.xz
+VERSION=1.0.12
+URL=https://www.x.org/pub/individual/app/twm-1.0.12.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The twm package contains a very minimal window manager."
 
@@ -22,8 +22,8 @@ DESCRIPTION="The twm package contains a very minimal window manager."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.x.org/pub/individual/app/twm-1.0.11.tar.xz
-wget -nc ftp://ftp.x.org/pub/individual/app/twm-1.0.11.tar.xz
+wget -nc https://www.x.org/pub/individual/app/twm-1.0.12.tar.xz
+wget -nc ftp://ftp.x.org/pub/individual/app/twm-1.0.12.tar.xz
 
 
 if [ ! -z $URL ]

@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libunistring
-VERSION=1.0
-URL=https://ftp.gnu.org/gnu/libunistring/libunistring-1.0.tar.xz
+VERSION=1.1
+URL=https://ftp.gnu.org/gnu/libunistring/libunistring-1.1.tar.xz
 SECTION="General Libraries"
 DESCRIPTION="libunistring is a library that provides functions for manipulating Unicode strings and for manipulating C strings according to the Unicode standard."
 
@@ -21,8 +21,8 @@ DESCRIPTION="libunistring is a library that provides functions for manipulating 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/libunistring/libunistring-1.0.tar.xz
-wget -nc ftp://ftp.gnu.org/gnu/libunistring/libunistring-1.0.tar.xz
+wget -nc https://ftp.gnu.org/gnu/libunistring/libunistring-1.1.tar.xz
+wget -nc ftp://ftp.gnu.org/gnu/libunistring/libunistring-1.1.tar.xz
 
 
 if [ ! -z $URL ]
@@ -46,7 +46,7 @@ echo $USER > /tmp/currentuser
 
 ./configure --prefix=/usr    \
             --disable-static \
-            --docdir=/usr/share/doc/libunistring-1.0 &&
+            --docdir=/usr/share/doc/libunistring-1.1 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

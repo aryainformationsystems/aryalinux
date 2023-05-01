@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=acpid
-VERSION=2.0.33
-URL=https://downloads.sourceforge.net/acpid2/acpid-2.0.33.tar.xz
+VERSION=2.0.34
+URL=https://downloads.sourceforge.net/acpid2/acpid-2.0.34.tar.xz
 SECTION="System Utilities"
 DESCRIPTION="The acpid (Advanced Configuration and Power Interface event daemon) is a completely flexible, totally extensible daemon for delivering ACPI events. It listens on netlink interface and when an event occurs, executes programs to handle the event. The programs it executes are configured through a set of configuration files, which can be dropped into place by packages or by the user."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The acpid (Advanced Configuration and Power Interface event daemon)
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/acpid2/acpid-2.0.33.tar.xz
+wget -nc https://downloads.sourceforge.net/acpid2/acpid-2.0.34.tar.xz
 
 
 if [ ! -z $URL ]
@@ -44,13 +44,13 @@ echo $USER > /tmp/currentuser
 
 
 ./configure --prefix=/usr \
-            --docdir=/usr/share/doc/acpid-2.0.33 &&
+            --docdir=/usr/share/doc/acpid-2.0.34 &&
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install                         &&
 install -v -m755 -d /etc/acpi/events &&
-cp -r samples /usr/share/doc/acpid-2.0.33
+cp -r samples /usr/share/doc/acpid-2.0.34
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=lsof
-VERSION=4.94.0
-URL=https://github.com/lsof-org/lsof/releases/download/4.94.0/lsof_4.94.0.linux.tar.bz2
+VERSION=4.95.0
+URL=https://github.com/lsof-org/lsof/releases/download/4.95.0/lsof_4.95.0.linux.tar.bz2
 SECTION="General Utilities"
 DESCRIPTION="The lsof package is useful to LiSt Open Files for a given running application or process."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The lsof package is useful to LiSt Open Files for a given running a
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/lsof-org/lsof/releases/download/4.94.0/lsof_4.94.0.linux.tar.bz2
+wget -nc https://github.com/lsof-org/lsof/releases/download/4.95.0/lsof_4.95.0.linux.tar.bz2
 
 
 if [ ! -z $URL ]

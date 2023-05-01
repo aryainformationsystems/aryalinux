@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=pciutils
-VERSION=3.7.0
-URL=https://www.kernel.org/pub/software/utils/pciutils/pciutils-3.7.0.tar.xz
+VERSION=3.9.0
+URL=https://mj.ucw.cz/download/linux/pci/pciutils-3.9.0.tar.gz
 SECTION="System Utilities"
 DESCRIPTION="The PCI Utils package contains a set of programs for listing PCI devices, inspecting their status and setting their configuration registers."
 
@@ -24,7 +24,7 @@ DESCRIPTION="The PCI Utils package contains a set of programs for listing PCI de
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.kernel.org/pub/software/utils/pciutils/pciutils-3.7.0.tar.xz
+wget -nc https://mj.ucw.cz/download/linux/pci/pciutils-3.9.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -63,39 +63,11 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cat > /usr/lib/systemd/system/update-pciids.service << "EOF" &&
-[Unit]
-Description=Update pci.ids file
-Documentation=man:update-pciids(8)
-DefaultDependencies=no
-After=local-fs.target network-online.target
-Before=shutdown.target
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=/usr/sbin/update-pciids
+cat > /etc/cron.weekly/update-pciids.sh << "EOF" &&
+#!/bin/bash
+/usr/sbin/update-pciids
 EOF
-cat > /usr/lib/systemd/system/update-pciids.timer << "EOF" &&
-[Unit]
-Description=Update pci.ids file weekly
-
-[Timer]
-OnCalendar=Sun 02:30:00
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-systemctl enable update-pciids.timer
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
+chmod 754 /etc/cron.weekly/update-pciids.sh
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

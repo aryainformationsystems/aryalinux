@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=guile
-VERSION=3.0.8
-URL=https://ftp.gnu.org/gnu/guile/guile-3.0.8.tar.xz
+VERSION=3.0.9
+URL=https://ftp.gnu.org/gnu/guile/guile-3.0.9.tar.xz
 SECTION="Programming"
 DESCRIPTION="The Guile package contains the GNU Project's extension language library. Guile also contains a stand alone Scheme interpreter."
 
@@ -23,8 +23,8 @@ DESCRIPTION="The Guile package contains the GNU Project's extension language lib
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://ftp.gnu.org/gnu/guile/guile-3.0.8.tar.xz
-wget -nc ftp://ftp.gnu.org/gnu/guile/guile-3.0.8.tar.xz
+wget -nc https://ftp.gnu.org/gnu/guile/guile-3.0.9.tar.xz
+wget -nc ftp://ftp.gnu.org/gnu/guile/guile-3.0.9.tar.xz
 
 
 if [ ! -z $URL ]
@@ -48,7 +48,7 @@ echo $USER > /tmp/currentuser
 
 ./configure --prefix=/usr    \
             --disable-static \
-            --docdir=/usr/share/doc/guile-3.0.8 &&
+            --docdir=/usr/share/doc/guile-3.0.9 &&
 make      &&
 make html &&
 
@@ -61,15 +61,15 @@ make install-html &&
 
 mkdir -p                       /usr/share/gdb/auto-load/usr/lib &&
 mv /usr/lib/libguile-*-gdb.scm /usr/share/gdb/auto-load/usr/lib &&
-mv /usr/share/doc/guile-3.0.8/{guile.html,ref} &&
-mv /usr/share/doc/guile-3.0.8/r5rs{.html,}     &&
+mv /usr/share/doc/guile-3.0.9/{guile.html,ref} &&
+mv /usr/share/doc/guile-3.0.9/r5rs{.html,}     &&
 
 find examples -name "Makefile*" -delete         &&
-cp -vR examples   /usr/share/doc/guile-3.0.8   &&
+cp -vR examples   /usr/share/doc/guile-3.0.9   &&
 
 for DIRNAME in r5rs ref; do
   install -v -m644  doc/${DIRNAME}/*.txt \
-                    /usr/share/doc/guile-3.0.8/${DIRNAME}
+                    /usr/share/doc/guile-3.0.9/${DIRNAME}
 done &&
 unset DIRNAME
 ENDOFROOTSCRIPT

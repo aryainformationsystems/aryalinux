@@ -12,15 +12,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=python-modules#asciidoc
-VERSION=10.1.1
-URL=https://files.pythonhosted.org/packages/source/a/asciidoc/asciidoc-10.1.1.tar.gz
+VERSION=10.2.0
+URL=https://files.pythonhosted.org/packages/source/a/asciidoc/asciidoc-10.2.0.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://files.pythonhosted.org/packages/source/a/asciidoc/asciidoc-10.1.1.tar.gz
+wget -nc https://files.pythonhosted.org/packages/source/a/asciidoc/asciidoc-10.2.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -42,18 +42,10 @@ fi
 
 echo $USER > /tmp/currentuser
 
+pip3 wheel -w dist --no-build-isolation --no-deps $PWD
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-rm -rf /usr/bin/{asciidoc*,a2x*}
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-python3 setup.py install --optimize=1
+pip3 install --no-index --find-links dist --no-cache-dir --no-user asciidoc
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

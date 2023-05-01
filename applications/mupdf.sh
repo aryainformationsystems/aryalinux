@@ -18,8 +18,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=mupdf
-VERSION=1.19.
-URL=https://www.mupdf.com/downloads/archive/mupdf-1.19.0-source.tar.gz
+VERSION=1.22.
+URL=https://www.mupdf.com/downloads/archive/mupdf-1.22.0-source.tar.gz
 SECTION="PostScript"
 DESCRIPTION="MuPDF is a lightweight PDF and XPS viewer."
 
@@ -27,7 +27,7 @@ DESCRIPTION="MuPDF is a lightweight PDF and XPS viewer."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.mupdf.com/downloads/archive/mupdf-1.19.0-source.tar.gz
+wget -nc https://www.mupdf.com/downloads/archive/mupdf-1.22.0-source.tar.gz
 
 
 if [ ! -z $URL ]
@@ -61,7 +61,7 @@ USE_SYSTEM_JBIG2DEC := no
 USE_SYSTEM_JPEGXR := no # not used without HAVE_JPEGXR
 USE_SYSTEM_LCMS2 := no # need lcms2-art fork
 USE_SYSTEM_LIBJPEG := yes
-USE_SYSTEM_MUJS := no # build needs source anyways
+USE_SYSTEM_MUJS := no # build needs source anyway
 USE_SYSTEM_OPENJPEG := yes
 USE_SYSTEM_ZLIB := yes
 USE_SYSTEM_GLUT := no # need freeglut2-art fork
@@ -76,7 +76,7 @@ sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make prefix=/usr                        \
      shared=yes                         \
-     docdir=/usr/share/doc/mupdf-1.19.0 \
+     docdir=/usr/share/doc/mupdf-1.22.0 \
      install                            &&
 
 chmod 755 /usr/lib/libmupdf.so          &&

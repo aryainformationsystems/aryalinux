@@ -7,23 +7,21 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:gcr
+#REQ:gcr4
 #REQ:gnome-desktop
 #REQ:iso-codes
 #REQ:json-glib
-#REQ:libnotify
+#REQ:libadwaita
 #REQ:libportal
 #REQ:nettle
 #REQ:webkitgtk
-#REQ:libdazzle
-#REQ:libhandy1
 
 
 cd $SOURCE_DIR
 
 NAME=epiphany
-VERSION=41.3
-URL=https://download.gnome.org/sources/epiphany/41/epiphany-41.3.tar.xz
+VERSION=44.2
+URL=https://download.gnome.org/sources/epiphany/44/epiphany-44.2.tar.xz
 SECTION="Graphical Web Browsers"
 DESCRIPTION="Epiphany is a simple yet powerful GNOME web browser targeted at non-technical users. Its principles are simplicity and standards compliance."
 
@@ -31,8 +29,8 @@ DESCRIPTION="Epiphany is a simple yet powerful GNOME web browser targeted at non
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/epiphany/41/epiphany-41.3.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/epiphany/41/epiphany-41.3.tar.xz
+wget -nc https://download.gnome.org/sources/epiphany/44/epiphany-44.2.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/epiphany/44/epiphany-44.2.tar.xz
 
 
 if [ ! -z $URL ]
@@ -54,13 +52,10 @@ fi
 echo $USER > /tmp/currentuser
 
 
-sed -i '/merge_file/{n;d}' data/meson.build
-sed "/dependency/s@'libportal'@'libportal-gtk3'@" -i meson.build
-sed "/portal-gtk3/s@portal/@portal-gtk3/@" -i lib/ephy-flatpak-utils.c
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

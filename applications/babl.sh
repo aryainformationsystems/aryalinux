@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=babl
-VERSION=0.1.88
-URL=https://download.gimp.org/pub/babl/0.1/babl-0.1.88.tar.xz
+VERSION=0.1.104
+URL=https://download.gimp.org/pub/babl/0.1/babl-0.1.104.tar.xz
 SECTION="Graphics and Font Libraries"
 DESCRIPTION="The Babl package is a dynamic, any to any, pixel format translation library."
 
@@ -24,7 +24,7 @@ DESCRIPTION="The Babl package is a dynamic, any to any, pixel format translation
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gimp.org/pub/babl/0.1/babl-0.1.88.tar.xz
+wget -nc https://download.gimp.org/pub/babl/0.1/babl-0.1.104.tar.xz
 
 
 if [ ! -z $URL ]
@@ -49,7 +49,7 @@ echo $USER > /tmp/currentuser
 mkdir bld &&
 cd    bld &&
 
-meson --prefix=/usr --buildtype=release .. &&
+meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

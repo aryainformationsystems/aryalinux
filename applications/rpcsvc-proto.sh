@@ -15,7 +15,7 @@ NAME=rpcsvc-proto
 VERSION=1.4.3
 URL=https://github.com/thkukuk/rpcsvc-proto/releases/download/v1.4.3/rpcsvc-proto-1.4.3.tar.xz
 SECTION="Networking Libraries"
-DESCRIPTION="The rpcsvc-proto package contains the rcpsvc protocol files and headers, formerly included with glibc, that are not included in replacement libtirpc-1.3.2, along with the rpcgen program."
+DESCRIPTION="The rpcsvc-proto package contains the rcpsvc protocol files and headers, formerly included with glibc, that are not included in replacement libtirpc-1.3.3, along with the rpcgen program."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")

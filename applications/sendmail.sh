@@ -15,7 +15,7 @@ cd $SOURCE_DIR
 
 NAME=sendmail
 VERSION=.8.17.1
-URL=ftp://ftp.sendmail.org/pub/sendmail/sendmail.8.17.1.tar.gz
+URL=https://ftp.sendmail.org/sendmail.8.17.1.tar.gz
 SECTION="Mail Server Software"
 DESCRIPTION="The sendmail package contains a Mail Transport Agent (MTA)."
 
@@ -23,6 +23,7 @@ DESCRIPTION="The sendmail package contains a Mail Transport Agent (MTA)."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
+wget -nc https://ftp.sendmail.org/sendmail.8.17.1.tar.gz
 wget -nc ftp://ftp.sendmail.org/pub/sendmail/sendmail.8.17.1.tar.gz
 
 

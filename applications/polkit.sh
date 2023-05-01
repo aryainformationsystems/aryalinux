@@ -8,18 +8,18 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:glib2
-#REQ:js78
+#REQ:duktape
 #REQ:gobject-introspection
 #REQ:libxslt
 #REQ:linux-pam
-#REQ:systemd
+#REQ:elogind
 
 
 cd $SOURCE_DIR
 
 NAME=polkit
-VERSION=0.120
-URL=https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
+VERSION=122
+URL=https://gitlab.freedesktop.org/polkit/polkit/-/archive/122/polkit-122.tar.gz
 SECTION="Security"
 DESCRIPTION="Polkit is a toolkit for defining and handling authorizations. It is used for allowing unprivileged processes to communicate with privileged processes."
 
@@ -27,8 +27,7 @@ DESCRIPTION="Polkit is a toolkit for defining and handling authorizations. It is
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/4.0/polkit-0.120-security_fix-1.patch
+wget -nc https://gitlab.freedesktop.org/polkit/polkit/-/archive/122/polkit-122.tar.gz
 
 
 if [ ! -z $URL ]
@@ -61,40 +60,21 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-sed '/0,/s/^/#/' -i meson_post_install.py &&
-sed '/policy,/d' -i actions/meson.build \
-                 -i src/examples/meson.build
-patch -Np1 -i ../polkit-0.120-security_fix-1.patch
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr                       \
-      -Dman=true                          \
-      -Dsession_tracking=libsystemd-login \
-      --buildtype=release                 \
-      ..                                  &&
+meson setup ..                      \
+      --prefix=/usr                 \
+      --buildtype=release           \
+      -Dman=true                    \
+      -Dsession_tracking=libelogind \
+      -Dsystemdsystemunitdir=/tmp   \
+      -Dtests=true                  &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-ninja install
-ENDOFROOTSCRIPT
-
-chmod a+x /tmp/rootscript.sh
-sudo /tmp/rootscript.sh
-sudo rm -rf /tmp/rootscript.sh
-
-sudo rm -rf /tmp/rootscript.sh
-cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-cat > /etc/pam.d/polkit-1 << "EOF"
-# Begin /etc/pam.d/polkit-1
-
-auth     include        system-auth
-account  include        system-account
-password include        system-password
-session  include        system-session
-
-# End /etc/pam.d/polkit-1
-EOF
+ninja install &&
+rm -v /tmp/*.service
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

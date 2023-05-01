@@ -14,15 +14,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-xml-libxslt
-VERSION=1.99
-URL=https://www.cpan.org/authors/id/S/SH/SHLOMIF/XML-LibXSLT-1.99.tar.gz
+VERSION=2.002001
+URL=https://www.cpan.org/authors/id/S/SH/SHLOMIF/XML-LibXSLT-2.002001.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/S/SH/SHLOMIF/XML-LibXSLT-1.99.tar.gz
+wget -nc https://www.cpan.org/authors/id/S/SH/SHLOMIF/XML-LibXSLT-2.002001.tar.gz
 
 
 if [ ! -z $URL ]

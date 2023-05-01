@@ -13,17 +13,17 @@ set +h
 cd $SOURCE_DIR
 
 NAME=apr-util
-VERSION=1.6.1
-URL=https://archive.apache.org/dist/apr/apr-util-1.6.1.tar.bz2
+VERSION=1.6.3
+URL=https://archive.apache.org/dist/apr/apr-util-1.6.3.tar.bz2
 SECTION="General Libraries"
-DESCRIPTION="The Apache Portable Runtime Utility Library provides a predictable and consistent interface to underlying client library interfaces. This application programming interface assures predictable if not identical behaviour regardless of which libraries are available on a given platform."
+DESCRIPTION="The Apache Portable Runtime Utility Library provides a predictable and consistent interface to underlying client library interfaces. This application programming interface assures predictable if not identical behavior regardless of which libraries are available on a given platform."
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://archive.apache.org/dist/apr/apr-util-1.6.1.tar.bz2
-wget -nc ftp://ftp.mirrorservice.org/sites/ftp.apache.org/apr/apr-util-1.6.1.tar.bz2
+wget -nc https://archive.apache.org/dist/apr/apr-util-1.6.3.tar.bz2
+wget -nc ftp://ftp.mirrorservice.org/sites/ftp.apache.org/apr/apr-util-1.6.3.tar.bz2
 
 
 if [ ! -z $URL ]

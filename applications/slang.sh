@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=slang
-VERSION=2.3.2
-URL=https://www.jedsoft.org/releases/slang/slang-2.3.2.tar.bz2
+VERSION=2.3.3
+URL=https://www.jedsoft.org/releases/slang/slang-2.3.3.tar.bz2
 SECTION="Programming"
 DESCRIPTION="S-Lang (slang) is an interpreted language that may be embedded into an application to make the application extensible. It provides facilities required by interactive applications such as display/screen management, keyboard input and keymaps."
 
@@ -21,7 +21,7 @@ DESCRIPTION="S-Lang (slang) is an interpreted language that may be embedded into
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.jedsoft.org/releases/slang/slang-2.3.2.tar.bz2
+wget -nc https://www.jedsoft.org/releases/slang/slang-2.3.3.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -49,8 +49,8 @@ echo $USER > /tmp/currentuser
 make -j1
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install_doc_dir=/usr/share/doc/slang-2.3.2   \
-     SLSH_DOC_DIR=/usr/share/doc/slang-2.3.2/slsh \
+make install_doc_dir=/usr/share/doc/slang-2.3.3   \
+     SLSH_DOC_DIR=/usr/share/doc/slang-2.3.3/slsh \
      install &&
 
 chmod -v 755 /usr/lib/slang/v2/modules/*.so

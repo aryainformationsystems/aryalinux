@@ -28,8 +28,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gtk4
-VERSION=4.6.1
-URL=https://download.gnome.org/sources/gtk/4.6/gtk-4.6.1.tar.xz
+VERSION=4.10.3
+URL=https://download.gnome.org/sources/gtk/4.10/gtk-4.10.3.tar.xz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="The GTK 4 package contains libraries used for creating graphical user interfaces for applications."
 
@@ -37,8 +37,8 @@ DESCRIPTION="The GTK 4 package contains libraries used for creating graphical us
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gtk/4.6/gtk-4.6.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gtk/4.6/gtk-4.6.1.tar.xz
+wget -nc https://download.gnome.org/sources/gtk/4.10/gtk-4.10.3.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gtk/4.10/gtk-4.10.3.tar.xz
 
 
 if [ ! -z $URL ]
@@ -63,7 +63,14 @@ echo $USER > /tmp/currentuser
 mkdir build &&
 cd    build &&
 
-meson --prefix=/usr --buildtype=release -Dbroadway-backend=true .. &&
+meson setup --prefix=/usr           \
+            --buildtype=release     \
+            -Dbroadway-backend=true \
+            -Dintrospection=enabled \
+            .. &&
+ninja
+sed "s@'doc'@& / 'gtk-4.10.3'@" -i ../docs/reference/meson.build &&
+meson configure -Dgtk_doc=true                                   &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=enchant
-VERSION=2.3.2
-URL=https://github.com/AbiWord/enchant/releases/download/v2.3.2/enchant-2.3.2.tar.gz
+VERSION=2.3.4
+URL=https://github.com/AbiWord/enchant/releases/download/v2.3.4/enchant-2.3.4.tar.gz
 SECTION="General Libraries"
 DESCRIPTION="The enchant package provides a generic interface into various existing spell checking libraries."
 
@@ -23,7 +23,7 @@ DESCRIPTION="The enchant package provides a generic interface into various exist
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/AbiWord/enchant/releases/download/v2.3.2/enchant-2.3.2.tar.gz
+wget -nc https://github.com/AbiWord/enchant/releases/download/v2.3.4/enchant-2.3.4.tar.gz
 
 
 if [ ! -z $URL ]

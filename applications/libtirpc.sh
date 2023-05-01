@@ -12,8 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libtirpc
-VERSION=1.3.2
-URL=https://downloads.sourceforge.net/libtirpc/libtirpc-1.3.2.tar.bz2
+VERSION=1.3.3
+URL=https://downloads.sourceforge.net/libtirpc/libtirpc-1.3.3.tar.bz2
 SECTION="Networking Libraries"
 DESCRIPTION="The libtirpc package contains libraries that support programs that use the Remote Procedure Call (RPC) API. It replaces the RPC, but not the NIS library entries that used to be in glibc."
 
@@ -21,7 +21,7 @@ DESCRIPTION="The libtirpc package contains libraries that support programs that 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://downloads.sourceforge.net/libtirpc/libtirpc-1.3.2.tar.bz2
+wget -nc https://downloads.sourceforge.net/libtirpc/libtirpc-1.3.3.tar.bz2
 
 
 if [ ! -z $URL ]

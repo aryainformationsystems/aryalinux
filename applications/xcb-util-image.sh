@@ -13,8 +13,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=xcb-util-image
-VERSION=0.4.0
-URL=https://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
+VERSION=0.4.1
+URL=https://xcb.freedesktop.org/dist/xcb-util-image-0.4.1.tar.xz
 SECTION="Graphical Environments"
 DESCRIPTION="The xcb-util-image package provides additional extensions to the XCB library."
 
@@ -22,7 +22,7 @@ DESCRIPTION="The xcb-util-image package provides additional extensions to the XC
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
+wget -nc https://xcb.freedesktop.org/dist/xcb-util-image-0.4.1.tar.xz
 
 
 if [ ! -z $URL ]

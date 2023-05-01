@@ -18,8 +18,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=gnome-online-accounts
-VERSION=3.40.1
-URL=https://download.gnome.org/sources/gnome-online-accounts/3.40/gnome-online-accounts-3.40.1.tar.xz
+VERSION=3.46.0
+URL=https://download.gnome.org/sources/gnome-online-accounts/3.46/gnome-online-accounts-3.46.0.tar.xz
 SECTION="GNOME Libraries and Desktop"
 DESCRIPTION="The GNOME Online Accounts package contains a framework used to access the user's online accounts."
 
@@ -27,8 +27,8 @@ DESCRIPTION="The GNOME Online Accounts package contains a framework used to acce
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/gnome-online-accounts/3.40/gnome-online-accounts-3.40.1.tar.xz
-wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-online-accounts/3.40/gnome-online-accounts-3.40.1.tar.xz
+wget -nc https://download.gnome.org/sources/gnome-online-accounts/3.46/gnome-online-accounts-3.46.0.tar.xz
+wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/gnome-online-accounts/3.46/gnome-online-accounts-3.46.0.tar.xz
 
 
 if [ ! -z $URL ]
@@ -50,14 +50,20 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr \
-            --disable-static \
-            --with-google-client-secret=5ntt6GbbkjnTVXx-MSxbmx5e \
-            --with-google-client-id=595013732528-llk8trb03f0ldpqq6nprjp1s79596646.apps.googleusercontent.com &&
-make
+mkdir build &&
+cd    build &&
+
+meson setup                                           \
+      --prefix=/usr                                   \
+      --buildtype=release                             \
+      -Dkerberos=false                                \
+      -Dgoogle_client_secret=5ntt6GbbkjnTVXx-MSxbmx5e \
+      -Dgoogle_client_id=595013732528-llk8trb03f0ldpqq6nprjp1s79596646.apps.googleusercontent.com \
+      .. &&
+ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+ninja install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

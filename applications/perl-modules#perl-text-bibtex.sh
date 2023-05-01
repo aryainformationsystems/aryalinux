@@ -14,15 +14,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-modules#perl-text-bibtex
-VERSION=0.88
-URL=https://www.cpan.org/authors/id/A/AM/AMBS/Text-BibTeX-0.88.tar.gz
+VERSION=0.89
+URL=https://www.cpan.org/authors/id/A/AM/AMBS/Text-BibTeX-0.89.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://www.cpan.org/authors/id/A/AM/AMBS/Text-BibTeX-0.88.tar.gz
+wget -nc https://www.cpan.org/authors/id/A/AM/AMBS/Text-BibTeX-0.89.tar.gz
 
 
 if [ ! -z $URL ]

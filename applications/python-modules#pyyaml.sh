@@ -7,21 +7,22 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
+#REQ:python-modules#cython
 #REQ:libyaml
 
 
 cd $SOURCE_DIR
 
 NAME=python-modules#pyyaml
-VERSION=5.3.1
-URL=https://pyyaml.org/download/pyyaml/PyYAML-5.3.1.tar.gz
+VERSION=6.0
+URL=https://files.pythonhosted.org/packages/source/P/PyYAML/PyYAML-6.0.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://pyyaml.org/download/pyyaml/PyYAML-5.3.1.tar.gz
+wget -nc https://files.pythonhosted.org/packages/source/P/PyYAML/PyYAML-6.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -43,10 +44,10 @@ fi
 
 echo $USER > /tmp/currentuser
 
-python3 setup.py build
+pip3 wheel -w dist --no-build-isolation --no-deps $PWD
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-python3 setup.py install --optimize=1
+pip3 install --no-index --find-links dist --no-cache-dir --no-user PyYAML
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh

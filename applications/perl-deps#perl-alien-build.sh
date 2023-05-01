@@ -16,15 +16,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=perl-deps#perl-alien-build
-VERSION=2.46
-URL=https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Build-2.46.tar.gz
+VERSION=2.77
+URL=https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Build-2.77.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Build-2.46.tar.gz
+wget -nc https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Build-2.77.tar.gz
 
 
 if [ ! -z $URL ]

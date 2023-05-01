@@ -14,8 +14,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=grantlee
-VERSION=5.2.0
-URL=http://downloads.grantlee.org/grantlee-5.2.0.tar.gz
+VERSION=5.3.1
+URL=https://github.com/steveire/grantlee/releases/download/v5.3.1/grantlee-5.3.1.tar.gz
 SECTION="Graphical Environment Libraries"
 DESCRIPTION="Grantlee is a set of free software libraries written using the Qt framework. Currently two libraries are shipped with Grantlee: Grantlee Templates and Grantlee TextDocument. The goal of Grantlee Templates is to make it easier for application developers to separate the structure of documents from the data they contain, opening the door for theming."
 
@@ -23,7 +23,7 @@ DESCRIPTION="Grantlee is a set of free software libraries written using the Qt f
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc http://downloads.grantlee.org/grantlee-5.2.0.tar.gz
+wget -nc https://github.com/steveire/grantlee/releases/download/v5.3.1/grantlee-5.3.1.tar.gz
 
 
 if [ ! -z $URL ]
