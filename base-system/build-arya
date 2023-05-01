@@ -1,0 +1,329 @@
+#!/usr/bin/env python3
+
+import os
+import pwd
+import subprocess
+import sys
+from subprocess import check_output
+import getpass
+
+propsFile = 'build-properties'
+
+passwords = {}
+
+def getpassword(prompt, promptagain):
+  password1 = getpass.getpass(prompt)
+  password2 = getpass.getpass(promptagain)
+  if password1 == password2:
+    return password1
+  else:
+    print('Passwords do not match. Retrying...')
+    return getpassword(prompt, promptagain)
+
+def runWithEnvAs(user, commands, env, cwd):
+  userRecord = pwd.getpwnam(user)
+  userUid = userRecord.pw_uid
+  userGid = userRecord.pw_gid
+  process = subprocess.Popen(
+    commands, preexec_fn=demote(userUid, userGid), cwd=cwd, env=env
+  )
+  result = process.wait()
+  if result != 0:
+    exit()
+
+def demote(user_uid, user_gid):
+  def result():
+    os.setgid(user_gid)
+    os.setuid(user_uid)
+  return result
+
+def runScriptWithEnvAs(user, script, env, cwd):
+  runWithEnvAs(user, ['/bin/bash', script], env, cwd)
+
+def runScript(script, cwd):
+  process = subprocess.Popen(['/bin/bash', script], cwd=cwd)
+  result = process.wait()
+  if result != 0:
+    exit()
+
+def runScriptWithArgs(script, cwd, args):
+  lst = ['/bin/bash', script]
+  lst.extend(args)
+  process = subprocess.Popen(lst, cwd=cwd)
+  result = process.wait()
+  if result != 0:
+    exit()
+
+def readInput(message, varName, fileName, defaultValue, append=True):
+  if append:
+    with open(fileName, 'a') as f:
+      response = input(message)
+      if response == '':
+        response = defaultValue
+      f.write(varName + '="' + response + '"\n')
+  else:
+    with open(fileName, 'w') as f:
+      response = input(message)
+      if response == '':
+        response = defaultValue
+      f.write(varName + '="' + response + '"\n')
+
+def getParamValue(paramName):
+  with open(propsFile) as f:
+    for line in f:
+      if line.startswith(paramName):
+        return line.replace(paramName, '').replace('"', '').replace('=', '').strip()
+  return None
+
+def makeLogEntry(message, logFile):
+  with open(logFile, 'a') as f:
+    f.write(message + '\n')
+
+def logCurrentStage(stageName):
+  if os.path.exists('/sources/currentstage'):
+    with open('/sources/currentstage', 'w') as f:
+      f.write(stageName)
+
+def getCurrentStage():
+  try:
+    with open('/sources/currentstage', 'r') as f:
+      line = f.readline()
+    return line.strip()
+  except:
+    return 0
+
+def inputBuildProperties():
+  readInput("Bootloader Device: ", 'DEV_NAME', propsFile, '', False)
+  readInput("Root Partition: ", 'ROOT_PART', propsFile, '')
+  readInput("Home Partition: ", 'HOME_PART', propsFile, '')
+  if getParamValue('HOME_PART') != '':
+    readInput('Format Home Partition? (y/N): ', 'FORMAT_HOME', propsFile, 'n')
+  readInput("Swap Partition: ", 'SWAP_PART', propsFile, '')
+  if getParamValue('SWAP_PART') != '':
+    readInput('Format swap partition? (y/N): ', 'FORMAT_SWAP', propsFile, 'n')
+  readInput("Locale: (e.g. en_IN.utf8) ", 'LOCALE', propsFile, 'en_IN.utf8')
+  readInput("OS Name: ", 'OS_NAME', propsFile, 'AryaLinux')
+  readInput("OS Version: ", 'OS_VERSION', propsFile, '4.0')
+  readInput("OS Codename: ", 'OS_CODENAME', propsFile, 'Kalam')
+  readInput("Domain Name: ", 'DOMAIN_NAME', propsFile, 'aryalinux.com')
+  readInput("Keyboard Layout: (e.g. us, fr) ", 'KEYBOARD', propsFile, 'us')
+  readInput("Printer Paper Size: (A4/letter) ", 'PAPER_SIZE', propsFile, 'A4')
+  readInput('Enter full name: ', 'FULLNAME', propsFile, 'AryaLinux')
+  readInput('Username: ', 'USERNAME', propsFile, 'aryalinux')
+  readInput('Computer Name: ', 'HOST_NAME', propsFile, 'aryalinux')
+  readInput('Use multiple cores for build?: (Y/n) ', 'MULTICORE', propsFile, 'y')
+  readInput('Create backups? (y/N) ', 'CREATE_BACKUPS', propsFile, 'n')
+  readInput("Install X Server? (y/N) ", 'INSTALL_XSERVER', propsFile, 'n')
+  if getParamValue('INSTALL_XSERVER') == 'y' or getParamValue('INSTALL_XSERVER') == 'Y':
+    readInput("Install Desktop Environment? (y/N) ", 'INSTALL_DESKTOP_ENVIRONMENT', propsFile, 'n')
+    if getParamValue('INSTALL_DESKTOP_ENVIRONMENT') == 'y' or getParamValue('INSTALL_DESKTOP_ENVIRONMENT') == 'Y':
+      readInput("Choose the Desktop Environment you want to install:\n1) XFCE\n2) Mate\n3) KDE\n4) Gnome\n5) LxQT\n\nEnter your choice (1-5): ", 'DESKTOP_ENVIRONMENT', propsFile, '2')
+  passwords['root'] = getpassword('Enter the root password : ', 'Re-enter the root password : ')
+  passwords['user'] = getpassword('Enter the user password : ', 'Re-enter the user password : ')
+  readInput('Install bootloader? (Y/n) : ', 'INSTALL_BOOTLOADER', propsFile, 'y')
+  readInput('Create Live ISO? (Y/n) : ', 'CREATE_LIVE_ISO', propsFile, 'y')
+
+def freshBuild(startFrom):
+  startFrom = int(startFrom)
+
+  if startFrom == 1:
+    logCurrentStage('1')
+    inputBuildProperties()
+    startFrom = startFrom + 1
+  else:
+    with open('/sources/build-log') as f:
+      buildlog = f.read()
+      if not 'root-and-admin-passwords' in buildlog:
+        passwords['root'] = getpassword('Enter the root password : ', 'Re-enter the root password : ')
+        passwords['user'] = getpassword('Enter the user password : ', 'Re-enter the user password : ')
+
+  if startFrom == 2:
+    try:
+      logCurrentStage('2')
+      runScript('stage1.sh', None)
+      startFrom = startFrom + 1
+    except:
+      print('Error occured while executing stage 1')
+      exit()
+
+  if startFrom == 3:
+    logCurrentStage('3')
+    env = {}
+    LFS = '/mnt/lfs'
+    LC_ALL = 'POSIX'
+    LFS_TGT = check_output("echo $(uname -m)-lfs-linux-gnu", shell=True).strip()
+    PATH = LFS + '/tools/bin:/bin:/usr/bin'
+    CONFIG_SITE = LFS + '/usr/share/config.site'
+
+    env['LFS'] = LFS
+    env['LC_ALL'] = LC_ALL
+    env['PATH'] = PATH
+    env['LFS_TGT'] = LFS_TGT
+    env['CONFIG_SITE'] = CONFIG_SITE
+
+    try:
+      runScriptWithEnvAs('lfs', 'stage2.sh', env, '/home/lfs')
+      startFrom = startFrom + 1
+    except:
+      print('Error occured while executing stage 2')
+      exit()
+
+  if startFrom == 4:
+    logCurrentStage('4')
+    try:
+      runScript('/sources/stage3.sh', '/sources')
+      startFrom = startFrom + 1
+    except:
+      print('Error occured while running stage 3')
+      exit()
+
+  if startFrom == 5:
+    print('Starting stage 5')
+    logCurrentStage('5')
+    try:
+      runScript('/sources/stage6.sh', '/sources')
+      startFrom = startFrom + 1
+    except:
+      print('Error occured while running stage 4')
+      exit()
+  try:
+    pr = subprocess.Popen(['./enteral.sh /sources/final-stage.sh "' + passwords['root'] + '" "' + passwords['user'] + '"'], shell=True)
+    pr.wait()
+  except Exception as ex:
+    print(ex)
+
+  if getParamValue('CREATE_BACKUPS') == 'y' or getParamValue('CREATE_BACKUPS') == 'Y':
+    try:
+      files = os.listdir('/mnt/lfs/sources')
+      found = False
+      for file in files:
+        if file.startswith('aryalinux') and 'base-system' in file and file.endswith('.tar.gz'):
+          found = True
+          break
+      if not found:
+        p = subprocess.Popen(['./backup.sh base-system y'], shell=True)
+        p.wait()
+      else:
+        print('Base system backup already present. Not creating again')
+    except:
+      print('Error occured while backing up base-system. Aborting.')
+      exit()
+
+  if startFrom == 6:
+    if getParamValue('INSTALL_XSERVER') == 'y' or getParamValue('INSTALL_XSERVER') == 'Y':
+      try:
+        logCurrentStage('6')
+        print('Installing essentials...')
+        runScriptWithArgs('/sources/enteral.sh', '/sources', ['/sources/apps/essentials.sh', getParamValue('USERNAME')])
+        print('Installing xserver...')
+        runScriptWithArgs('/sources/enteral.sh', '/sources', ['/sources/apps/app.sh', getParamValue('USERNAME'), 'xserver-meta'])
+        startFrom = startFrom + 1
+        if getParamValue('CREATE_BACKUPS') == 'y' or getParamValue('CREATE_BACKUPS') == 'Y':
+          try:
+            files = os.listdir('/mnt/lfs/sources/')
+            found = False
+            for file in files:
+              if file.startswith('aryalinux') and 'base-system-with-xserver' in file and file.endswith('.tar.xz'):
+                found = True
+                break
+            if not found:
+              p = subprocess.Popen(['./backup.sh base-system-with-xserver n'], shell=True)
+              p.wait()
+            else:
+              print('X-Server backup already present. Not backing up again.')
+          except:
+            print('Error occured while backing up base-system-with-xserver. Aborting.')
+            exit()
+      except:
+        print('Error occured in the installation of x-server')
+        exit()
+
+
+  if startFrom == 7:
+    if getParamValue('INSTALL_DESKTOP_ENVIRONMENT') == 'y' or getParamValue('INSTALL_DESKTOP_ENVIRONMENT') == 'Y':
+      try:
+        logCurrentStage('7')
+        if getParamValue('DESKTOP_ENVIRONMENT') == '2':
+          desktopEnv = 'mate'
+          print('Installing ' + desktopEnv)
+          runScriptWithArgs('/sources/enteral.sh', '/sources', ['/sources/apps/app.sh', getParamValue('USERNAME'), 'mate-desktop-environment'])
+        elif getParamValue('DESKTOP_ENVIRONMENT') == '1':
+          desktopEnv = 'xfce'
+          print('Installing ' + desktopEnv)
+          runScriptWithArgs('/sources/enteral.sh', '/sources', ['/sources/apps/app.sh', getParamValue('USERNAME'), 'xfce-desktop-environment'])
+        elif getParamValue('DESKTOP_ENVIRONMENT') == '3':
+          desktopEnv = 'kde5'
+          print('Installing ' + desktopEnv)
+          runScriptWithArgs('/sources/enteral.sh', '/sources', ['/sources/apps/app.sh', getParamValue('USERNAME'), 'kde-desktop-environment'])
+        elif getParamValue('DESKTOP_ENVIRONMENT') == '5':
+          desktopEnv = 'lxqt'
+          print('Installing ' + desktopEnv)
+          runScriptWithArgs('/sources/enteral.sh', '/sources', ['/sources/apps/app.sh', getParamValue('USERNAME'), 'lxqt-desktop-environment'])
+        elif getParamValue('DESKTOP_ENVIRONMENT') == '4':
+          desktopEnv = 'gnome'
+          print('Installing ' + desktopEnv)
+          runScriptWithArgs('/sources/enteral.sh', '/sources', ['/sources/apps/app.sh', getParamValue('USERNAME'), 'gnome-desktop-environment'])
+        if os.path.exists('/sources/distro-build.sh'):
+          runScriptWithArgs('/sources/enteral.sh', '/sources', ['/sources/apps/executioner.sh', getParamValue('USERNAME'), '/sources/distro-build.sh'])
+        startFrom = startFrom + 1
+        if getParamValue('CREATE_BACKUPS') == 'y' or getParamValue('CREATE_BACKUPS') == 'Y':
+          try:
+            files = os.listdir('/mnt/lfs/sources/')
+            found = False
+            for file in files:
+              if file.startswith('aryalinux') and 'base-system-with-' + desktopEnv in file and file.endswith('.tar.gz'):
+                found = True
+                break
+            if not found:
+              p = subprocess.Popen(['./backup.sh base-system-with-' + desktopEnv + ' n'], shell=True)
+              p.wait()
+            else:
+              print('Desktop environment backup already present. Not backing up again.')
+          except:
+            print('Error occured while backing up base-system-with-' + desktopEnv + '. Aborting.')
+            exit()
+      except:
+        print('Error occured in the installation of desktop environment')
+        exit()
+  if getParamValue('CREATE_LIVE_ISO') == 'y' or getParamValue('CREATE_LIVE_ISO') == 'Y':
+    pr = subprocess.Popen(['./createlivedisk.sh'], shell=True)
+    pr.wait()
+
+print('Do you want to start a new build or resume a build that was previously started ?')
+print('1. Start a fresh build')
+print('2. Resume the last build')
+response = input('Enter your choice (1 / 2): ')
+if response == '1':
+  freshBuild(1)
+elif response == '2':
+  rootPartition = input('Enter the root partition where the build was in progress. Enter to exit: ')
+  if rootPartition != '':
+    if os.path.exists('/mnt/lfs/tmp/mountpoint'):
+      try:
+        check_output('umount -v /mnt/lfs/tmp/mountpoint/dev/pts', shell=True)
+        check_output('umount -v /mnt/lfs/tmp/mountpoint/dev', shell=True)
+        check_output('umount -v /mnt/lfs/tmp/mountpoint', shell=True)
+        check_output('umount -v /mnt/lfs/tmp/mountpoint/sys', shell=True)
+        check_output('umount -v /mnt/lfs/tmp/mountpoint/proc', shell=True)
+        check_output('umount -v /mnt/lfs/tmp/mountpoint/run', shell=True)
+        print('Package builder directories unmounted successfully')
+      except:
+        print('Un-mounting wasnt successful. Continuing without it...')
+
+    if not os.path.exists('/mnt/lfs/sources/build-properties'):
+      runScript('./umountal.sh', None)
+      check_output('rm -rf /sources', shell=True)
+      check_output('rm -rf /mnt/lfs', shell=True)
+      check_output('mkdir -pv /mnt/lfs', shell=True)
+      check_output('mount -v ' + rootPartition + ' /mnt/lfs', shell=True)
+      check_output('ln -svf /mnt/lfs/sources /', shell=True)
+    if os.path.exists('/sources/build-properties'):
+      stage = getCurrentStage()
+      freshBuild(stage)
+    else:
+      check_output('./umountal.sh', shell=True)
+      print('This is not the partition where build was in progress. Cannot continue. Exiting.')
+      print('Please re-run this script with right inputs.')
+else:
+  print('Invalid Choice. Aborting...')
+  exit()
