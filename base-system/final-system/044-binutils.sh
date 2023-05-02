@@ -32,7 +32,6 @@ cd       build
              --enable-64-bit-bfd \
              --with-system-zlib
 make tooldir=/usr
-grep '^FAIL:' $(find -name '*.log')
 make tooldir=/usr install
 rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,sframe,opcodes}.a
 rm -fv /usr/share/man/man1/{gprofng,gp-*}.1
