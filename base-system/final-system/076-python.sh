@@ -32,13 +32,6 @@ cat > /etc/pip.conf << EOF
 root-user-action = ignore
 disable-pip-version-check = true
 EOF
-install -v -dm755 /usr/share/doc/python-3.11.3/html
-
-tar --strip-components=1  \
-    --no-same-owner       \
-    --no-same-permissions \
-    -C /usr/share/doc/python-3.11.3/html \
-    -xvf ../python-3.11.3-docs-html.tar.bz2
 
 fi
 
