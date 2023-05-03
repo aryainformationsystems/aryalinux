@@ -44,7 +44,6 @@ sed '/RTLDLIST=/s@/usr@@g' -i $LFS/usr/bin/ldd
 echo 'int main(){}' | $LFS_TGT-gcc -xc -
 readelf -l a.out | grep ld-linux
 rm -v a.out
-$LFS/tools/libexec/gcc/$LFS_TGT/12.2.0/install-tools/mkheaders
 
 fi
 

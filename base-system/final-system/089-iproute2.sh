@@ -13,7 +13,7 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=iproute2-6.2.0.tar.xz
+TARBALL=iproute2-6.3.0.tar.xz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
@@ -24,8 +24,8 @@ sed -i /ARPD/d Makefile
 rm -fv man/man8/arpd.8
 make NETNS_RUN_DIR=/run/netns
 make SBINDIR=/usr/sbin install
-mkdir -pv             /usr/share/doc/iproute2-6.2.0
-cp -v COPYING README* /usr/share/doc/iproute2-6.2.0
+mkdir -pv             /usr/share/doc/iproute2-6.3.0
+cp -v COPYING README* /usr/share/doc/iproute2-6.3.0
 
 fi
 

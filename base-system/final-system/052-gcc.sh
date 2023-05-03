@@ -13,7 +13,7 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=gcc-12.2.0.tar.xz
+TARBALL=gcc-13.1.0.tar.xz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
@@ -35,13 +35,14 @@ cd       build
              --enable-default-ssp     \
              --disable-multilib       \
              --disable-bootstrap      \
+             --disable-fixincludes    \
              --with-system-zlib
 make
 make install
 chown -v -R root:root \
-    /usr/lib/gcc/$(gcc -dumpmachine)/12.2.0/include{,-fixed}
+    /usr/lib/gcc/$(gcc -dumpmachine)/13.1.0/include{,-fixed}
 ln -svr /usr/bin/cpp /usr/lib
-ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/12.2.0/liblto_plugin.so \
+ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/13.1.0/liblto_plugin.so \
         /usr/lib/bfd-plugins/
 echo 'int main(){}' > dummy.c
 cc dummy.c -v -Wl,--verbose &> dummy.log

@@ -13,7 +13,7 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=coreutils-9.2.tar.xz
+TARBALL=coreutils-9.3.tar.xz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
@@ -24,7 +24,8 @@ cd $DIRECTORY
             --host=$LFS_TGT                   \
             --build=$(build-aux/config.guess) \
             --enable-install-program=hostname \
-            --enable-no-install-program=kill,uptime
+            --enable-no-install-program=kill,uptime \
+            gl_cv_macro_MB_CUR_MAX_good=y
 make
 make DESTDIR=$LFS install
 mv -v $LFS/usr/bin/chroot              $LFS/usr/sbin
