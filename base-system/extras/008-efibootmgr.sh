@@ -31,7 +31,7 @@ fi
 
 export CFLAGS+=" -Wno-error=pointer-sign"
 # patch -Np1 -i ../efibootmgr-17-efidir.patch
-make
+EFIDIR=aryalinux make
 install -v -D -m0755 src/efibootmgr /usr/sbin/efibootmgr
 install -v -D -m0644 src/efibootmgr.8 \
 	/usr/share/man/man8/efibootmgr.8
