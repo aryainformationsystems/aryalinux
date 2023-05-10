@@ -18,7 +18,7 @@ cd $SOURCE_DIR
 TARBALL="alps-1.0.tar.gz"
 DIRECTORY=`tar -tf $TARBALL | cut -d/ -f1 | uniq`
 
-unzip $TARBALL
+tar xf $TARBALL
 cd $DIRECTORY
 
 rm -rf LICENSE
