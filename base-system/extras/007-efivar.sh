@@ -29,7 +29,10 @@ then
 	cd $DIRECTORY
 fi
 
-make libdir="/usr/lib/" bindir="/usr/bin/" \
+patch -Np1 -i ../hotfix-no-mandoc.patch
+
+make CFLAGS="-Wno-error=enum-int-mismatch" \
+	libdir="/usr/lib/" bindir="/usr/bin/" \
 	mandir="/usr/share/man/"     \
 	includedir="/usr/include/" V=1 -j1
 

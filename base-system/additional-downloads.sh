@@ -63,6 +63,7 @@ wget -nc https://cmake.org/files/v3.19/cmake-3.19.5.tar.gz
 wget -nc https://sourceforge.net/projects/squashfs/files/squashfs/squashfs4.4/squashfs4.4.tar.gz
 wget -nc http://downloads.sourceforge.net/infozip/unzip60.tar.gz
 wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/unzip-6.0-consolidated_fixes-1.patch
+wget -nc http://svn.exactcode.de/t2/trunk/package/x86/efivar/hotfix-no-mandoc.patch
 
 set +e
 
