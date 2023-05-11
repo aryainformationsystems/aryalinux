@@ -46,7 +46,7 @@ fi
 echo $USER > /tmp/currentuser
 
 
-./configure --prefix=/usr                          \
+./autogen.sh --prefix=/usr                         \
             --disable-static                       \
             --docdir=/usr/share/doc/libxslt-1.1.38 \
             PYTHON=/usr/bin/python3 &&
