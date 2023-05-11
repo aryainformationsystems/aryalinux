@@ -24,7 +24,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://ftp.gnu.org/gnu/parted/parted-3.6.tar.xz
 wget -nc ftp://ftp.gnu.org/gnu/parted/parted-3.6.tar.xz
-
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/334183baacbbab562062dd4405988fd3fe4ac7bc/parted-3.2-sysmacros.h.patch
 
 if [ ! -z $URL ]
 then
@@ -44,7 +44,7 @@ fi
 
 echo $USER > /tmp/currentuser
 
-
+patch -Np1 -i ../parted-3.2-sysmacros.h.patch &&
 ./configure --prefix=/usr --disable-static &&
 make &&
 
