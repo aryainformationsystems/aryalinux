@@ -15,8 +15,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libxslt
-VERSION=1.1.37
-URL=https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.37.tar.xz
+VERSION=1.1.38
+URL=https://gitlab.gnome.org/GNOME/libxslt/-/archive/v1.1.38/libxslt-v1.1.38.tar.bz2
 SECTION="General Libraries"
 DESCRIPTION="The libxslt package contains XSLT libraries used for extending libxml2 libraries to support XSLT files."
 
@@ -24,7 +24,7 @@ DESCRIPTION="The libxslt package contains XSLT libraries used for extending libx
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.37.tar.xz
+wget -nc https://gitlab.gnome.org/GNOME/libxslt/-/archive/v1.1.38/libxslt-v1.1.38.tar.bz2
 
 
 if [ ! -z $URL ]
@@ -48,7 +48,7 @@ echo $USER > /tmp/currentuser
 
 ./configure --prefix=/usr                          \
             --disable-static                       \
-            --docdir=/usr/share/doc/libxslt-1.1.37 \
+            --docdir=/usr/share/doc/libxslt-1.1.38 \
             PYTHON=/usr/bin/python3 &&
 make
 sudo rm -rf /tmp/rootscript.sh
