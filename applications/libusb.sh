@@ -45,10 +45,7 @@ echo $USER > /tmp/currentuser
 
 ./configure --prefix=/usr --disable-static &&
 make
-pushd doc                &&
-  doxygen -u doxygen.cfg &&
-  make docs              &&
-popd
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
