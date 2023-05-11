@@ -57,8 +57,8 @@ make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make altinstall                                &&
-ln -s python2.7        /usr/bin/python2        &&
-ln -s python2.7-config /usr/bin/python2-config &&
+ln -svf python2.7        /usr/bin/python2        &&
+ln -svf python2.7-config /usr/bin/python2-config &&
 chmod -v 755 /usr/lib/libpython2.7.so.1.0
 ENDOFROOTSCRIPT
 
