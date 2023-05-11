@@ -55,7 +55,7 @@ chmod -v 755 /usr/sbin/mount.ntfs
 make
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install &&
+make install
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
