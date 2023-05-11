@@ -51,8 +51,6 @@ echo $USER > /tmp/currentuser
             PYTHON=/usr/bin/python3 \
             --docdir=/usr/share/doc/libxml2-2.10.4 &&
 make
-tar xf ../xmlts20130923.tar.gz
-/etc/init.d/httpd stop
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
