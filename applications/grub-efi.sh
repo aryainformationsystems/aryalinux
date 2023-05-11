@@ -24,7 +24,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://ftp.gnu.org/gnu/grub/grub-2.06.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/grub-2.06-upstream_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/grub-2.06-upstream_fixes-1.patch
 wget -nc https://unifoundry.com/pub/unifont/unifont-15.0.01/font-builds/unifont-15.0.01.pcf.gz
 wget -nc https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 

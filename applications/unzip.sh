@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/infozip/unzip60.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/unzip-6.0-consolidated_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/unzip-6.0-consolidated_fixes-1.patch
 
 
 if [ ! -z $URL ]

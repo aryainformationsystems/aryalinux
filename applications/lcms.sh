@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/lcms/lcms-1.19.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/lcms-1.19-cve_2013_4276-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/lcms-1.19-cve_2013_4276-1.patch
 
 
 if [ ! -z $URL ]

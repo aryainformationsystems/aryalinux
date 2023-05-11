@@ -23,7 +23,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 wget -nc ftp://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/gcc-12.2.0-fix_go_version-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/gcc-12.2.0-fix_go_version-1.patch
 
 
 if [ ! -z $URL ]

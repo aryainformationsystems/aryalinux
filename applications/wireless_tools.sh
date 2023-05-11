@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://hewlettpackard.github.io/wireless-tools/wireless_tools.29.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/wireless_tools-29-fix_iwlist_scanning-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/wireless_tools-29-fix_iwlist_scanning-1.patch
 
 
 if [ ! -z $URL ]

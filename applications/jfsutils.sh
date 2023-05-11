@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://jfs.sourceforge.net/project/pub/jfsutils-1.1.15.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/jfsutils-1.1.15-gcc10_fix-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/jfsutils-1.1.15-gcc10_fix-1.patch
 
 
 if [ ! -z $URL ]

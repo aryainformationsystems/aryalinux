@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-10.2.src.tgz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/cdparanoia-III-10.2-gcc_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/cdparanoia-III-10.2-gcc_fixes-1.patch
 
 
 if [ ! -z $URL ]

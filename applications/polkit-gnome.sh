@@ -26,7 +26,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://download.gnome.org/sources/polkit-gnome/0.105/polkit-gnome-0.105.tar.xz
 wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/polkit-gnome/0.105/polkit-gnome-0.105.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/polkit-gnome-0.105-consolidated_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/polkit-gnome-0.105-consolidated_fixes-1.patch
 
 
 if [ ! -z $URL ]

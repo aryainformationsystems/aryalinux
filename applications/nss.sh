@@ -25,7 +25,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://archive.mozilla.org/pub/security/nss/releases/NSS_3_89_RTM/src/nss-3.89.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/nss-3.89-standalone-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/nss-3.89-standalone-1.patch
 wget -nc ../../../../lfs/view/development/chapter09/network.html#ch-config-hosts
 
 

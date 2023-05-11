@@ -23,7 +23,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://anduin.linuxfromscratch.org/BLFS/gpm/gpm-1.20.7.tar.bz2
 wget -nc ftp://anduin.linuxfromscratch.org/BLFS/gpm/gpm-1.20.7.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/gpm-1.20.7-consolidated-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/gpm-1.20.7-consolidated-1.patch
 
 
 if [ ! -z $URL ]

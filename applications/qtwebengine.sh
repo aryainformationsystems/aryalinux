@@ -34,9 +34,9 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://anduin.linuxfromscratch.org/BLFS/qtwebengine/qtwebengine-5.15.13.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/qtwebengine-5.15.13-build_fixes-1.patch
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/qtwebengine-5.15.13-ffmpeg5_fixes-1.patch
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/qtwebengine-5.15.13-icu_73-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/qtwebengine-5.15.13-build_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/qtwebengine-5.15.13-ffmpeg5_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/qtwebengine-5.15.13-icu_73-1.patch
 
 
 if [ ! -z $URL ]

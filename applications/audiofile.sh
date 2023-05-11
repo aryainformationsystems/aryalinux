@@ -25,7 +25,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://download.gnome.org/sources/audiofile/0.3/audiofile-0.3.6.tar.xz
 wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/audiofile/0.3/audiofile-0.3.6.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/audiofile-0.3.6-consolidated_patches-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/audiofile-0.3.6-consolidated_patches-1.patch
 
 
 if [ ! -z $URL ]

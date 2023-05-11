@@ -25,7 +25,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 wget -nc https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/llvm-15.0.7.src.tar.xz
 wget -nc https://anduin.linuxfromscratch.org/BLFS/llvm/llvm-cmake-15.0.7.src.tar.xz
 wget -nc https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/clang-15.0.7.src.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/clang-15.0.7-enable_default_ssp-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/clang-15.0.7-enable_default_ssp-1.patch
 wget -nc https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/compiler-rt-15.0.7.src.tar.xz
 
 

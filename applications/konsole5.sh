@@ -23,7 +23,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://download.kde.org/stable/release-service/22.12.2/src/konsole-22.12.2.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/konsole-22.12.2-scrollbar-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/konsole-22.12.2-scrollbar-1.patch
 
 
 if [ ! -z $URL ]

@@ -23,7 +23,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/gptfdisk/gptfdisk-1.0.9.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/gptfdisk-1.0.9-convenience-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/gptfdisk-1.0.9-convenience-1.patch
 
 
 if [ ! -z $URL ]

@@ -24,7 +24,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://archive.apache.org/dist/serf/serf-1.3.9.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/serf-1.3.9-openssl3_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/serf-1.3.9-openssl3_fixes-1.patch
 
 
 if [ ! -z $URL ]

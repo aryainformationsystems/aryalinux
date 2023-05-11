@@ -34,7 +34,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://github.com/TigerVNC/tigervnc/archive/v1.13.1/tigervnc-1.13.1.tar.gz
 wget -nc https://www.x.org/pub/individual/xserver/xorg-server-21.1.6.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/tigervnc-1.13.1-configuration_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/tigervnc-1.13.1-configuration_fixes-1.patch
 wget -nc https://anduin.linuxfromscratch.org/BLFS/tigervnc/vncserver
 wget -nc https://anduin.linuxfromscratch.org/BLFS/tigervnc/vncserver.1
 

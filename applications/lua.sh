@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://www.lua.org/ftp/lua-5.4.4.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/lua-5.4.4-shared_library-2.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/lua-5.4.4-shared_library-2.patch
 wget -nc https://www.lua.org/tests/lua-5.4.4-tests.tar.gz
 
 

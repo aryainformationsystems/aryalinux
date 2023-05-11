@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://ftp.debian.org/debian/pool/main/h/heirloom-mailx/heirloom-mailx_12.5.orig.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/heirloom-mailx-12.5-fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/heirloom-mailx-12.5-fixes-1.patch
 
 
 if [ ! -z $URL ]

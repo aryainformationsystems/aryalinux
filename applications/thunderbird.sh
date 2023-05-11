@@ -40,7 +40,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://archive.mozilla.org/pub/thunderbird/releases/102.10.1/source/thunderbird-102.10.1.source.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/thunderbird-102.10.1-upstream_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/thunderbird-102.10.1-upstream_fixes-1.patch
 
 
 if [ ! -z $URL ]

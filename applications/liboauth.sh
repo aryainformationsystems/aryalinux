@@ -23,7 +23,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://downloads.sourceforge.net/liboauth/liboauth-1.0.3.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/liboauth-1.0.3-openssl-1.1.0-3.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/liboauth-1.0.3-openssl-1.1.0-3.patch
 
 
 if [ ! -z $URL ]

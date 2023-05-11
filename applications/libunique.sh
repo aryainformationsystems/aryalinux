@@ -25,7 +25,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://download.gnome.org/sources/libunique/1.1/libunique-1.1.6.tar.bz2
 wget -nc ftp://ftp.acc.umu.se/pub/gnome/sources/libunique/1.1/libunique-1.1.6.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/libunique-1.1.6-upstream_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/libunique-1.1.6-upstream_fixes-1.patch
 
 
 if [ ! -z $URL ]

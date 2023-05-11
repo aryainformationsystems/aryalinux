@@ -25,7 +25,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://www.kernel.org/pub/linux/bluetooth/bluez-5.66.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/bluez-5.66-obexd_without_systemd-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/bluez-5.66-obexd_without_systemd-1.patch
 
 
 if [ ! -z $URL ]

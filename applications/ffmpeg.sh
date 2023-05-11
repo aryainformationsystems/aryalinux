@@ -39,7 +39,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://ffmpeg.org/releases/ffmpeg-6.0.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/ffmpeg-6.0-chromium_method-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/ffmpeg-6.0-chromium_method-1.patch
 
 
 if [ ! -z $URL ]

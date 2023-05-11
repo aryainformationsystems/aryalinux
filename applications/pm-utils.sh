@@ -22,7 +22,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://pm-utils.freedesktop.org/releases/pm-utils-1.4.1.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/pm-utils-1.4.1-bugfixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/pm-utils-1.4.1-bugfixes-1.patch
 
 
 if [ ! -z $URL ]

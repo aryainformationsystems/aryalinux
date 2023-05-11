@@ -24,7 +24,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.4.tgz
 wget -nc ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.6.4.tgz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/openldap-2.6.4-consolidated-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/openldap-2.6.4-consolidated-1.patch
 wget -nc https://www.openldap.org/doc/admin26/
 wget -nc https://www.openldap.org/pub/
 

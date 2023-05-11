@@ -24,7 +24,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://anduin.linuxfromscratch.org/BLFS/epdfview/epdfview-0.1.8.tar.bz2
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/epdfview-0.1.8-fixes-2.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/epdfview-0.1.8-fixes-2.patch
 
 
 if [ ! -z $URL ]

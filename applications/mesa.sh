@@ -30,7 +30,7 @@ pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://mesa.freedesktop.org/archive/mesa-23.0.3.tar.xz
 wget -nc ftp://ftp.freedesktop.org/pub/mesa/mesa-23.0.3.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/mesa-add_xdemos-2.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/mesa-add_xdemos-2.patch
 wget -nc https://archive.mesa3d.org/demos/
 
 

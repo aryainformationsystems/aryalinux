@@ -43,8 +43,8 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc https://archive.mozilla.org/pub/firefox/releases/102.10.0esr/source/firefox-102.10.0esr.source.tar.xz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/firefox-102.10.0-upstream_fixes-1.patch
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/firefox-102.10.0-ffmpeg_6-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/firefox-102.10.0-upstream_fixes-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/firefox-102.10.0-ffmpeg_6-1.patch
 
 
 if [ ! -z $URL ]

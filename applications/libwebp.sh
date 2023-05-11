@@ -26,7 +26,7 @@ mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
 wget -nc http://downloads.webmproject.org/releases/webp/libwebp-1.3.0.tar.gz
-wget -nc https://bitbucket.org/chandrakantsingh/patches/raw/1.0/libwebp-1.3.0-upstream_fix-1.patch
+wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/1.0/libwebp-1.3.0-upstream_fix-1.patch
 
 
 if [ ! -z $URL ]
