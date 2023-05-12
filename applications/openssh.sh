@@ -123,9 +123,9 @@ set +h
 . /etc/alps/alps.conf
 
 pushd $SOURCE_DIR
-wget -nc https://ftp.osuosl.org/pub/blfs/conglomeration/blfs-systemd-units/blfs-systemd-units-20180105.tar.bz2
-tar xf blfs-systemd-units-20180105.tar.bz2
-cd blfs-systemd-units-20180105
+wget -nc https://ftp.osuosl.org/pub/blfs/conglomeration/blfs-bootscripts/blfs-bootscripts-20230101.tar.xz
+tar xf blfs-bootscripts-20230101.tar.bz2
+cd blfs-bootscripts-20230101
 sudo make install-sshd
 popd
 ENDOFROOTSCRIPT
