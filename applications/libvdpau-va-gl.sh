@@ -15,15 +15,15 @@ set +h
 cd $SOURCE_DIR
 
 NAME=libvdpau-va-gl
-VERSION=0.4.0
-URL=https://github.com/i-rinat/libvdpau-va-gl/archive/v0.4.0/libvdpau-va-gl-0.4.0.tar.gz
+VERSION=0.4.2
+URL=https://github.com/i-rinat/libvdpau-va-gl/releases/download/v0.4.2/libvdpau-va-gl-0.4.2.tar.gz
 SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://github.com/i-rinat/libvdpau-va-gl/archive/v0.4.0/libvdpau-va-gl-0.4.0.tar.gz
+wget -nc $URL
 
 
 if [ ! -z $URL ]
