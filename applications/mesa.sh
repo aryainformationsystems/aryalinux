@@ -14,7 +14,7 @@ set +h
 #REQ:libvdpau
 #REQ:llvm
 #REQ:wayland-protocols
-
+#REQ:glslang
 
 cd $SOURCE_DIR
 
