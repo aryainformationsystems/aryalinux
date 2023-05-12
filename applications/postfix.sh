@@ -109,7 +109,7 @@ set +h
 . /etc/alps/alps.conf
 
 pushd $SOURCE_DIR
-wget -nc http://www.linuxfromscratch.org/blfs/downloads/9.0-systemd/blfs-systemd-units-20180105.tar.bz2
+wget -nc https://ftp.osuosl.org/pub/blfs/conglomeration/blfs-systemd-units/blfs-systemd-units-20180105.tar.bz2
 tar xf blfs-systemd-units-20180105.tar.bz2
 cd blfs-systemd-units-20180105
 sudo make install-postfix
