@@ -52,7 +52,7 @@ set +h
 
 pushd $SOURCE_DIR
 wget -nc https://ftp.osuosl.org/pub/blfs/conglomeration/blfs-bootscripts/blfs-bootscripts-20230101.tar.xz
-tar xf blfs-bootscripts-20230101.tar.bz2
+tar xf blfs-bootscripts-20230101.tar.xz
 cd blfs-bootscripts-20230101
 sudo make install-netfs
 popd
