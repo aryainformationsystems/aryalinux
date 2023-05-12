@@ -12,7 +12,7 @@ set +h
 cd $SOURCE_DIR
 
 NAME=aryalinux-wallpapers
-VERSION=4.0
+VERSION=1.0
 
 DESCRIPTION="The wallpaper collection for AryaLinux desktop."
 
@@ -20,7 +20,7 @@ DESCRIPTION="The wallpaper collection for AryaLinux desktop."
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc https://sourceforge.net/projects/aryalinux/files/releases/4.0/aryalinux-wallpapers-4.0.tar.xz
+wget -nc https://sourceforge.net/projects/aryalinux/files/releases/1.0/aryalinux-wallpapers-1.0.tar.xz
 
 
 if [ ! -z $URL ]
