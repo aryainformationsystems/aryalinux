@@ -7,24 +7,20 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:libxml2
-#REQ:docbook
-#REQ:docbook-xsl
 
 
 cd $SOURCE_DIR
 
-NAME=libxslt
-VERSION=1.1.38
-URL=https://gitlab.gnome.org/GNOME/libxslt/-/archive/v1.1.38/libxslt-v1.1.38.tar.bz2
-SECTION="General Libraries"
-DESCRIPTION="The libxslt package contains XSLT libraries used for extending libxml2 libraries to support XSLT files."
+NAME=python-dependencies#attrs
+VERSION=22.2.0
+URL=https://files.pythonhosted.org/packages/source/a/attrs/attrs-22.2.0.tar.gz
+SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc $URL
+wget -nc https://files.pythonhosted.org/packages/source/a/attrs/attrs-22.2.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -43,23 +39,24 @@ fi
 cd $DIRECTORY
 fi
 
+
 echo $USER > /tmp/currentuser
 
-
-./autogen.sh --prefix=/usr                         \
-            --disable-static                       \
-            --docdir=/usr/share/doc/libxslt-1.1.38 \
-            PYTHON=/usr/bin/python3 &&
-make
+pip3 wheel -w dist --no-build-isolation --no-deps $PWD
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+pip3 install --no-index --find-links dist --no-cache-dir --no-user attrs
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
+python3 -m venv --system-site-packages testenv &&
+source testenv/bin/activate                    &&
+pip3 install attrs[tests]                      &&
+python3 /usr/bin/pytest                        &&
+deactivate
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi

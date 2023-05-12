@@ -7,24 +7,21 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-#REQ:libxml2
-#REQ:docbook
-#REQ:docbook-xsl
+#REQ:python-dependencies#hatch-vcs
 
 
 cd $SOURCE_DIR
 
-NAME=libxslt
-VERSION=1.1.38
-URL=https://gitlab.gnome.org/GNOME/libxslt/-/archive/v1.1.38/libxslt-v1.1.38.tar.bz2
-SECTION="General Libraries"
-DESCRIPTION="The libxslt package contains XSLT libraries used for extending libxml2 libraries to support XSLT files."
+NAME=python-dependencies#iniconfig
+VERSION=2.0.0
+URL=https://files.pythonhosted.org/packages/source/i/iniconfig/iniconfig-2.0.0.tar.gz
+SECTION="Others"
 
 
 mkdir -pv $(echo $NAME | sed "s@#@_@g")
 pushd $(echo $NAME | sed "s@#@_@g")
 
-wget -nc $URL
+wget -nc https://files.pythonhosted.org/packages/source/i/iniconfig/iniconfig-2.0.0.tar.gz
 
 
 if [ ! -z $URL ]
@@ -43,17 +40,13 @@ fi
 cd $DIRECTORY
 fi
 
+
 echo $USER > /tmp/currentuser
 
-
-./autogen.sh --prefix=/usr                         \
-            --disable-static                       \
-            --docdir=/usr/share/doc/libxslt-1.1.38 \
-            PYTHON=/usr/bin/python3 &&
-make
+pip3 wheel -w dist --no-build-isolation --no-deps $PWD
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install
+pip3 install --no-index --find-links dist --no-cache-dir --no-user iniconfig
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
