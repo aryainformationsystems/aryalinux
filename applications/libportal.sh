@@ -64,9 +64,7 @@ cd    build &&
 
 meson setup --prefix=/usr --buildtype=release -Ddocs=false .. &&
 ninja
-sed "/output/s/-1/-0.6/" -i ../doc/meson.build &&
-meson configure -Ddocs=true                    &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install

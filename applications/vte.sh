@@ -58,11 +58,7 @@ meson setup --prefix=/usr       \
             -Dfribidi=false     \
             -D_systemd=false    &&
 ninja
-sed -e "/docdir =/s@\$@/ 'vte-0.72.1'@" \
-    -e "/fatal-warnings/d"              \
-    -i ../doc/reference/meson.build     &&
-meson configure -Ddocs=true             &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install &&

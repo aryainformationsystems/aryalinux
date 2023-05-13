@@ -57,9 +57,7 @@ meson setup ..            \
       --buildtype=release \
       -Ddocs=false        &&
 ninja
-sed "/output: 'libgusb'/s/'\$/-0.4.5'/" -i ../docs/meson.build &&
-meson configure -Ddocs=true                                    &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install
