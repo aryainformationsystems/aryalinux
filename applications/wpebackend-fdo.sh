@@ -7,7 +7,7 @@ set +h
 . /var/lib/alps/functions
 . /etc/alps/directories.conf
 
-
+#REQ:libwpe
 
 cd $SOURCE_DIR
 
