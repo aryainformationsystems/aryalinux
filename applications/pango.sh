@@ -51,7 +51,7 @@ fi
 
 echo $USER > /tmp/currentuser
 
-
+sed -i '/array-bounds/d' meson.build
 mkdir build &&
 cd    build &&
 
