@@ -14,6 +14,9 @@ set +h
 #REQ:gnome-keyring
 #REQ:python-modules#markupsafe
 #REQ:python-modules#jinja2
+#REQ:python-dependencies#markdown
+#REQ:python-modules#pygments
+#REQ:python-dependencies#typogrify
 
 
 cd $SOURCE_DIR
