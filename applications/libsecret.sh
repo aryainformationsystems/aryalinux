@@ -12,6 +12,8 @@ set +h
 #REQ:libgcrypt
 #REQ:vala
 #REQ:gnome-keyring
+#REQ:python-modules#markupsafe
+#REQ:python-modules#jinja2
 
 
 cd $SOURCE_DIR
