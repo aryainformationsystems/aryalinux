@@ -60,6 +60,7 @@ sudo groupadd -fg 86 netdev
             --disable-mono       \
             --disable-monodoc    \
             --disable-python     \
+            --disable-gtk        \
             --disable-qt3        \
             --disable-qt4        \
             --disable-qt5        \
