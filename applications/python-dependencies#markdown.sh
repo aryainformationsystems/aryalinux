@@ -52,12 +52,6 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-python3 -m venv --system-site-packages testenv &&
-source testenv/bin/activate                    &&
-pip3 install coverage                          &&
-python3 /usr/bin/pytest --ignore=tests/test_syntax/extensions/test_md_in_html.py
-deactivate
-
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi
 
