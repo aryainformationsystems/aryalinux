@@ -60,9 +60,7 @@ meson setup --prefix=/usr          \
             --wrap-mode=nofallback \
             ..                     &&
 ninja
-sed "/docs_dir =/s@\$@ / 'pango-1.50.14'@" -i ../docs/meson.build &&
-meson configure -Dgtk_doc=true                                    &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install
