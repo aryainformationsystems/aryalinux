@@ -9,7 +9,6 @@ set +h
 
 #REQ:glib2
 #REQ:gobject-introspection
-#REQ:gtk2
 #REQ:gtk3
 #REQ:libdaemon
 #REQ:libglade
@@ -60,6 +59,7 @@ sudo groupadd -fg 86 netdev
             --disable-mono       \
             --disable-monodoc    \
             --disable-python     \
+            --disable-gtk        \
             --disable-qt3        \
             --disable-qt4        \
             --disable-qt5        \
