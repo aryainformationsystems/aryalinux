@@ -9,6 +9,7 @@ set +h
 
 #REQ:cmake
 #REQ:sdl2
+#REQ:glu
 
 
 cd $SOURCE_DIR
