@@ -70,7 +70,7 @@ meson setup --prefix=/usr           \
             .. &&
 ninja
 sed "s@'doc'@& / 'gtk-4.10.3'@" -i ../docs/reference/meson.build &&
-meson configure -Dgtk_doc=true                                   &&
+meson configure -Dgtk_doc=false                                   &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

@@ -54,6 +54,7 @@ meson setup --prefix=/usr       \
             -Dgtk_doc=false     \
             ..                  &&
 ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install

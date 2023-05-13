@@ -54,10 +54,7 @@ meson setup --prefix=/usr       \
             -Dman=false         \
             ..                  &&
 ninja
-sed "/docs_dir =/s@\$@ / 'libnotify'@" \
-    -i ../docs/reference/meson.build   &&
-meson configure -Dgtk_doc=true         &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install &&

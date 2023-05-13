@@ -67,10 +67,7 @@ meson setup --prefix=/usr          \
             --wrap-mode=nodownload \
             -Dsystemduserunitdir=no .. &&
 ninja
-sed "/fatal-warnings/d" -i ../help/reference/*/meson.build    &&
-sed "/docs_dir/s@\$@ / 'evince-43.1'@" -i ../help/meson.build &&
-meson configure -Dgtk_doc=true                                &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install

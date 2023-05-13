@@ -52,7 +52,7 @@ cd    build &&
 meson setup --prefix=/usr --buildtype=release .. &&
 ninja
 sed "s/apiversion/'1.3.2'/" -i ../doc/meson.build &&
-meson configure -Dgtk_doc=true                    &&
+meson configure -Dgtk_doc=false                    &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"

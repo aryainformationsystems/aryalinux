@@ -58,8 +58,9 @@ meson setup --prefix=/usr          \
 ninja
 sed "/docs_dir =/s@\$@/ 'libpeas-1.34.0'@" \
     -i ../docs/reference/meson.build       &&
-meson configure -Dgtk_doc=true             &&
+meson configure -Dgtk_doc=false             &&
 ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install

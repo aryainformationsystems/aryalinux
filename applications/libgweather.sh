@@ -60,10 +60,7 @@ meson setup --prefix=/usr       \
             -Dgtk_doc=false     \
             ..                  &&
 ninja
-sed "s/libgweather_full_version/'libgweather-4.2.0'/" \
-    -i ../doc/meson.build                             &&
-meson configure -Dgtk_doc=true                        &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install

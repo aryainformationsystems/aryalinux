@@ -57,9 +57,7 @@ meson setup --prefix=/usr       \
             -Dgtk_doc=false     \
             ..                  &&
 ninja
-sed "/output/s/librest-1.0/rest-0.9.1/" -i ../docs/meson.build &&
-meson configure -Dgtk_doc=true                                 &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install

@@ -61,11 +61,7 @@ meson setup --prefix=/usr       \
             -Dgtk_doc=false     \
             ..                  &&
 ninja
-sed -e "/install_dir/s@,\$@ / 'gcr-4.1.0'&@" \
-    -e "/fatal-warnings/d"                   \
-    -i ../docs/*/meson.build                 &&
-meson configure -Dgtk_doc=true               &&
-ninja
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 ninja install
