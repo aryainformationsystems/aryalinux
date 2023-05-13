@@ -78,7 +78,7 @@ sudo rm -rf /tmp/rootscript.sh
 
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-make install &&
+PATH=/opt/rustc/bin:$PATH make install &&
 rm -v /usr/lib/libjs_static.ajs &&
 sed -i '/@NSPR_CFLAGS@/d' /usr/bin/js102-config
 ENDOFROOTSCRIPT

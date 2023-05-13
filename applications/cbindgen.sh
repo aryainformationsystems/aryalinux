@@ -55,7 +55,7 @@ export PATH=/opt/rustc/bin:$PATH
 cargo build --release
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
-install -Dm755 target/release/cbindgen /usr/bin/
+PATH=/opt/rustc/bin:$PATH install -Dm755 target/release/cbindgen /usr/bin/
 ENDOFROOTSCRIPT
 
 chmod a+x /tmp/rootscript.sh
