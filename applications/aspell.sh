@@ -85,12 +85,6 @@ chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
 
-cd ..
-TARBALL=$(ls aspell*.tar.bz2)
-DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
-
-tar xf $TARBALL
-cd $DIRECTORY
 tar xf ../aspell6-en-2020.12.07-0.tar.bz2 &&
 cd aspell6-en-2020.12.07-0                &&
 
