@@ -10,7 +10,6 @@ set +h
 #REQ:gobject-introspection
 #REQ:gtk3
 #REQ:gtk4
-#REQ:qt5
 
 
 cd $SOURCE_DIR
