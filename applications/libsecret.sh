@@ -64,7 +64,7 @@ meson setup --prefix=/usr       \
 ninja
 sed "s/api_version_major/'0.20.5'/"            \
     -i ../docs/reference/libsecret/meson.build &&
-meson configure -Dgtk_doc=true                 &&
+meson configure -Dgtk_doc=false                &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
