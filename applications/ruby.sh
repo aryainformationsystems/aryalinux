@@ -51,7 +51,7 @@ sed -i '283d' tool/lib/leakchecker.rb
             --without-baseruby \
             --docdir=/usr/share/doc/ruby-3.2.2 &&
 make
-make capi
+
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
 make install
@@ -60,9 +60,6 @@ ENDOFROOTSCRIPT
 chmod a+x /tmp/rootscript.sh
 sudo /tmp/rootscript.sh
 sudo rm -rf /tmp/rootscript.sh
-
-cd /path/to/web/app
-bundle update rake
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi
