@@ -59,7 +59,7 @@ meson setup ..            \
       --wrap-mode=nofallback &&
 ninja
 sed "/docs_dir =/s@\$@ / 'gdk-pixbuf-2.42.10'@" -i ../docs/meson.build &&
-meson configure -Dgtk_doc=true                                         &&
+meson configure -Dgtk_doc=false                                         &&
 ninja
 sudo rm -rf /tmp/rootscript.sh
 cat > /tmp/rootscript.sh <<"ENDOFROOTSCRIPT"
