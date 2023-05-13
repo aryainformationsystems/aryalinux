@@ -8,7 +8,6 @@ set +h
 . /etc/alps/directories.conf
 
 #REQ:libxml2
-#REQ:gtk2
 
 
 cd $SOURCE_DIR
