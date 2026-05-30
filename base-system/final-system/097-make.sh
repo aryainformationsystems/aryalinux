@@ -9,7 +9,7 @@ set +h
 NAME=097-make
 
 touch /sources/build-log
-if ! grep "$NAME" /sources/build-log; then
+if ! is_logged "$NAME"; then
 
 cd /sources
 

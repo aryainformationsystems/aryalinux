@@ -9,7 +9,7 @@ set +h
 NAME=033-bzip2
 
 touch /sources/build-log
-if ! grep "$NAME" /sources/build-log; then
+if ! is_logged "$NAME"; then
 
 cd /sources
 

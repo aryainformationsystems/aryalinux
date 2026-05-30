@@ -9,7 +9,7 @@ set +h
 NAME=101-vim
 
 touch /sources/build-log
-if ! grep "$NAME" /sources/build-log; then
+if ! is_logged "$NAME"; then
 
 cd /sources
 

@@ -9,7 +9,7 @@ set +h
 NAME=053-libcap
 
 touch /sources/build-log
-if ! grep "$NAME" /sources/build-log; then
+if ! is_logged "$NAME"; then
 
 cd /sources
 

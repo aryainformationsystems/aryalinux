@@ -9,7 +9,7 @@ set +h
 NAME=003-linux-headers
 
 touch /sources/build-log
-if ! grep "$NAME" /sources/build-log; then
+if ! is_logged "$NAME"; then
 
 cd /sources
 

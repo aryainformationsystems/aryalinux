@@ -6,6 +6,12 @@ function cleanup() {
 	rm -rf binutils-build
 }
 
+function is_logged() {
+	grep -Fxq "$1" /sources/build-log 2>/dev/null
+}
+
 function log() {
-	echo "$1" >> /sources/build-log
+	if ! is_logged "$1"; then
+		echo "$1" >> /sources/build-log
+	fi
 }
