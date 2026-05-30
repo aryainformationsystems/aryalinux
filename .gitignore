@@ -1,5 +1,6 @@
 # Only track base-system and applications in this repository.
 /*
 !/.gitignore
+!/README.md
 !/base-system/
 !/applications/

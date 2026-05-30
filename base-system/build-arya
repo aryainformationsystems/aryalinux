@@ -12,20 +12,15 @@ import pwd
 import subprocess
 import sys
 from subprocess import check_output
-import getpass
 
-propsFile = 'build-properties'
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+  sys.path.insert(0, SCRIPT_DIR)
 
+import build_wizard as wizard
+
+propsFile = wizard.PROPS_FILE
 passwords = {}
-
-def getpassword(prompt, promptagain):
-  password1 = getpass.getpass(prompt)
-  password2 = getpass.getpass(promptagain)
-  if password1 == password2:
-    return password1
-  else:
-    print('Passwords do not match. Retrying...')
-    return getpassword(prompt, promptagain)
 
 def runWithEnvAs(user, commands, env, cwd):
   userRecord = pwd.getpwnam(user)
@@ -61,26 +56,8 @@ def runScriptWithArgs(script, cwd, args):
   if result != 0:
     exit()
 
-def readInput(message, varName, fileName, defaultValue, append=True):
-  if append:
-    with open(fileName, 'a') as f:
-      response = input(message)
-      if response == '':
-        response = defaultValue
-      f.write(varName + '="' + response + '"\n')
-  else:
-    with open(fileName, 'w') as f:
-      response = input(message)
-      if response == '':
-        response = defaultValue
-      f.write(varName + '="' + response + '"\n')
-
 def getParamValue(paramName):
-  with open(propsFile) as f:
-    for line in f:
-      if line.startswith(paramName):
-        return line.replace(paramName, '').replace('"', '').replace('=', '').strip()
-  return None
+  return wizard.get_param_value(paramName, propsFile)
 
 def makeLogEntry(message, logFile):
   with open(logFile, 'a') as f:
@@ -100,37 +77,11 @@ def getCurrentStage():
     return 0
 
 def inputBuildProperties():
-  readInput("Bootloader Device: ", 'DEV_NAME', propsFile, '', False)
-  readInput("Root Partition: ", 'ROOT_PART', propsFile, '')
-  readInput("Home Partition: ", 'HOME_PART', propsFile, '')
-  if getParamValue('HOME_PART') != '':
-    readInput('Format Home Partition? (y/N): ', 'FORMAT_HOME', propsFile, 'n')
-  readInput("Swap Partition: ", 'SWAP_PART', propsFile, '')
-  if getParamValue('SWAP_PART') != '':
-    readInput('Format swap partition? (y/N): ', 'FORMAT_SWAP', propsFile, 'n')
-  readInput("Locale: (e.g. en_IN.utf8) ", 'LOCALE', propsFile, 'en_IN.utf8')
-  readInput("OS Name: ", 'OS_NAME', propsFile, 'AryaLinux')
-  readInput("OS Version: ", 'OS_VERSION', propsFile, '1.0')
-  readInput("OS Codename: ", 'OS_CODENAME', propsFile, 'Lazarus')
-  readInput("Domain Name: ", 'DOMAIN_NAME', propsFile, 'aryalinux.com')
-  readInput("Keyboard Layout: (e.g. us, fr) ", 'KEYBOARD', propsFile, 'us')
-  readInput("Printer Paper Size: (A4/letter) ", 'PAPER_SIZE', propsFile, 'A4')
-  readInput('Enter full name: ', 'FULLNAME', propsFile, 'AryaLinux')
-  readInput('Username: ', 'USERNAME', propsFile, 'aryalinux')
-  readInput('Computer Name: ', 'HOST_NAME', propsFile, 'aryalinux')
-  readInput('Use multiple cores for build?: (Y/n) ', 'MULTICORE', propsFile, 'y')
-  readInput('Create backups? (y/N) ', 'CREATE_BACKUPS', propsFile, 'n')
-  readInput("Install X Server? (y/N) ", 'INSTALL_XSERVER', propsFile, 'n')
-  if getParamValue('INSTALL_XSERVER') == 'y' or getParamValue('INSTALL_XSERVER') == 'Y':
-    readInput("Install Desktop Environment? (y/N) ", 'INSTALL_DESKTOP_ENVIRONMENT', propsFile, 'n')
-    if getParamValue('INSTALL_DESKTOP_ENVIRONMENT') == 'y' or getParamValue('INSTALL_DESKTOP_ENVIRONMENT') == 'Y':
-      readInput("Choose the Desktop Environment you want to install:\n1) XFCE\n2) Mate\n3) KDE\n4) Gnome\n5) LxQT\n\nEnter your choice (1-5): ", 'DESKTOP_ENVIRONMENT', propsFile, '2')
-  passwords['root'] = getpassword('Enter the root password : ', 'Re-enter the root password : ')
-  passwords['user'] = getpassword('Enter the user password : ', 'Re-enter the user password : ')
-  readInput('Install bootloader? (Y/n) : ', 'INSTALL_BOOTLOADER', propsFile, 'y')
-  readInput('Create Live ISO? (Y/n) : ', 'CREATE_LIVE_ISO', propsFile, 'y')
+  global passwords
+  passwords = wizard.collect_build_properties(propsFile)
 
 def freshBuild(startFrom):
+  global passwords
   startFrom = int(startFrom)
 
   if startFrom == 1:
@@ -141,8 +92,7 @@ def freshBuild(startFrom):
     with open('/sources/build-log') as f:
       buildlog = f.read()
       if not 'root-and-admin-passwords' in buildlog:
-        passwords['root'] = getpassword('Enter the root password : ', 'Re-enter the root password : ')
-        passwords['user'] = getpassword('Enter the user password : ', 'Re-enter the user password : ')
+        passwords = wizard.collect_passwords()
 
   if startFrom == 2:
     try:
@@ -296,41 +246,35 @@ def freshBuild(startFrom):
     pr = subprocess.Popen(['./createlivedisk.sh'], shell=True)
     pr.wait()
 
-print('Do you want to start a new build or resume a build that was previously started ?')
-print('1. Start a fresh build')
-print('2. Resume the last build')
-response = input('Enter your choice (1 / 2): ')
-if response == '1':
+action, rootPartition = wizard.run_startup_menu()
+if action == 'fresh':
   freshBuild(1)
-elif response == '2':
-  rootPartition = input('Enter the root partition where the build was in progress. Enter to exit: ')
-  if rootPartition != '':
-    if os.path.exists('/mnt/lfs/tmp/mountpoint'):
-      try:
-        check_output('umount -v /mnt/lfs/tmp/mountpoint/dev/pts', shell=True)
-        check_output('umount -v /mnt/lfs/tmp/mountpoint/dev', shell=True)
-        check_output('umount -v /mnt/lfs/tmp/mountpoint', shell=True)
-        check_output('umount -v /mnt/lfs/tmp/mountpoint/sys', shell=True)
-        check_output('umount -v /mnt/lfs/tmp/mountpoint/proc', shell=True)
-        check_output('umount -v /mnt/lfs/tmp/mountpoint/run', shell=True)
-        print('Package builder directories unmounted successfully')
-      except:
-        print('Un-mounting wasnt successful. Continuing without it...')
+elif action == 'resume':
+  if os.path.exists('/mnt/lfs/tmp/mountpoint'):
+    try:
+      check_output('umount -v /mnt/lfs/tmp/mountpoint/dev/pts', shell=True)
+      check_output('umount -v /mnt/lfs/tmp/mountpoint/dev', shell=True)
+      check_output('umount -v /mnt/lfs/tmp/mountpoint', shell=True)
+      check_output('umount -v /mnt/lfs/tmp/mountpoint/sys', shell=True)
+      check_output('umount -v /mnt/lfs/tmp/mountpoint/proc', shell=True)
+      check_output('umount -v /mnt/lfs/tmp/mountpoint/run', shell=True)
+      print('Package builder directories unmounted successfully')
+    except:
+      print('Un-mounting wasnt successful. Continuing without it...')
 
-    if not os.path.exists('/mnt/lfs/sources/build-properties'):
-      runScript('./umountal.sh', None)
-      check_output('rm -rf /sources', shell=True)
-      check_output('rm -rf /mnt/lfs', shell=True)
-      check_output('mkdir -pv /mnt/lfs', shell=True)
-      check_output('mount -v ' + rootPartition + ' /mnt/lfs', shell=True)
-      check_output('ln -svf /mnt/lfs/sources /', shell=True)
-    if os.path.exists('/sources/build-properties'):
-      stage = getCurrentStage()
-      freshBuild(stage)
-    else:
-      check_output('./umountal.sh', shell=True)
-      print('This is not the partition where build was in progress. Cannot continue. Exiting.')
-      print('Please re-run this script with right inputs.')
+  if not os.path.exists('/mnt/lfs/sources/build-properties'):
+    runScript('./umountal.sh', None)
+    check_output('rm -rf /sources', shell=True)
+    check_output('rm -rf /mnt/lfs', shell=True)
+    check_output('mkdir -pv /mnt/lfs', shell=True)
+    check_output('mount -v ' + rootPartition + ' /mnt/lfs', shell=True)
+    check_output('ln -svf /mnt/lfs/sources /', shell=True)
+  if os.path.exists('/sources/build-properties'):
+    stage = getCurrentStage()
+    freshBuild(stage)
+  else:
+    check_output('./umountal.sh', shell=True)
+    print('This is not the partition where build was in progress. Cannot continue. Exiting.')
+    print('Please re-run this script with right inputs.')
 else:
-  print('Invalid Choice. Aborting...')
-  exit()
+  print('Exiting.')

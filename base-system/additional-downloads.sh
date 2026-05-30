@@ -56,6 +56,7 @@ wget -nc https://cmake.org/files/v4.2/cmake-4.2.3.tar.gz
 wget -nc https://github.com/plougher/squashfs-tools/releases/download/4.7.5/squashfs-tools-4.7.5.tar.gz
 wget -nc http://downloads.sourceforge.net/infozip/unzip60.tar.gz
 wget -nc https://raw.githubusercontent.com/aryainformationsystems/patches/$VERSION/unzip-6.0-consolidated_fixes-1.patch
+wget -nc https://github.com/dylanaraps/neofetch/archive/refs/tags/7.1.0.tar.gz -O neofetch-7.1.0.tar.gz
 
 set +e
 

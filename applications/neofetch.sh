@@ -12,7 +12,8 @@ set +h
 cd $SOURCE_DIR
 
 NAME=neofetch
-VERSION=6.1.0
+VERSION=7.1.0
+URL=https://github.com/dylanaraps/neofetch/archive/refs/tags/7.1.0.tar.gz
 
 SECTION="Others"
 DESCRIPTION="Neofetch is a command-line system information tool written in bash 3.2+. Neofetch displays information about your operating system, software and hardware in an aesthetic and visually pleasing way."
@@ -39,11 +40,7 @@ fi
 cd $DIRECTORY
 fi
 
-git clone https://github.com/dylanaraps/neofetch.git
-cd neofetch
-sudo make install
-cd ..
-rm -rf neofetch
+sudo make install PREFIX=/usr
 
 
 if [ ! -z $URL ]; then cd $SOURCE_DIR && cleanup "$NAME" "$DIRECTORY"; fi
