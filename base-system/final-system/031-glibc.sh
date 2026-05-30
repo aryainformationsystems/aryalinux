@@ -32,12 +32,6 @@ echo "rootsbindir=/usr/sbin" > configparms
              --enable-kernel=5.4
 make
 touch /etc/ld.so.conf
-sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
-DIR=$(dirname $(gcc -print-libgcc-file-name))
-[ -e $DIR/include/limits.h ]    || mv $DIR/include{-fixed,}/limits.h
-[ -e $DIR/include/syslimits.h ] || mv $DIR/include{-fixed,}/syslimits.h
-rm -rfv $DIR/include-fixed/*
-unset DIR
 make install
 sed '/RTLDLIST=/s@/usr@@g' -i /usr/bin/ldd
 localedef -i C -f UTF-8 C.UTF-8
