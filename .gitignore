@@ -4,3 +4,5 @@
 !/README.md
 !/base-system/
 !/applications/
+
+base-system/__pycache__/
