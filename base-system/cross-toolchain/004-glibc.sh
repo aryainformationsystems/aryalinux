@@ -13,7 +13,7 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=glibc-2.37.tar.xz
+TARBALL=glibc-2.43.tar.xz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
@@ -27,7 +27,7 @@ case $(uname -m) in
             ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64/ld-lsb-x86-64.so.3
     ;;
 esac
-patch -Np1 -i ../glibc-2.37-fhs-1.patch
+patch -Np1 -i ../glibc-fhs-1.patch
 mkdir -v build
 cd       build
 echo "rootsbindir=/usr/sbin" > configparms
@@ -35,9 +35,9 @@ echo "rootsbindir=/usr/sbin" > configparms
       --prefix=/usr                      \
       --host=$LFS_TGT                    \
       --build=$(../scripts/config.guess) \
-      --enable-kernel=3.2                \
-      --with-headers=$LFS/usr/include    \
-      libc_cv_slibdir=/usr/lib
+      --disable-nscd                     \
+      libc_cv_slibdir=/usr/lib           \
+      --enable-kernel=5.4
 make
 make DESTDIR=$LFS install
 sed '/RTLDLIST=/s@/usr@@g' -i $LFS/usr/bin/ldd

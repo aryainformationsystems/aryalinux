@@ -12,7 +12,7 @@ fi
 
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
-STEPNAME="027-unzip.sh"
+STEPNAME="019-unzip.sh"
 TARBALL="unzip60.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track

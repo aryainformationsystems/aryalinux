@@ -12,8 +12,8 @@ fi
 
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
-STEPNAME="024-cmake.sh"
-TARBALL="cmake-3.19.5.tar.gz"
+STEPNAME="025-cmake.sh"
+TARBALL="cmake-4.2.3.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 
@@ -35,10 +35,9 @@ sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake &&
             --system-libs        \
             --mandir=/share/man  \
             --no-system-jsoncpp  \
+            --no-system-cppdap   \
             --no-system-librhash \
-            --no-system-libarchive \
-            --no-system-libuv \
-            --docdir=/share/doc/cmake-3.19.5 &&
+            --docdir=/share/doc/cmake-4.2.3 &&
 make
 make install
 

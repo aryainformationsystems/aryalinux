@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+#
+# Build stage mapping (LFS 13.0-systemd):
+#   Stage 1  -> Host setup (LFS chapters 2-4)
+#   Stage 2  -> cross-toolchain/ + temp-tools/ (chapters 5-6)
+#   Stage 3  -> Chroot, additional-temp-tools/, final-system/ via stage3->4->5 (chapters 7-8)
+#   Stage 5  -> stage6.sh -> stage7.sh: system config, kernel, bootloader (chapters 9-10)
+#   Stage 6-7 -> Optional X server and desktop environment (AryaLinux extensions)
 
 import os
 import pwd
@@ -178,7 +185,7 @@ def freshBuild(startFrom):
       exit()
 
   if startFrom == 5:
-    print('Starting stage 5')
+    print('Starting stage 5 (LFS chapters 9-10: system configuration and boot)')
     logCurrentStage('5')
     try:
       runScript('/sources/stage6.sh', '/sources')

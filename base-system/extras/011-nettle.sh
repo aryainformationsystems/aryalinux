@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="011-nettle.sh"
-TARBALL="nettle-3.7.1.tar.gz"
+TARBALL="nettle-3.10.2.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 
@@ -33,8 +33,8 @@ fi
 make
 make install &&
 chmod   -v   755 /usr/lib/lib{hogweed,nettle}.so &&
-install -v -m755 -d /usr/share/doc/nettle-3.3 &&
-install -v -m644 nettle.html /usr/share/doc/nettle-3.3
+install -v -m755 -d /usr/share/doc/nettle-3.10.2 &&
+install -v -m644 nettle.{html,pdf} /usr/share/doc/nettle-3.10.2
 
 
 cd $SOURCE_DIR

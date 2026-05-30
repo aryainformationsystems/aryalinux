@@ -12,8 +12,8 @@ fi
 
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
-STEPNAME="019-sudo.sh"
-TARBALL="sudo-1.9.5p2.tar.gz"
+STEPNAME="020-sudo.sh"
+TARBALL="sudo-1.9.17p2.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 
@@ -32,13 +32,11 @@ fi
 ./configure --prefix=/usr              \
             --libexecdir=/usr/lib      \
             --with-secure-path         \
-            --with-all-insults         \
             --with-env-editor          \
-            --docdir=/usr/share/doc/sudo-1.9.5p2 \
+            --docdir=/usr/share/doc/sudo-1.9.17p2 \
             --with-passprompt="[sudo] password for %p: " &&
 make
-make install &&
-ln -sfv libsudo_util.so.0.0.0 /usr/lib/sudo/libsudo_util.so.0
+make install
 
 
 cd $SOURCE_DIR

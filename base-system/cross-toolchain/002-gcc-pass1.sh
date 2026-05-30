@@ -13,17 +13,17 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=gcc-13.1.0.tar.xz
+TARBALL=gcc-15.2.0.tar.xz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
 cd $DIRECTORY
 
 
-tar -xf ../mpfr-4.2.0.tar.xz
-mv -v mpfr-4.2.0 mpfr
-tar -xf ../gmp-6.2.1.tar.xz
-mv -v gmp-6.2.1 gmp
+tar -xf ../mpfr-4.2.2.tar.xz
+mv -v mpfr-4.2.2 mpfr
+tar -xf ../gmp-6.3.0.tar.xz
+mv -v gmp-6.3.0 gmp
 tar -xf ../mpc-1.3.1.tar.gz
 mv -v mpc-1.3.1 mpc
 case $(uname -m) in
@@ -37,7 +37,7 @@ cd       build
 ../configure                  \
     --target=$LFS_TGT         \
     --prefix=$LFS/tools       \
-    --with-glibc-version=2.37 \
+    --with-glibc-version=2.43 \
     --with-sysroot=$LFS       \
     --with-newlib             \
     --without-headers         \

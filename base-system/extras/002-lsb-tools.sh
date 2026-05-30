@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="002-lsb-tools.sh"
-TARBALL="LSB-Tools-0.9.tar.gz"
+TARBALL="LSB-Tools-0.12.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 
@@ -29,8 +29,10 @@ then
 	cd $DIRECTORY
 fi
 
-python3 setup.py build
-python3 setup.py install --optimize=1
+make
+make install
+rm -f /usr/sbin/lsbinstall
+rm -f /usr/sbin/{install,remove}_initd
 
 cat > /etc/os-release << EOF
 NAME="$OS_NAME"
@@ -39,7 +41,7 @@ ID="$OS_CODENAME"
 PRETTY_NAME="$OS_NAME $OS_VERSION ($OS_CODENAME)"
 EOF
 
-echo 7.9-systemd-rc2 > /etc/lfs-release
+echo 13.0-systemd > /etc/lfs-release
 
 cat > /etc/lsb-release <<EOF
 DISTRIB_ID="$OS_NAME"

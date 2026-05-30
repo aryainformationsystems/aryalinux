@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="014-cacerts.sh"
-TARBALL="make-ca-1.7.tar.xz"
+TARBALL="make-ca-1.16.1.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 
@@ -29,10 +29,10 @@ then
 	cd $DIRECTORY
 fi
 
+sed '/mktemp/s/-t //' -i make-ca
 make install &&
 install -vdm755 /etc/ssl/local
 /usr/sbin/make-ca -g
-/usr/sbin/make-ca -r
 
 cd $SOURCE_DIR
 if [ "$TARBALL" != "" ]

@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="010-busybox.sh"
-TARBALL="busybox-1.32.1.tar.bz2"
+TARBALL="busybox-1.36.1.tar.bz2"
 
 echo "$LOGLENGTH" > /sources/lines2track
 

@@ -13,19 +13,19 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=ncurses-6.4.tar.gz
+TARBALL=ncurses-6.6.tar.gz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
 cd $DIRECTORY
 
 
-sed -i s/mawk// configure
 mkdir build
 pushd build
-  ../configure
+  ../configure --prefix=$LFS/tools AWK=gawk
   make -C include
   make -C progs tic
+  install progs/tic $LFS/tools/bin
 popd
 ./configure --prefix=/usr                \
             --host=$LFS_TGT              \
@@ -38,10 +38,12 @@ popd
             --without-debug              \
             --without-ada                \
             --disable-stripping          \
-            --enable-widec
+            AWK=gawk
 make
-make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install
-echo "INPUT(-lncursesw)" > $LFS/usr/lib/libncurses.so
+make DESTDIR=$LFS install
+ln -sv libncursesw.so $LFS/usr/lib/libncurses.so
+sed -e 's/^#if.*XOPEN.*$/#if 1/' \
+    -i $LFS/usr/include/curses.h
 
 fi
 

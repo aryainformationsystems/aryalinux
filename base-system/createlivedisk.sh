@@ -196,7 +196,7 @@ chroot "$LFS" /usr/bin/env -i              \
 
 cd $LFS/sources/
 
-tar xf $LFS/sources/syslinux-4.06.tar.xz
+tar xf $LFS/sources/syslinux-6.03.tar.xz
 rm -fr live
 
 mkdir -pv live/aryalinux
@@ -231,8 +231,8 @@ fi
 echo "AryaLinux Live" >id_label
 
 cp -v id_label live/isolinux
-cp -v syslinux-4.06/core/isolinux.bin live/isolinux
-cp -v syslinux-4.06/com32/menu/menu.c32 live/isolinux
+cp -v syslinux-6.03/bios/core/isolinux.bin live/isolinux
+cp -v syslinux-6.03/bios/com32/menu/menu.c32 live/isolinux
 
 cat > live/isolinux/isolinux.cfg << EOF
 DEFAULT menu.c32

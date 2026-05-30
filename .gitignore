@@ -1,0 +1,5 @@
+# Only track base-system and applications in this repository.
+/*
+!/.gitignore
+!/base-system/
+!/applications/

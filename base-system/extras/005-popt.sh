@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="005-popt.sh"
-TARBALL="popt-1.18.tar.gz"
+TARBALL="popt-1.19.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 

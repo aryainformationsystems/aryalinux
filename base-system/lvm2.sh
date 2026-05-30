@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="lvm2"
-TARBALL="LVM2.2.02.171.tgz"
+TARBALL="LVM2.2.03.38.tgz"
 
 if ! grep "$STEPNAME" $LOGFILE &> /dev/null
 then
@@ -27,24 +27,19 @@ then
 	cd $DIRECTORY
 fi
 
-SAVEPATH=$PATH                  &&
-PATH=$PATH:/sbin:/usr/sbin      &&
+PATH+=:/usr/sbin
 ./configure --prefix=/usr       \
-            --exec-prefix=      \
-            --with-confdir=/etc \
-            --enable-applib     \
             --enable-cmdlib     \
             --enable-pkgconfig  \
             --enable-udev_sync  &&
-make                            &&
-PATH=$SAVEPATH                  &&
-unset SAVEPATH
+make
 
-make -C tools install_dmsetup_dynamic &&
-make -C udev  install                 &&
+make -C tools install_tools_dynamic &&
+make -C udev  install               &&
 make -C libdm install
 
 make install
+make install_systemd_units
 
 cd $SOURCE_DIR
 

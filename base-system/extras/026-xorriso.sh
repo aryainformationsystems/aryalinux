@@ -12,8 +12,8 @@ fi
 
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
-STEPNAME="025-xorriso.sh"
-TARBALL="xorriso-1.5.4.pl02.tar.gz"
+STEPNAME="026-xorriso.sh"
+TARBALL="xorriso-1.5.8.pl02.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 

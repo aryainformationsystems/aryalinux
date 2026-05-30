@@ -13,17 +13,17 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=gcc-13.1.0.tar.xz
+TARBALL=gcc-15.2.0.tar.xz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
 cd $DIRECTORY
 
 
-tar -xf ../mpfr-4.2.0.tar.xz
-mv -v mpfr-4.2.0 mpfr
-tar -xf ../gmp-6.2.1.tar.xz
-mv -v gmp-6.2.1 gmp
+tar -xf ../mpfr-4.2.2.tar.xz
+mv -v mpfr-4.2.2 mpfr
+tar -xf ../gmp-6.3.0.tar.xz
+mv -v gmp-6.3.0 gmp
 tar -xf ../mpc-1.3.1.tar.gz
 mv -v mpc-1.3.1 mpc
 case $(uname -m) in
@@ -35,23 +35,24 @@ sed '/thread_header =/s/@.*@/gthr-posix.h/' \
     -i libgcc/Makefile.in libstdc++-v3/include/Makefile.in
 mkdir -v build
 cd       build
-../configure                                       \
-    --build=$(../config.guess)                     \
-    --host=$LFS_TGT                                \
-    --target=$LFS_TGT                              \
-    LDFLAGS_FOR_TARGET=-L$PWD/$LFS_TGT/libgcc      \
-    --prefix=/usr                                  \
-    --with-build-sysroot=$LFS                      \
-    --enable-default-pie                           \
-    --enable-default-ssp                           \
-    --disable-nls                                  \
-    --disable-multilib                             \
-    --disable-libatomic                            \
-    --disable-libgomp                              \
-    --disable-libquadmath                          \
-    --disable-libssp                               \
-    --disable-libvtv                               \
-    --enable-languages=c,c++
+../configure                   \
+    --build=$(../config.guess) \
+    --host=$LFS_TGT            \
+    --target=$LFS_TGT          \
+    --prefix=/usr              \
+    --with-build-sysroot=$LFS  \
+    --enable-default-pie       \
+    --enable-default-ssp       \
+    --disable-nls              \
+    --disable-multilib         \
+    --disable-libatomic        \
+    --disable-libgomp          \
+    --disable-libquadmath      \
+    --disable-libsanitizer     \
+    --disable-libssp           \
+    --disable-libvtv           \
+    --enable-languages=c,c++   \
+    LDFLAGS_FOR_TARGET=-L$PWD/$LFS_TGT/libgcc
 make
 make DESTDIR=$LFS install
 ln -sv gcc $LFS/usr/bin/cc

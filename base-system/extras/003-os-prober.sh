@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="003-os-prober.sh"
-TARBALL="os-prober_1.79.tar.xz"
+TARBALL="os-prober_1.84.tar.xz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 

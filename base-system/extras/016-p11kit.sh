@@ -13,7 +13,7 @@ fi
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
 STEPNAME="016-p11kit.sh"
-TARBALL="p11-kit-0.23.22.tar.xz"
+TARBALL="p11-kit-0.26.2.tar.xz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 
@@ -34,14 +34,19 @@ cat >> trust/trust-extract-compat << "EOF"
 # Copy existing anchor modifications to /etc/ssl/local
 /usr/libexec/make-ca/copy-trust-modifications
 
-# Generate a new trust store
-/usr/sbin/make-ca -f -g
+# Update trust stores
+/usr/sbin/make-ca -r
 EOF
-./configure --prefix=/usr     \
-            --sysconfdir=/etc \
-            --with-trust-paths=/etc/pki/anchors &&
-make
-make install &&
+
+mkdir p11-build &&
+cd    p11-build &&
+
+meson setup ..            \
+      --prefix=/usr       \
+      --buildtype=release \
+      -D trust_paths=/etc/pki/anchors &&
+ninja
+ninja install &&
 ln -sfv /usr/libexec/p11-kit/trust-extract-compat \
         /usr/bin/update-ca-certificates
 ln -sfv ./pkcs11/p11-kit-trust.so /usr/lib/libnssckbi.so

@@ -13,16 +13,17 @@ if ! grep "$NAME" /sources/build-log; then
 
 cd /sources
 
-TARBALL=Python-3.11.3.tar.xz
+TARBALL=Python-3.14.3.tar.xz
 DIRECTORY=$(tar tf $TARBALL | cut -d/ -f1 | uniq)
 
 tar xf $TARBALL
 cd $DIRECTORY
 
 
-./configure --prefix=/usr   \
-            --enable-shared \
-            --without-ensurepip
+./configure --prefix=/usr       \
+            --enable-shared     \
+            --without-ensurepip \
+            --without-static-libpython
 make
 make install
 

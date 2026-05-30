@@ -12,8 +12,8 @@ fi
 
 SOURCE_DIR="/sources"
 LOGFILE="/sources/build-log"
-STEPNAME="006-efivar.sh"
-TARBALL="efivar-38.tar.bz2"
+STEPNAME="007-efivar.sh"
+TARBALL="efivar-39.tar.gz"
 
 echo "$LOGLENGTH" > /sources/lines2track
 
@@ -29,16 +29,12 @@ then
 	cd $DIRECTORY
 fi
 
-patch -Np1 -i ../hotfix-no-mandoc.patch
+patch -Np1 -i ../efivar-39-upstream_fixes-1.patch
 
-make CFLAGS="-Wno-error=enum-int-mismatch" \
-	libdir="/usr/lib/" bindir="/usr/bin/" \
-	mandir="/usr/share/man/"     \
-	includedir="/usr/include/" V=1 -j1
-
-make -j1 V=1 DESTDIR="${pkgdir}/" libdir="/usr/lib/" \
-	bindir="/usr/bin/" mandir="/usr/share/man"   \
-	includedir="/usr/include/" install
+make ENABLE_DOCS=0
+make install ENABLE_DOCS=0 LIBDIR=/usr/lib
+install -vm644 docs/efivar.1 /usr/share/man/man1
+install -vm644 docs/*.3      /usr/share/man/man3
 
 
 cd $SOURCE_DIR
